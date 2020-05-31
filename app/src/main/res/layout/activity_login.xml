@@ -8,7 +8,7 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="202dp"
@@ -18,23 +18,23 @@
         app:srcCompat="@drawable/icon" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/userBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/icon"
         app:srcCompat="@drawable/rectangle" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/pwBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/userBar"
         app:srcCompat="@drawable/rectangle" />
 
     <EditText
@@ -81,7 +81,7 @@
         app:srcCompat="@drawable/next_arrow" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/forgetPasswordButton"
         android:layout_width="228dp"
         android:layout_height="31dp"
         android:layout_marginBottom="16dp"
