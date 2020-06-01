@@ -17,35 +17,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon" />
 
-    <ImageView
-        android:id="@+id/userBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon"
-        app:srcCompat="@drawable/rectangle" />
-
-    <ImageView
-        android:id="@+id/pwBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userBar"
-        app:srcCompat="@drawable/rectangle" />
-
     <EditText
         android:id="@+id/loginUsernameEmail"
+        android:background="@drawable/edit_text_border"
         android:layout_width="233dp"
         android:layout_height="44dp"
-        android:backgroundTint="#353552"
         android:ems="10"
         android:fontFamily="@font/JosefinSans_Light"
         android:inputType="textPersonName"
-        android:hint="Username / Email"
+        android:hint="   Username / Email"
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,10 +38,10 @@
         android:layout_width="231dp"
         android:layout_height="43dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#353552"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
         android:fontFamily="@font/JosefinSans_Light"
-        android:hint="Password"
+        android:hint="   Password"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
