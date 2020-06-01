@@ -1,8 +1,11 @@
 package com.example.letsmeatup;
 
 import android.provider.ContactsContract.CommonDataKinds.Email;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.widget.Spinner;
 
+import java.lang.annotation.Target;
 import java.sql.Date;
 
 public class UserData {
@@ -81,5 +84,18 @@ public class UserData {
 
     public void setSp(String sp) {
         this.sp = sp;
+    }
+
+    //Method for checking if email is valid or empty
+    public static boolean isValidEmail(CharSequence target){
+        return (!TextUtils.isEmpty(target)&& Patterns.EMAIL_ADDRESS.matcher(target).matches());
+
+    }
+    //Method for checking if both passwords are the same
+    public static boolean isPasswordMatch(String password, String checkpassword){
+        if (password.equals(checkpassword)){
+            return true;
+        }
+        return false;
     }
 }
