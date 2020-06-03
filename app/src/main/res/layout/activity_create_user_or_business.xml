@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/createuser" />
 
     <ImageButton
-        android:id="@+id/createaccount"
+        android:id="@+id/createbusiness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="170dp"
