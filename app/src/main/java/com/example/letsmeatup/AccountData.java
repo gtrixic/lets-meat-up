@@ -14,12 +14,12 @@ public class AccountData {
     private String password;
     private String email;
     private String gender;
-    private Date dob;
+    private String  dob;
     private String sp;
 
     public AccountData(){}
     public AccountData(String fullname, String username, String password,
-                       String email, String gender, Date dob, String sp){
+                       String email, String gender, String dob, String sp){
         this.fullname = fullname;
         this.username = username;
         this.password = password;
@@ -70,11 +70,11 @@ public class AccountData {
         this.gender = gender;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return this.dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

@@ -39,15 +39,15 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ACCOUNTS);
         onCreate(db);
     }
-    public void addUser(UserData userData){
+    public void addUser(AccountData accountData){
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USERNAME, userData.getUsername());
-        values.put(COLUMN_FULLNAME,userData.getFullname());
-        values.put(COLUMN_PASSWORD, userData.getPassword());
-        values.put(COLUMN_EMAIL,userData.getEmail());
-        values.put(COLUMN_GENDER,userData.getGender());
-        values.put(COLUMN_DOB,userData.getDob());
-        values.put(COLUMN_SP, userData.getSp());
+        values.put(COLUMN_FULLNAME,accountData.getFullname());
+        values.put(COLUMN_USERNAME, accountData.getUsername());
+        values.put(COLUMN_PASSWORD, accountData.getPassword());
+        values.put(COLUMN_EMAIL,accountData.getEmail());
+        values.put(COLUMN_GENDER,accountData.getGender());
+        values.put(COLUMN_DOB,accountData.getDob());
+        values.put(COLUMN_SP, accountData.getSp());
         //Get Database
         SQLiteDatabase db = this.getWritableDatabase();
         Log.v(TAG, FILENAME+ ": "+ values.toString());
@@ -55,11 +55,52 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-    public UserData findUser(String username){
+    public AccountData findUser(String username){
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
         SQLiteDatabase  db =this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
-        com.example.letsmeatup.UserData queryData = new com.example.letsmeatup.UserData();
+        AccountData queryData = new AccountData();
+        if (cursor.moveToFirst()){
+            queryData.setFullname(cursor.getString(0));
+            queryData.setUsername(cursor.getString(1));
+            queryData.setPassword(cursor.getString(2));
+            queryData.setEmail(cursor.getString(3));
+            queryData.setGender(cursor.getString(4));
+            queryData.setDob(cursor.getString(5));
+            queryData.setSp(cursor.getString(6));
+            cursor.close();
+
+        }
+        else{
+            queryData = null;
+        }
+        db.close();
+        return queryData;
+
+
+    }
+    public AccountData findEmail(String email){
+        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
+        SQLiteDatabase  db =this.getWritableDatabase();
+        Cursor cursor =db.rawQuery(query,null);
+        AccountData queryData = new AccountData();
+        if (cursor.moveToFirst()){
+            queryData.setFullname(cursor.getString(0));
+            queryData.setUsername(cursor.getString(1));
+            queryData.setPassword(cursor.getString(2));
+            queryData.setEmail(cursor.getString(3));
+            queryData.setGender(cursor.getString(4));
+            queryData.setDob(cursor.getString(5));
+            queryData.setSp(cursor.getString(6));
+            cursor.close();
+
+        }
+        else{
+            queryData = null;
+        }
+        db.close();
+        return queryData;
+
 
     }
 
