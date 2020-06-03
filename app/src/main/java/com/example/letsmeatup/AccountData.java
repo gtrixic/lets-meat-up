@@ -8,18 +8,18 @@ import android.widget.Spinner;
 import java.lang.annotation.Target;
 import java.sql.Date;
 
-public class UserData {
+public class AccountData {
     private String fullname;
     private String username;
     private String password;
-    private Email email;
-    private Spinner gender;
+    private String email;
+    private String gender;
     private Date dob;
     private String sp;
 
-    public UserData(){}
-    public UserData(String fullname, String username, String password,
-                    Email email, Spinner gender, Date dob, String sp){
+    public AccountData(){}
+    public AccountData(String fullname, String username, String password,
+                       String email, String gender, Date dob, String sp){
         this.fullname = fullname;
         this.username = username;
         this.password = password;
@@ -31,7 +31,7 @@ public class UserData {
     }
 
     public String getFullname() {
-        return fullname;
+        return this.fullname;
     }
 
     public void setFullname(String fullname) {
@@ -39,7 +39,7 @@ public class UserData {
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -47,31 +47,31 @@ public class UserData {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Email getEmail() {
-        return email;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public Spinner getGender() {
-        return gender;
+    public String getGender() {
+        return this.gender;
     }
 
-    public void setGender(Spinner gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
     public Date getDob() {
-        return dob;
+        return this.dob;
     }
 
     public void setDob(Date dob) {
@@ -79,7 +79,7 @@ public class UserData {
     }
 
     public String getSp() {
-        return sp;
+        return this.sp;
     }
 
     public void setSp(String sp) {
@@ -92,10 +92,11 @@ public class UserData {
 
     }
     //Method for checking if both passwords are the same
-    public static boolean isPasswordMatch(String password, String checkpassword){
-        if (password.equals(checkpassword)){
+    public  boolean isPasswordMatch(String password2){
+        if (this.password.equals(password2)){
             return true;
         }
         return false;
     }
+
 }

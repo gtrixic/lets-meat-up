@@ -2,6 +2,7 @@ package com.example.letsmeatup;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract.CommonDataKinds.Email;
@@ -41,13 +42,24 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public void addUser(UserData userData){
         ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, userData.getUsername());
+        values.put(COLUMN_FULLNAME,userData.getFullname());
         values.put(COLUMN_PASSWORD, userData.getPassword());
-        values.put(COLUMN_EMAIL,userData.get)
-
+        values.put(COLUMN_EMAIL,userData.getEmail());
+        values.put(COLUMN_GENDER,userData.getGender());
+        values.put(COLUMN_DOB,userData.getDob());
+        values.put(COLUMN_SP, userData.getSp());
+        //Get Database
         SQLiteDatabase db = this.getWritableDatabase();
         Log.v(TAG, FILENAME+ ": "+ values.toString());
         db.insert(ACCOUNTS, null, values);
         db.close();
+
+    }
+    public UserData findUser(String username){
+        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
+        SQLiteDatabase  db =this.getWritableDatabase();
+        Cursor cursor =db.rawQuery(query,null);
+        com.example.letsmeatup.UserData queryData = new com.example.letsmeatup.UserData();
 
     }
 
