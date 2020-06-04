@@ -9,18 +9,18 @@ import java.lang.annotation.Target;
 import java.sql.Date;
 
 public class AccountData {
-    private String fullname;
+    private String fullName;
     private String username;
     private String password;
     private String email;
     private String gender;
-    private String  dob;
+    private String dob;
     private String sp;
 
     public AccountData(){}
-    public AccountData(String fullname, String username, String password,
+    public AccountData(String fullName, String username, String password,
                        String email, String gender, String dob, String sp){
-        this.fullname = fullname;
+        this.fullName = fullName;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -30,12 +30,12 @@ public class AccountData {
 
     }
 
-    public String getFullname() {
-        return this.fullname;
+    public String getFullName() {
+        return this.fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullname) {
+        this.fullName = fullname;
     }
 
     public String getUsername() {

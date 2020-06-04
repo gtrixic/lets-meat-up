@@ -43,7 +43,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View v) {
                 //Instantiate edit texts
-                EditText Fullname = findViewById(R.id.fullName);
+                EditText FullName = findViewById(R.id.fullName);
                 EditText Username = findViewById(R.id.username);
                 EditText Password = findViewById(R.id.password);
                 EditText checkPassword = findViewById(R.id.passwordtwice);
@@ -51,7 +51,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                 EditText Date = findViewById(R.id.DOB);
                 EditText SP = findViewById(R.id.sexualpreference);
                 //put edit texts into an array to loop through to check if any values return null
-                EditText[] Info = {Fullname,Username,Password,checkPassword,Email,SP};
+                EditText[] Info = {FullName,Username,Password,checkPassword,Email,SP};
                 for(EditText line : Info){
                     if (line.getText().toString() == null){
                         allInputFilled = false;
@@ -61,11 +61,11 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                 if (allInputFilled == true && GenderSelected != null){
                     //check if user is already in database
                     AccountData dbAccountData = new AccountData();
-                    AccountData dbAccountDatausername = lmudbHandler.findUser(Username.getText().toString());
-                    AccountData dbACcountDataEmail = lmudbHandler.findEmail(Email.getText().toString());
+                    AccountData dbAccountDataUsername = lmudbHandler.findUser(Username.getText().toString());
+                    AccountData dbAccountDataEmail = lmudbHandler.findEmail(Email.getText().toString());
 
-                    if (dbAccountDatausername == null && dbACcountDataEmail == null){
-                        dbAccountData.setFullname(Fullname.getText().toString());
+                    if (dbAccountDataUsername == null && dbAccountDataEmail == null){
+                        dbAccountData.setFullName(FullName.getText().toString());
                         dbAccountData.setUsername(Username.getText().toString());
                         dbAccountData.setPassword(Password.getText().toString());
                         dbAccountData.setEmail(Email.getText().toString());
@@ -83,10 +83,10 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                             Toast.makeText(UserSignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    else if (dbAccountDatausername != null){
+                    else if (dbAccountDataUsername != null){
                         Toast.makeText(UserSignUpActivity.this, "Username taken!", Toast.LENGTH_SHORT).show();
                     }
-                    else if(dbACcountDataEmail != null){
+                    else if(dbAccountDataEmail != null){
                         Toast.makeText(UserSignUpActivity.this, "User is already registered in the database!", Toast.LENGTH_SHORT).show();
                     }
 

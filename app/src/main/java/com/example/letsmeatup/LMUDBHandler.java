@@ -41,7 +41,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
     public void addUser(AccountData accountData){
         ContentValues values = new ContentValues();
-        values.put(COLUMN_FULLNAME,accountData.getFullname());
+        values.put(COLUMN_FULLNAME,accountData.getFullName());
         values.put(COLUMN_USERNAME, accountData.getUsername());
         values.put(COLUMN_PASSWORD, accountData.getPassword());
         values.put(COLUMN_EMAIL,accountData.getEmail());
@@ -61,7 +61,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Cursor cursor =db.rawQuery(query,null);
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
-            queryData.setFullname(cursor.getString(0));
+            queryData.setFullName(cursor.getString(0));
             queryData.setUsername(cursor.getString(1));
             queryData.setPassword(cursor.getString(2));
             queryData.setEmail(cursor.getString(3));
@@ -85,7 +85,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Cursor cursor =db.rawQuery(query,null);
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
-            queryData.setFullname(cursor.getString(0));
+            queryData.setFullName(cursor.getString(0));
             queryData.setUsername(cursor.getString(1));
             queryData.setPassword(cursor.getString(2));
             queryData.setEmail(cursor.getString(3));
