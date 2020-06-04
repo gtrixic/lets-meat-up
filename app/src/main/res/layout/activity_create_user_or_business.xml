@@ -5,32 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#353552"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+    tools:context=".CreateUserOrBusinessActivity">
 
-    <ImageButton
-        android:id="@+id/createButton"
+    <ImageView
+        android:id="@+id/line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/getstarted" />
+        app:srcCompat="@drawable/line" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="189dp"
-        android:layout_height="29dp"
-        android:layout_marginBottom="28dp"
+    <ImageButton
+        android:id="@+id/createuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="178dp"
         android:background="@android:color/transparent"
-        android:fontFamily="@font/josefinsansthin"
-        android:text="I Have An Account"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/createuser" />
+
+    <ImageButton
+        android:id="@+id/createbusiness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="170dp"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        tools:textAllCaps="false" />
+        app:srcCompat="@drawable/createbusiness" />
 </androidx.constraintlayout.widget.ConstraintLayout>
