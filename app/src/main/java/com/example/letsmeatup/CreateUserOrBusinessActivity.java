@@ -33,7 +33,7 @@ public class CreateUserOrBusinessActivity extends AppCompatActivity {
         Intent business = new Intent(CreateUserOrBusinessActivity.this,RestaurantSignUpActivity.class);
         startActivity(business);
     }
-    public void OnClickButton(View v){
+    public void OnClickButton1(View v){
         switch(v.getId()){
             case R.id.createuser:
                 Log.v(TAG, "Creating user!");
