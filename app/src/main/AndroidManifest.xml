@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateUserOrBusinessActivity"></activity>
+        <activity android:name=".mainPageActivity"></activity>
+        <activity android:name=".CreateUserOrBusinessActivity" />
         <activity android:name=".UserSignUp3Activity" />
         <activity android:name=".RestaurantSignUp2Activity" />
         <activity android:name=".UserSignUp2Activity" />

@@ -100,7 +100,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
     public AccountData findUser(String username){
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
-        SQLiteDatabase  db =this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
@@ -119,8 +119,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return queryData;
-
-
     }
     public AccountData findEmail(String email){
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";

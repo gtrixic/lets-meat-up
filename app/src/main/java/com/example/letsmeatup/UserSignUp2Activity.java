@@ -35,7 +35,7 @@ public class UserSignUp2Activity extends AppCompatActivity {
                 Intent intent = new Intent(UserSignUp2Activity.this,LoginActivity.class);
                 startActivity(intent);
             }
-        })
+        });
 
     }
 }

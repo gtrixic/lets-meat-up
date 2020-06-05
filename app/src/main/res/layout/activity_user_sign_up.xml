@@ -118,6 +118,7 @@
         android:layout_width="120dp"
         android:layout_height="43dp"
         android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/josefinsanslight"
         android:entries="@array/gender_array"
         android:spinnerMode="dropdown"
         android:textColor="#FFFFFF"
