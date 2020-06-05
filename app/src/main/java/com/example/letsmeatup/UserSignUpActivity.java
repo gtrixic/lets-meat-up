@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class UserSignUpActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class UserSignUpActivity extends AppCompatActivity {
     private String TAG ="Let's-Meat-Up SignUpActivity";
     String[] Gender = {"M","F"};
     String GenderSelected;
@@ -29,10 +29,20 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sign_up);
         Spinner genderSpinner = findViewById(R.id.gender);
-        genderSpinner.setOnItemClickListener(this);
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                GenderSelected = Gender[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                GenderSelected = null;
+            }
+        });
         //Creating Adapter to contain gender string array
         //temporarily using simple layout for arrayadapter, will update
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,Gender);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //setting array adapter data for spinner
         genderSpinner.setAdapter(arrayAdapter);
@@ -85,9 +95,11 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                     }
                     else if (dbAccountDataUsername != null){
                         Toast.makeText(UserSignUpActivity.this, "Username taken!", Toast.LENGTH_SHORT).show();
+                        Log.v(TAG,"Username: "+Username.getText().toString());
                     }
                     else if(dbAccountDataEmail != null){
                         Toast.makeText(UserSignUpActivity.this, "User is already registered in the database!", Toast.LENGTH_SHORT).show();
+                        Log.v(TAG,"Email: "+ Email.getText().toString());
                     }
 
 
@@ -114,9 +126,6 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
         });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        GenderSelected = Gender[position];
-    }
+
 
 }
