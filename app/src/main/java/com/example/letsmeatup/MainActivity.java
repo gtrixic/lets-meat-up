@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +18,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        Intent transition = new Intent(MainActivity.this,SignupOrLoginActivity.class);
-        startActivity(transition);
+        final Intent transition = new Intent(MainActivity.this,SignupOrLoginActivity.class);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                startActivity(transition);
+            }
+        }, 5000);   //5 seconds
     }
 }
