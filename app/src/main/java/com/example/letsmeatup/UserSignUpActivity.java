@@ -118,7 +118,7 @@ public class UserSignUpActivity extends AppCompatActivity {
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(UserSignUpActivity.this,LoginActivity.class);
+                Intent intent= new Intent(UserSignUpActivity.this,CreateUserOrBusinessActivity.class);
                 startActivity(intent);
             }
         });

@@ -28,6 +28,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public static String RESTAURANTS = "RestaurantAccounts";
     public static String COLUMN_RESTAURANTNAME = "RName";
     public static String COLUMN_ADDRESS = "Address";
+    public static String COLUMN_RPASSWORD = "Password";
     public static String COLUMN_RESTAURANTEMAIL = "Email";
     public static String COLUMN_PFP = "ProfilePictureLink";
     public LMUDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int v){
@@ -39,7 +40,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 " TEXT," +COLUMN_USERNAME + " TEXT," + COLUMN_PASSWORD + " TEXT,"
                 + COLUMN_EMAIL + " TEXT," + COLUMN_GENDER + " TEXT," + COLUMN_DOB
                 + " TEXT," + COLUMN_SP + " TEXT" + ")";
-        String CREATE_RESTAURANT_TABLE = "CREATE TABLE " + RESTAURANTS + "(" +COLUMN_RESTAURANTNAME + " TEXT," + COLUMN_ADDRESS + " TEXT,"+
+        String CREATE_RESTAURANT_TABLE = "CREATE TABLE " + RESTAURANTS + "(" +COLUMN_RESTAURANTNAME + " TEXT," + COLUMN_ADDRESS + " TEXT,"+ COLUMN_RPASSWORD + " TEXT,"+
                 COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
         db.execSQL(CREATE_RESTAURANT_TABLE);
@@ -69,6 +70,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_RESTAURANTNAME,rdata.getRestaurantName());
         values.put(COLUMN_ADDRESS,rdata.getAddress());
+        values.put(COLUMN_PASSWORD,rdata.getPassword());
         values.put(COLUMN_RESTAURANTEMAIL,rdata.getEmail());
         values.put(COLUMN_PFP,rdata.getPfpLink());
         //Get Database
@@ -76,6 +78,25 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Log.v(TAG,FILENAME + ": "+ values.toString());
         db.insert(RESTAURANTS,null,values);
         db.close();
+    }
+    public RestaurantData findRestaurant(String Remail){
+        String query = "SELECT * FROM "+RESTAURANTS +" WHERE " + COLUMN_RESTAURANTEMAIL + "=\""+Remail+"\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+        RestaurantData rData = new RestaurantData();
+        if(cursor.moveToFirst()){
+            rData.setRestaurantName(cursor.getString(0));
+            rData.setAddress(cursor.getString(1));
+            rData.setPassword(cursor.getString(2));
+            rData.setEmail(cursor.getString(3));
+            rData.setPfpLink(cursor.getString(4));
+            cursor.close();
+        }
+        else{
+            rData = null;
+        }
+        db.close();
+        return rData;
     }
     public AccountData findUser(String username){
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
