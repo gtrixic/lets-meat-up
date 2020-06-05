@@ -14,8 +14,9 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private String FILENAME = "LMUDBHandler.java";
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
-    public static int DATABASE_VERSION = 2;
-    public static String ACCOUNTS = "Accounts";
+    public static int DATABASE_VERSION = 3;
+    //User accounts table
+    public static String ACCOUNTS = "UserAccounts";
     public static String COLUMN_FULLNAME = "Fullname";
     public static String COLUMN_USERNAME = "Username";
     public static String COLUMN_PASSWORD = "Password";
@@ -23,16 +24,25 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public static String COLUMN_GENDER = "Gender";
     public static String COLUMN_DOB = "DOB";
     public static String COLUMN_SP = "SP";
+    //Restaurant account table
+    public static String RESTAURANTS = "RestaurantAccounts";
+    public static String COLUMN_RESTAURANTNAME = "RName";
+    public static String COLUMN_ADDRESS = "Address";
+    public static String COLUMN_RESTAURANTEMAIL = "Email";
+    public static String COLUMN_PFP = "ProfilePictureLink";
     public LMUDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int v){
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + ACCOUNTS + "(" + COLUMN_FULLNAME +
+        String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + ACCOUNTS + "(AccountID"+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_FULLNAME +
                 " TEXT," +COLUMN_USERNAME + " TEXT," + COLUMN_PASSWORD + " TEXT,"
                 + COLUMN_EMAIL + " TEXT," + COLUMN_GENDER + " TEXT," + COLUMN_DOB
                 + " TEXT," + COLUMN_SP + " TEXT" + ")";
+        String CREATE_RESTAURANT_TABLE = "CREATE TABLE " + RESTAURANTS + "(" +COLUMN_RESTAURANTNAME + " TEXT," + COLUMN_ADDRESS + " TEXT,"+
+                COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
+        db.execSQL(CREATE_RESTAURANT_TABLE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
@@ -54,6 +64,18 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.insert(ACCOUNTS, null, values);
         db.close();
 
+    }
+    public void addRestaurant(RestaurantData rdata){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_RESTAURANTNAME,rdata.getRestaurantName());
+        values.put(COLUMN_ADDRESS,rdata.getAddress());
+        values.put(COLUMN_RESTAURANTEMAIL,rdata.getEmail());
+        values.put(COLUMN_PFP,rdata.getPfpLink());
+        //Get Database
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.v(TAG,FILENAME + ": "+ values.toString());
+        db.insert(RESTAURANTS,null,values);
+        db.close();
     }
     public AccountData findUser(String username){
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
