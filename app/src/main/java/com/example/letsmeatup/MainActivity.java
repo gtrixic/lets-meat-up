@@ -24,6 +24,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 startActivity(transition);
             }
-        }, 5000);   //5 seconds
+        }, 5000);   //5 seconds transition
     }
 }

@@ -13,8 +13,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class UserSignUpActivity extends AppCompatActivity {
     private String TAG ="Let's-Meat-Up SignUpActivity";
     String[] Gender = {"M","F"};
@@ -55,7 +53,7 @@ public class UserSignUpActivity extends AppCompatActivity {
                 //Instantiate edit texts
                 EditText FullName = findViewById(R.id.fullName);
                 EditText Username = findViewById(R.id.username);
-                EditText Password = findViewById(R.id.password);
+                EditText Password = findViewById(R.id.Rpassword);
                 EditText checkPassword = findViewById(R.id.passwordtwice);
                 EditText Email = findViewById(R.id.email);
                 EditText Date = findViewById(R.id.DOB);
