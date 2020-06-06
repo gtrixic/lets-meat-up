@@ -36,7 +36,7 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.personality_questions);
+        setContentView(R.layout.activity_personality_questions);
 
         recyclerView = findViewById(R.id.recyclerView);
         question = findViewById(R.id.question);
@@ -141,5 +141,5 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                 }
             }
         }
-    }
+    return null;}
 }

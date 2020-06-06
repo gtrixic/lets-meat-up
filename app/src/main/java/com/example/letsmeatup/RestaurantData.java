@@ -41,7 +41,7 @@ public class RestaurantData {
     public void setEmail(String e){
         this.Email = e;
     }
-    public String getCategory(){return this.Category};
+    public String getCategory(){return this.Category;}
     public void setCategory(String c){this.Category = c;}
     public String getPfpLink(){
         return this.PfpLink;

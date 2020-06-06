@@ -169,16 +169,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             db.close();
         }
     }
-    public void addRestaurants(String term) throws IOException, JSONException {
-        HashMap<String,String> params = new HashMap<>();
-        params.put("term",term);
-        params.put("location","Singapore");
-        params.put("categories","restaurants");
-        params.put("limit","50");
-        params.put("sort_by","rating");
-        getYelpAPI yelpAPI = new getYelpAPI();
-        ArrayList<RestaurantData> rDataList = new ArrayList<>();
-        rDataList = yelpAPI.getYelpRestaurants(params);
+    public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
         for(RestaurantData rdata : rDataList){
             this.addRestaurant(rdata);
         }

@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ForgetPassword1Activity"></activity>
-        <activity android:name=".PersonalityQuestionsActivity"></activity>
+        <activity android:name=".AddRestaurants"></activity>
+        <activity android:name=".ForgetPassword1Activity" />
+        <activity android:name=".PersonalityQuestionsActivity" />
         <activity android:name=".mainPageActivity" />
         <activity android:name=".CreateUserOrBusinessActivity" />
         <activity android:name=".UserSignUp3Activity" />

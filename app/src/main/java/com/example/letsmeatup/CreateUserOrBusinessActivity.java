@@ -30,7 +30,7 @@ public class CreateUserOrBusinessActivity extends AppCompatActivity {
         startActivity(user);
     }
     private void createBusiness(){
-        Intent business = new Intent(CreateUserOrBusinessActivity.this,RestaurantSignUpActivity.class);
+        Intent business = new Intent(CreateUserOrBusinessActivity.this,AddRestaurants.class);
         startActivity(business);
     }
     public void OnClickButton1(View v){
