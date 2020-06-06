@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,8 +18,7 @@ import java.util.List;
 public class PersonalityQuestionsActivity extends AppCompatActivity {
     public static final String TAG = "Let's Meat Up";
     String FILENAME = "PersonalityQuestionsActivity.java";
-    ArrayList<ArrayList<String>> qna = new ArrayList<>(); //parent list
-    //child lists
+    ArrayList<ArrayList<String>> qna = new ArrayList<>();
     ArrayList<String> set1 = new ArrayList<>();
     ArrayList<String> set2 = new ArrayList<>();
     ArrayList<String> set3 = new ArrayList<>();
@@ -31,11 +30,13 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
     Button submit;
     RecyclerView recyclerView;
     pnAdapter pnAdapter;
+    int pressedButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personality_questions);
+        setContentView(R.layout.personality_questions);
 
         recyclerView = findViewById(R.id.recyclerView);
         question = findViewById(R.id.question);
@@ -44,24 +45,24 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
 
         // placing data into arraylists
         set1.add("Are you introverted or extroverted?");
-        set1.add("Introverted"); //= ans1
-        set1.add("Extroverted"); //= ans2
+        set1.add("introverted");
+        set1.add("extroverted");
 
         set2.add("Are you typically organised?");
-        set2.add("Tidy");
-        set2.add("Messy");
+        set2.add("tidy");
+        set2.add("messy");
 
         set3.add("Do you like indoors or outdoors?");
-        set3.add("Indoors");
-        set3.add("Outdoors");
+        set3.add("indoors");
+        set3.add("outdoors");
 
         set4.add("Are you stubborn or open-minded");
-        set4.add("Stubborn");
-        set4.add("Open-minded");
+        set4.add("stubborn");
+        set4.add("open-minded");
 
         set5.add("Are you a big eater?");
-        set5.add("Yes");
-        set5.add("No");
+        set5.add("small");
+        set5.add("big");
 
         qna.add(set1);
         qna.add(set2);
@@ -70,11 +71,36 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
         qna.add(set5);
 
 
+
         pnAdapter = new pnAdapter(qna);
         LinearLayoutManager pnLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(pnLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(pnAdapter);
+
+        //TODO:FIND A WAY TO MAKE THE BUTTONS BECOME SELECTED AND RETURN EITHER 1 OR 2
+
+        /*
+        answer1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                pressedButton = 1;
+                answer1.setPressed(true);
+                return true;
+            }
+        });
+
+        answer2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                pressedButton = 2;
+                answer2.setPressed(true);
+                return true;
+            }
+        });
+
+        */
+
 
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -86,52 +112,13 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
         });
     }
 
-    public String userId(){
-        ArrayList<String> userAnswers = new ArrayList<>();
-        ArrayList<String> id = new ArrayList<>();
-        int i;
-        int j;
-
-        /*
-        //bool
-        answer1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v(TAG, "First answer selected!");
-                //press = true;
-            }
-        });
-        answer2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v(TAG, "First answer selected!");
-            }
-        });*/
-
-        //2 for loops
-        //access set through qna     //if (qna[i][j].equals(answer1.gettext().tosstring()
-        //qna.get(i).get(1)
-
-        for (i = 0; i < qna.size(); i++){
-            for (j = 0; j < set1.size(); j++){
-                //if (press1 == true) add 1
-                if (answer1.getText().toString().equals(qna.get(i).get(1))){
-                    userAnswers.add("1");
-                }
-            }
+    public boolean isButtonSelected(Button b)
+    {
+        boolean selected = false;
+        if (b.isFocused())
+        {
+            selected = true;
         }
-
-        /*for (i = 0; i < set1.size(); i++){
-            if (answer1.getText().toString().equals(set1.get(1))){
-                userAnswers.add("1");
-            }
-            else if (answer2.getText().toString().equals(set1 .get(1))){
-                userAnswers.add("2");
-            }
-        }*/
-
-        /*if (answer1.getText().toString().equals(set1.get(1))){
-            userAnswers.add(answer1.getText().toString());
-        }*/
+        return selected;
     }
 }
