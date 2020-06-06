@@ -44,6 +44,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
         db.execSQL(CREATE_RESTAURANT_TABLE);
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
@@ -142,8 +143,23 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return queryData;
-
-
+    }
+    public void updatePassword(String input, String password){
+        AccountData dbData = this.findUser(input);
+        AccountData dbData2 = this.findEmail(input);
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (dbData!= null){
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_PASSWORD, password);
+            db.update(ACCOUNTS, cv,COLUMN_USERNAME+"='"+input+"'",null);
+            db.close();
+        }
+        if(dbData2!=null){
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_PASSWORD, password);
+            db.update(ACCOUNTS, cv,COLUMN_EMAIL+"='"+input+"'",null);
+            db.close();
+        }
     }
 
 }

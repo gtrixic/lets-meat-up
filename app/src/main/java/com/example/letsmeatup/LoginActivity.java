@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginPass;
     ImageButton login;
     Button forgetPass;
-    public static final String TAG = "Let's Meat Up";
+    public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "LoginActivity.java";
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
@@ -56,24 +56,27 @@ public class LoginActivity extends AppCompatActivity {
         Intent forget = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
         startActivity(forget);
     }
-    public boolean validCredential(String input, String password){
+    public boolean validCredential(String input, String password) {
         AccountData dbData = dbHandler.findUser(input);
         AccountData dbData2 = dbHandler.findEmail(input);
-        Log.v(TAG,FILENAME+":SharedPref Info = " + input+ "|"+password);
-        if (dbData != null){
-        Log.v(TAG,FILENAME+":SharedPref Info = " + dbData.getUsername() + "|" + dbData.getPassword());}
-        if(dbData2 != null){
-        Log.v(TAG,FILENAME+":SharedPref Info = " + dbData2.getEmail() + "|" + dbData.getPassword());}
-
-        if(dbData.getUsername().equals(input) && dbData.getPassword().equals(password)){
-            return true;
+        Log.v(TAG, FILENAME + ":SharedPref Info = " + input + "|" + password);
+        if (dbData != null) {
+            Log.v(TAG, FILENAME + ":SharedPref Info = " + dbData.getUsername() + "|" + dbData.getPassword());
+            if (dbData.getUsername().equals(input) && dbData.getPassword().equals(password)) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        else if(dbData2.getEmail().equals(input) && dbData.getPassword().equals(password)){
-            return true;
+        if (dbData2 != null) {
+            Log.v(TAG, FILENAME + ":SharedPref Info = " + dbData2.getEmail() + "|" + dbData2.getPassword());
+            if (dbData2.getEmail().equals(input) && dbData2.getPassword().equals(password)) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        else {
-            return false;
-        }
+        return false;
     }
     protected void onStop(){
         super.onStop();
