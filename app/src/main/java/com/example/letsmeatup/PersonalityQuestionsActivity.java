@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
     Button submit;
     RecyclerView recyclerView;
     pnAdapter pnAdapter;
+    int pressedButton;
 
 
     @Override
@@ -69,11 +71,36 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
         qna.add(set5);
 
 
+
         pnAdapter = new pnAdapter(qna);
         LinearLayoutManager pnLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(pnLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(pnAdapter);
+
+        //TODO:FIND A WAY TO MAKE THE BUTTONS BECOME SELECTED AND RETURN EITHER 1 OR 2
+
+        /*
+        answer1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                pressedButton = 1;
+                answer1.setPressed(true);
+                return true;
+            }
+        });
+
+        answer2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                pressedButton = 2;
+                answer2.setPressed(true);
+                return true;
+            }
+        });
+
+        */
+
 
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +110,15 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    public boolean isButtonSelected(Button b)
+    {
+        boolean selected = false;
+        if (b.isFocused())
+        {
+            selected = true;
+        }
+        return selected;
     }
 }
