@@ -121,4 +121,25 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
         }
         return selected;
     }
+
+    public String userId(){
+        int i;
+        int j;
+        boolean press1 = false;
+        boolean press2 = false;
+
+        answer1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //bool true
+            }
+        });
+
+        for (i = 0; i < qna.size(); i++){
+            for (j = 0; j < set1.size(); j++){
+                if (answer1.getText().toString().equals(qna.get(i).get(1))){
+                }
+            }
+        }
+    }
 }
