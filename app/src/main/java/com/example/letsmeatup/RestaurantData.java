@@ -5,14 +5,16 @@ public class RestaurantData {
     private String Address;
     private String Password;
     private String Email;
+    private String Category;
     private String PfpLink;
 
     public RestaurantData(){}
-    public RestaurantData(String n, String a, String p, String e, String pf){
+    public RestaurantData(String n, String a, String p, String e,String c, String pf){
         this.Name = n;
         this.Address = a;
         this.Password = p;
         this.Email = e;
+        this.Category = c;
         this.PfpLink = pf;
     }
     public String getRestaurantName(){
@@ -39,6 +41,8 @@ public class RestaurantData {
     public void setEmail(String e){
         this.Email = e;
     }
+    public String getCategory(){return this.Category};
+    public void setCategory(String c){this.Category = c;}
     public String getPfpLink(){
         return this.PfpLink;
     }

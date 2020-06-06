@@ -9,12 +9,18 @@ import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.service.autofill.UserData;
 import android.util.Log;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class LMUDBHandler extends SQLiteOpenHelper {
     private String TAG = "Let's Meat Up";
     private String FILENAME = "LMUDBHandler.java";
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
-    public static int DATABASE_VERSION = 3;
+    public static int DATABASE_VERSION = 4;
     //User accounts table
     public static String ACCOUNTS = "UserAccounts";
     public static String COLUMN_FULLNAME = "Fullname";
@@ -30,6 +36,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public static String COLUMN_ADDRESS = "Address";
     public static String COLUMN_RPASSWORD = "Password";
     public static String COLUMN_RESTAURANTEMAIL = "Email";
+    public static String COLUMN_CATEGORY = "Category";
     public static String COLUMN_PFP = "ProfilePictureLink";
     public LMUDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int v){
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -41,6 +48,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 + COLUMN_EMAIL + " TEXT," + COLUMN_GENDER + " TEXT," + COLUMN_DOB
                 + " TEXT," + COLUMN_SP + " TEXT" + ")";
         String CREATE_RESTAURANT_TABLE = "CREATE TABLE " + RESTAURANTS + "(" +COLUMN_RESTAURANTNAME + " TEXT," + COLUMN_ADDRESS + " TEXT,"+ COLUMN_RPASSWORD + " TEXT,"+
+                COLUMN_CATEGORY + " TEXT,"+
                 COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
         db.execSQL(CREATE_RESTAURANT_TABLE);
@@ -160,6 +168,21 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             db.update(ACCOUNTS, cv,COLUMN_EMAIL+"='"+input+"'",null);
             db.close();
         }
+    }
+    public void addRestaurants(String term) throws IOException, JSONException {
+        HashMap<String,String> params = new HashMap<>();
+        params.put("term",term);
+        params.put("location","Singapore");
+        params.put("categories","restaurants");
+        params.put("limit","50");
+        params.put("sort_by","rating");
+        getYelpAPI yelpAPI = new getYelpAPI();
+        ArrayList<RestaurantData> rDataList = new ArrayList<>();
+        rDataList = yelpAPI.getYelpRestaurants(params);
+        for(RestaurantData rdata : rDataList){
+            this.addRestaurant(rdata);
+        }
+
     }
 
 }
