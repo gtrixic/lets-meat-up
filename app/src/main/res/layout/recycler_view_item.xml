@@ -31,6 +31,7 @@
       android:paddingLeft="20dp"
       android:paddingRight="20dp"
       android:text="1"
+      android:textAllCaps="false"
       android:textColor="#FFFFFF"
       android:textSize="24sp" />
 
@@ -44,6 +45,7 @@
       android:paddingLeft="20dp"
       android:paddingRight="20dp"
       android:text="2"
+      android:textAllCaps="false"
       android:textColor="#FFFFFF"
       android:textSize="24sp" />
 </LinearLayout>
