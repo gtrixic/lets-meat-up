@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="270dp"
+    android:background="#353552"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+  <TextView
+      android:id="@+id/textView1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="20dp"
+      android:fontFamily="@font/josefinsanslight"
+      android:paddingHorizontal="20dp"
+      android:textAlignment="center"
+      android:textColor="#FFFFFF"
+      android:textSize="30sp"
+      tools:text="@tools:sample/lorem" />
+
+  <Button
+      android:id="@+id/button1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="20dp"
+      android:background="@drawable/edit_text_border"
+      android:fontFamily="@font/josefinsanslight"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp"
+      android:text="1"
+      android:textColor="#FFFFFF"
+      android:textSize="24sp" />
+
+  <Button
+      android:id="@+id/button2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:background="@drawable/edit_text_border"
+      android:fontFamily="@font/josefinsanslight"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp"
+      android:text="2"
+      android:textColor="#FFFFFF"
+      android:textSize="24sp" />
+</LinearLayout>
