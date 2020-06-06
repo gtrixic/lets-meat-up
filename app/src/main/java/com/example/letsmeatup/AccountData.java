@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 import java.sql.Date;
 
 public class AccountData {
+    private int id;
     private String fullName;
     private String username;
     private String password;
@@ -18,8 +19,9 @@ public class AccountData {
     private String sp;
 
     public AccountData(){}
-    public AccountData(String fullName, String username, String password,
+    public AccountData(int id,String fullName, String username, String password,
                        String email, String gender, String dob, String sp){
+        this.id = id;
         this.fullName = fullName;
         this.username = username;
         this.password = password;
@@ -29,6 +31,9 @@ public class AccountData {
         this.sp = sp;
 
     }
+    public int getID(){return this.id;}
+
+    public void setID(int id){this.id = id;}
 
     public String getFullName() {
         return this.fullName;

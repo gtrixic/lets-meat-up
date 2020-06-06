@@ -31,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                loginUser = (EditText) findViewById(R.id.loginUsernameEmail);
-                loginPass = (EditText) findViewById(R.id.loginPassword);
+                loginUser =  findViewById(R.id.loginUsernameEmail);
+                loginPass =  findViewById(R.id.loginPassword);
                 if (validCredential(loginUser.getText().toString(), loginPass.getText().toString())) {
                     mainPage();
                 }
@@ -60,8 +60,11 @@ public class LoginActivity extends AppCompatActivity {
         AccountData dbData = dbHandler.findUser(input);
         AccountData dbData2 = dbHandler.findEmail(input);
         Log.v(TAG,FILENAME+":SharedPref Info = " + input+ "|"+password);
-        Log.v(TAG,FILENAME+":SharedPref Info = " + dbData.getUsername() + "|" + dbData.getPassword());
-        Log.v(TAG,FILENAME+":SharedPref Info = " + dbData2.getEmail() + "|" + dbData.getPassword());
+        if (dbData != null){
+        Log.v(TAG,FILENAME+":SharedPref Info = " + dbData.getUsername() + "|" + dbData.getPassword());}
+        if(dbData2 != null){
+        Log.v(TAG,FILENAME+":SharedPref Info = " + dbData2.getEmail() + "|" + dbData.getPassword());}
+
         if(dbData.getUsername().equals(input) && dbData.getPassword().equals(password)){
             return true;
         }

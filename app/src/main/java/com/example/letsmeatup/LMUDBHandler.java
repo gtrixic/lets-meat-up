@@ -104,13 +104,14 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Cursor cursor =db.rawQuery(query,null);
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
-            queryData.setFullName(cursor.getString(0));
-            queryData.setUsername(cursor.getString(1));
-            queryData.setPassword(cursor.getString(2));
-            queryData.setEmail(cursor.getString(3));
-            queryData.setGender(cursor.getString(4));
-            queryData.setDob(cursor.getString(5));
-            queryData.setSp(cursor.getString(6));
+            queryData.setID((cursor.getInt(0)));
+            queryData.setFullName(cursor.getString(1));
+            queryData.setUsername(cursor.getString(2));
+            queryData.setPassword(cursor.getString(3));
+            queryData.setEmail(cursor.getString(4));
+            queryData.setGender(cursor.getString(5));
+            queryData.setDob(cursor.getString(6));
+            queryData.setSp(cursor.getString(7));
             cursor.close();
 
         }
@@ -126,13 +127,13 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Cursor cursor =db.rawQuery(query,null);
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
-            queryData.setFullName(cursor.getString(0));
-            queryData.setUsername(cursor.getString(1));
-            queryData.setPassword(cursor.getString(2));
-            queryData.setEmail(cursor.getString(3));
-            queryData.setGender(cursor.getString(4));
-            queryData.setDob(cursor.getString(5));
-            queryData.setSp(cursor.getString(6));
+            queryData.setFullName(cursor.getString(1));
+            queryData.setUsername(cursor.getString(2));
+            queryData.setPassword(cursor.getString(3));
+            queryData.setEmail(cursor.getString(4));
+            queryData.setGender(cursor.getString(5));
+            queryData.setDob(cursor.getString(6));
+            queryData.setSp(cursor.getString(7  ));
             cursor.close();
 
         }
