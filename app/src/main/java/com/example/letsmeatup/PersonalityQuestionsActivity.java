@@ -143,6 +143,8 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                             Log.v(TAG, "First answer selected!");
                             ID.add("1");
                         }
+                        else
+                            press1 = false;
                     }
                     //q2
                     for (j = 0; j < set2.size(); j++) {
@@ -151,6 +153,8 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                             Log.v(TAG, "First answer selected!");
                             ID.add("1");
                         }
+                        else
+                            press1 = false;
                     }
                     //q3
                     for (j = 0; j < set3.size(); j++) {
@@ -159,6 +163,8 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                             Log.v(TAG, "First answer selected!");
                             ID.add("1");
                         }
+                        else
+                            press1 = false;
                     }
                     //q4
                     for (j = 0; j < set4.size(); j++) {
@@ -167,6 +173,8 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                             Log.v(TAG, "First answer selected!");
                             ID.add("1");
                         }
+                        else
+                            press1 = false;
                     }
                     //q5
                     for (j = 0; j < set5.size(); j++) {
@@ -175,10 +183,13 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                             Log.v(TAG, "First answer selected!");
                             ID.add("1");
                         }
+                        else
+                            press1 = false;
                     }
                 }
             }
         });
+
         answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,45 +198,55 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                     for (j = 0; j < set1.size(); j++) {
                         if (answer2.getText().toString().equals(qna.get(i).get(2))) {
                             press2 = true;
-                            Log.v(TAG, "First answer selected!");
+                            Log.v(TAG, "Second answer selected!");
                             ID.add("2");
                         }
+                        else
+                            press2 = false;
                     }
                     //q2
                     for (j = 0; j < set2.size(); j++) {
                         if (answer2.getText().toString().equals(qna.get(i).get(2))) {
                             press2 = true;
-                            Log.v(TAG, "First answer selected!");
+                            Log.v(TAG, "Second answer selected!");
                             ID.add("2");
                         }
+                        else
+                            press2 = false;
                     }
                     //q3
                     for (j = 0; j < set3.size(); j++) {
                         if (answer2.getText().toString().equals(qna.get(i).get(2))) {
                             press2 = true;
-                            Log.v(TAG, "First answer selected!");
+                            Log.v(TAG, "Second answer selected!");
                             ID.add("2");
                         }
+                        else
+                            press2 = false;
                     }
                     //q4
                     for (j = 0; j < set4.size(); j++) {
                         if (answer2.getText().toString().equals(qna.get(i).get(2))) {
                             press2 = true;
-                            Log.v(TAG, "First answer selected!");
+                            Log.v(TAG, "Second answer selected!");
                             ID.add("2");
                         }
+                        else
+                            press2 = false;
                     }
                     //q5
                     for (j = 0; j < set5.size(); j++) {
                         if (answer2.getText().toString().equals(qna.get(i).get(2))) {
                             press2 = true;
-                            Log.v(TAG, "First answer selected!");
+                            Log.v(TAG, "Second answer selected!");
                             ID.add("2");
                         }
+                        else
+                            press2 = false;
                     }
                 }
             }
         });
-        //return ID;
+        return "Your ID is " + ID.get(0) + " " + ID.get(1) + " " + ID.get(2) + " " + ID.get(3) + " " + ID.get(4);
     }
 }
