@@ -200,7 +200,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()) {
             queryData.setMatchid(cursor.getString(8));
-            Log.v(TAG,queryData.getMatchid());
             cursor.close();
         }
         else{
@@ -240,17 +239,28 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public void addMatchID(String[] matchID,Context ctx){
         //TODO:Add SharedPreference to store login info to retrieve username, or store username info in SharedPreference during signup.
         //find user in database
-        AccountData account = this.getUser(ctx);
-        //convert matchid to string
-        StringBuffer matchid = new StringBuffer();
-        for (int i = 0; i < matchID.length;i++){
-            matchid.append(matchID[i]);
+        AccountData account;
+        try {
+            account = this.getUser(ctx,"username");
+            if (account == null){
+                account = this.getUser(ctx,"email");
+            }
+
+            //convert matchid to string
+            StringBuffer matchid = new StringBuffer();
+            for (int i = 0; i < matchID.length;i++){
+                matchid.append(matchID[i]);
+            }
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_MATCHID,matchid.toString());
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.update(ACCOUNTS,cv,COLUMN_USERNAME+"='"+account.getUsername()+"'",null);
+            Log.v(TAG,"MatchID Added!");
         }
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_MATCHID,matchid.toString());
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.update(ACCOUNTS,cv,COLUMN_USERNAME+"='"+account.getUsername()+"'",null);
-        Log.v(TAG,"MatchID Added!");
+        catch (Exception e){
+            Log.v(TAG,"User not Logged in?");
+        }
+
     }
 
     private static SharedPreferences getPrefs(Context context){
@@ -262,11 +272,38 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.putString("username",input);
         editor.apply();
     }
+    public void saveEmail(Context context, String input){
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString("email",input);
+        editor.apply();
+    }
 
-    public AccountData getUser(Context ctx){
-        String username = getPrefs(ctx).getString("username","default_username");
-        Log.v(TAG,username);
-        return findUser(username);
+
+    public AccountData getUser(Context ctx,String inputype){
+        switch(inputype){
+            case "username":
+                String username = getPrefs(ctx).getString("username","default_username");
+                Log.v(TAG,username);
+                AccountData d = findUser(username);
+                if(d != null){
+                    return d;
+                }
+                break;
+
+            case "email":
+                String email = getPrefs(ctx).getString("email","default_email");
+                Log.v(TAG,email);
+                AccountData d1 =  findEmail(email);
+                if(d1 != null){
+                    return d1;
+
+                }
+                break;
+
+
+        }
+        return null;
+
     }
 
 }

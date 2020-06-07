@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.concurrent.TimeUnit;
+
 public class UserSignUp2Activity extends AppCompatActivity {
     private static String TAG = "Let's-Meat-Up UserSignUp2Activity";
     //TODO:ADD PROFILE PICTURE WITH FIREBASE STORAGE SDK
@@ -66,6 +68,6 @@ public class UserSignUp2Activity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-
     }
+
 }

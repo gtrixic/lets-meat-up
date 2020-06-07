@@ -33,15 +33,39 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v){
                 loginUser =  findViewById(R.id.loginUsernameEmail);
                 loginPass =  findViewById(R.id.loginPassword);
-                if (validCredential(loginUser.getText().toString(), loginPass.getText().toString())) {
+                if (validCredentialUser(loginUser.getText().toString(), loginPass.getText().toString())) {
+
                     dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());
-                    if(dbHandler.findMatchID(dbHandler.getUser(LoginActivity.this).getUsername()) == null){
-                        Intent intent = new Intent(LoginActivity.this,PersonalityQuestionsActivity.class);
-                        startActivity(intent);
+                    dbHandler.saveEmail(LoginActivity.this,loginUser.getText().toString());
+
+                    if(dbHandler.getUser(LoginActivity.this,"username") != null){
+                        AccountData account = dbHandler.getUser(LoginActivity.this,"email");
+                        dbHandler.saveEmail(LoginActivity.this,account.getEmail());
+                        if(dbHandler.findMatchID(account.getUsername())== null) {
+
+                            Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            mainPage();
+                        }
+                    }
+                    else if(dbHandler.getUser(LoginActivity.this,"email") != null){
+                        AccountData account = dbHandler.getUser(LoginActivity.this,"email");
+                        dbHandler.saveUsername(LoginActivity.this,account.getUsername());
+                        if(dbHandler.findMatchID(account.getUsername()) == null){
+                            Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            mainPage();
+                        }
                     }
                     else {
                         mainPage();
                     }
+
+                    Log.v(TAG,"SHAREDPREFINFO:"+dbHandler.getUser(LoginActivity.this,"username").getUsername()+"+"+dbHandler.getUser(LoginActivity.this,"username").getEmail());
                 }
                 else {
                     Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
@@ -64,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent forget = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
         startActivity(forget);
     }
-    public boolean validCredential(String input, String password) { //method to check if login credentials are valid
+    public boolean validCredentialUser(String input, String password) { //method to check if login credentials are valid
         AccountData dbData = dbHandler.findUser(input);
         AccountData dbData2 = dbHandler.findEmail(input);
         Log.v(TAG, FILENAME + ":SharedPref Info = " + input + "|" + password);
@@ -86,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
+
     protected void onStop(){
         super.onStop();
         finish();

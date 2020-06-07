@@ -15,7 +15,7 @@ public class pnAdapter extends RecyclerView.Adapter<pnViewHolder> {
     private ArrayList<String> qna;
     private HashMap<String,Integer>ans;
     private String[] answers;
-    String[] code = {"1","1","1","1","1"};
+    String[] code = {"0","0","0","0","0"};
 
 
 
@@ -47,6 +47,7 @@ public class pnAdapter extends RecyclerView.Adapter<pnViewHolder> {
             @Override
             public void onClick(View v) {
                 holder.answerdisplay.setText(holder.ans1.getText());
+                code[position]="1";
 
             }
         });

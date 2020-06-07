@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 startActivity(transition);
+                finish();
             }
         }, 5000);   //5 seconds transition
+
     }
 }

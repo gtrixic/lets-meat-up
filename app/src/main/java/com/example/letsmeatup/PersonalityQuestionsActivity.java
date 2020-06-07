@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
     Button submit;
     RecyclerView recyclerView;
     pnAdapter pnAdapter;
+    boolean allInputsFilled = true;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
 
@@ -73,10 +75,20 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v(TAG,pnAdapter.returnCode().toString());
+                for(String codel : pnAdapter.returnCode()){
+                    if (codel == "0"){
+                        Toast.makeText(PersonalityQuestionsActivity.this, "Not all inputs have been filled!", Toast.LENGTH_SHORT).show();
+                        allInputsFilled = false;
+                        break;
+                    }
+                }
+                if(allInputsFilled){
                 dbHandler.addMatchID(pnAdapter.returnCode(),PersonalityQuestionsActivity.this);
                 Intent intent = new Intent(PersonalityQuestionsActivity.this, mainPageActivity.class);
-                startActivity(intent);
+                startActivity(intent);}
+                else{
+                    allInputsFilled = true;
+                }
             }
         });
     }
