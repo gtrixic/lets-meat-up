@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,10 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     pnAdapter pnAdapter;
     int pressedButton;
+    int i;
+    int j;
+    static boolean press1;
+    static boolean press2;
 
 
     @Override
@@ -122,24 +127,105 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
         return selected;
     }
 
-    public String userId(){
-        int i;
-        int j;
-        boolean press1 = false;
-        boolean press2 = false;
+    public String userId() {
+        final ArrayList<String> ID = new ArrayList<>();
+        press1 = false;
+        press2 = false;
 
         answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //bool true
-            }
-        });
-
-        for (i = 0; i < qna.size(); i++){
-            for (j = 0; j < set1.size(); j++){
-                if (answer1.getText().toString().equals(qna.get(i).get(1))){
+                for (i = 0; i < qna.size(); i++) {
+                    //q1
+                    for (j = 0; j < set1.size(); j++) {
+                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
+                            press1 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("1");
+                        }
+                    }
+                    //q2
+                    for (j = 0; j < set2.size(); j++) {
+                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
+                            press1 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("1");
+                        }
+                    }
+                    //q3
+                    for (j = 0; j < set3.size(); j++) {
+                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
+                            press1 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("1");
+                        }
+                    }
+                    //q4
+                    for (j = 0; j < set4.size(); j++) {
+                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
+                            press1 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("1");
+                        }
+                    }
+                    //q5
+                    for (j = 0; j < set5.size(); j++) {
+                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
+                            press1 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("1");
+                        }
+                    }
                 }
             }
-        }
-    return null;}
+        });
+        answer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (i = 0; i < qna.size(); i++) {
+                    //q1
+                    for (j = 0; j < set1.size(); j++) {
+                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
+                            press2 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("2");
+                        }
+                    }
+                    //q2
+                    for (j = 0; j < set2.size(); j++) {
+                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
+                            press2 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("2");
+                        }
+                    }
+                    //q3
+                    for (j = 0; j < set3.size(); j++) {
+                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
+                            press2 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("2");
+                        }
+                    }
+                    //q4
+                    for (j = 0; j < set4.size(); j++) {
+                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
+                            press2 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("2");
+                        }
+                    }
+                    //q5
+                    for (j = 0; j < set5.size(); j++) {
+                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
+                            press2 = true;
+                            Log.v(TAG, "First answer selected!");
+                            ID.add("2");
+                        }
+                    }
+                }
+            }
+        });
+        //return ID;
+    }
 }
