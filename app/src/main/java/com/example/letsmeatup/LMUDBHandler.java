@@ -24,7 +24,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private static String PREF_NAME = "prefs";
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
-    public static int DATABASE_VERSION = 7;
+    public static int DATABASE_VERSION = 8;
     //User accounts table
     public static String ACCOUNTS = "UserAccounts";
     public static String COLUMN_FULLNAME = "Fullname";
@@ -35,6 +35,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public static String COLUMN_DOB = "DOB";
     public static String COLUMN_SP = "SP";
     public static String COLUMN_MATCHID = "MatchID";
+    public static String COLUMN_ALLERGIES = "Allergies";
     //Restaurant account table
     public static String RESTAURANTS = "RestaurantAccounts";
     public static String COLUMN_RESTAURANTNAME = "RName";
@@ -45,13 +46,14 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public static String COLUMN_PFP = "ProfilePictureLink";
     public LMUDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int v){
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+
     }
     @Override
     public void onCreate(SQLiteDatabase db){
         String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + ACCOUNTS + "(AccountID"+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_FULLNAME +
                 " TEXT," +COLUMN_USERNAME + " TEXT," + COLUMN_PASSWORD + " TEXT,"
                 + COLUMN_EMAIL + " TEXT," + COLUMN_GENDER + " TEXT," + COLUMN_DOB
-                + " TEXT," + COLUMN_SP + " TEXT," + COLUMN_MATCHID +" INTEGER"+")"; //creating account table
+                + " TEXT," + COLUMN_SP + " TEXT," + COLUMN_MATCHID +" INTEGER,"+COLUMN_ALLERGIES+" String"+")"; //creating account table
         String CREATE_RESTAURANT_TABLE = "CREATE TABLE " + RESTAURANTS + "(" +COLUMN_RESTAURANTNAME + " TEXT," + COLUMN_ADDRESS + " TEXT,"+ COLUMN_RPASSWORD + " TEXT,"+
                 COLUMN_CATEGORY + " TEXT,"+
                 COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)"; //creating restaurant table
@@ -182,7 +184,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 queryData.setEmail(cursor.getString(4));
                 queryData.setGender(cursor.getString(5));
                 queryData.setDob(cursor.getString(6));
-                queryData.setSp(cursor.getString(7  ));
+                queryData.setSp(cursor.getString(7));
                 queryData.setMatchid(cursor.getString(8));
                 cursor.close();
             }
@@ -240,7 +242,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     //add match param
     public void addMatchID(String[] matchID,Context ctx){
-        //TODO:Add SharedPreference to store login info to retrieve username, or store username info in SharedPreference during signup.
         //find user in database
         AccountData account;
         try {
@@ -274,11 +275,13 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString("username",input);
         editor.apply();
+        Log.v(TAG,"Shared Preference set for username!");
     }
     public void saveEmail(Context context, String input){
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString("email",input);
         editor.apply();
+        Log.v(TAG,"Shared Preference set for email!");
     }
 
 
@@ -306,6 +309,19 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
         }
         return null;
+
+    }
+
+    public void addAllergies(String allergystring,Context ctx){
+        //get account data
+        AccountData account = this.getUser(ctx,"username");
+        //set content values
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ALLERGIES,allergystring);
+        //update db
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(ACCOUNTS,cv,COLUMN_USERNAME +"= '" +account.getUsername()+"'",null);
+        Log.v(TAG,"Allergy field added!");
 
     }
 

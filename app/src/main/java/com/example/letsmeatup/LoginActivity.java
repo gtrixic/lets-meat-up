@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Intent recData = getIntent();
         login = findViewById(R.id.nextArrow);
         forgetPass = findViewById(R.id.forgetPasswordButton);
         login.setOnClickListener(new View.OnClickListener() { // when user clicks login
@@ -33,31 +32,41 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v){
                 loginUser =  findViewById(R.id.loginUsernameEmail);
                 loginPass =  findViewById(R.id.loginPassword);
+                //first check if the credentials are valid
                 if (validCredentialUser(loginUser.getText().toString(), loginPass.getText().toString())) {
-
+                    //save both username and email shared preferences as the loginuser temporarily
                     dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());//if user did not complete Personality QNA
                     dbHandler.saveEmail(LoginActivity.this,loginUser.getText().toString());
-
+                    //try to get user via username
                     if(dbHandler.getUser(LoginActivity.this,"username") != null){
+                        //set account data into variable
                         AccountData account = dbHandler.getUser(LoginActivity.this,"username");
+                        //get correct email from accountdata and save into shared preference
                         dbHandler.saveEmail(LoginActivity.this,account.getEmail());
+                        //checks if there is a MatchID in database for user
                         if(dbHandler.findMatchID(account.getUsername())== null) {
-
+                            //go to personality question activity
                             Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
                             startActivity(intent);
                         }
                         else{
+                            //goes to main page
                             mainPage();
                         }
                     }
+                    //try to get user via email login
                     else if(dbHandler.getUser(LoginActivity.this,"email") != null){
+                        //saves accountdata into variable
                         AccountData account = dbHandler.getUser(LoginActivity.this,"email");
+                        //saving correct username shared preference
                         dbHandler.saveUsername(LoginActivity.this,account.getUsername());
                         if(dbHandler.findMatchID(account.getUsername()) == null){
+                            //go to personality question page
                             Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
                             startActivity(intent);
                         }
                         else{
+                            //go to main page
                             mainPage();
                         }
                     }
