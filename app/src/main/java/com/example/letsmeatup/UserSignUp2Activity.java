@@ -21,20 +21,20 @@ public class UserSignUp2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_user_sign_up2);
         ImageButton backButton = findViewById(R.id.backArrow);
         ImageButton nextButton = findViewById(R.id.nextArrow);
+        AlertDialog.Builder b1 = new AlertDialog.Builder(UserSignUp2Activity.this);
+        b1.setTitle("WIP");
+        b1.setMessage("Adding profile picture is still WIP, sorry!");
+        b1.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.v(TAG,"User going to Sign Up Page 3");
+            }
+        });
+        AlertDialog alert = b1.create();
+        alert.show();
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // when user clicks the next arrow button
-                AlertDialog.Builder b = new AlertDialog.Builder(UserSignUp2Activity.this);
-                b.setTitle("WIP");
-                b.setMessage("Adding profile picture is still WIP, sorry!");
-                b.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.v(TAG,"User going to Sign Up Page 3");
-                    }
-                });
-                AlertDialog alert = b.create();
-                alert.show();
                 // moves from this page to next page of sign up
                 Intent intent = new Intent(UserSignUp2Activity.this,UserSignUp3Activity.class);
                 startActivity(intent);
