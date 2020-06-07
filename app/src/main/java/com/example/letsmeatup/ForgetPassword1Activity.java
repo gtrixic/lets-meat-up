@@ -20,16 +20,17 @@ public class ForgetPassword1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password1);
-        Intent recData = getIntent();
+        Intent recData = getIntent(); //get the user input from 1st forget password page
         final String input = recData.getStringExtra("input");
         goNext = findViewById(R.id.goNext);
+        //after entering password twice and clicking next
         goNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enterOnce = findViewById(R.id.enterPassword);
                 enterTwice = findViewById(R.id.reenterPassword);
-                if(checkSimilarity(enterOnce.getText().toString(),enterTwice.getText().toString())){
-                    dbHandler.updatePassword(input, enterOnce.getText().toString());
+                if(checkSimilarity(enterOnce.getText().toString(),enterTwice.getText().toString())){ //if the 2 passwords are identical
+                    dbHandler.updatePassword(input, enterOnce.getText().toString()); //password is updated in database
                     nextPage();
                 }
                 else{
@@ -39,7 +40,7 @@ public class ForgetPassword1Activity extends AppCompatActivity {
             }
         });
     }
-    public boolean checkSimilarity(String once, String twice){
+    public boolean checkSimilarity(String once, String twice){ //to check if the 2 password inputs are the same
         if(once.equals(twice)){
             return true;
         }
@@ -47,7 +48,7 @@ public class ForgetPassword1Activity extends AppCompatActivity {
             return false;
         }
     }
-    public void nextPage(){
+    public void nextPage(){ //from this page to the successful password change page
         Intent next = new Intent(ForgetPassword1Activity.this,ForgetPassword2Activity.class);
         startActivity(next);
     }

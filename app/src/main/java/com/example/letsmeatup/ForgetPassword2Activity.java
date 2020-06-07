@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class ForgetPassword2Activity extends AppCompatActivity {
+public class ForgetPassword2Activity extends AppCompatActivity { //show successful change of password
     ImageButton goNext;
 
     @Override

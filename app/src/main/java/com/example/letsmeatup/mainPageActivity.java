@@ -15,6 +15,7 @@ public class mainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         pickUser = findViewById(R.id.pickUserButton);
+        //when pick user button is clicked
         pickUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -22,7 +23,7 @@ public class mainPageActivity extends AppCompatActivity {
             }
         });
     }
-    public void pickUserScreen(){
+    public void pickUserScreen(){ //from this page to the pick user page
         Intent pick = new Intent(mainPageActivity.this,PickUserActivity.class);
         startActivity(pick);
     }
