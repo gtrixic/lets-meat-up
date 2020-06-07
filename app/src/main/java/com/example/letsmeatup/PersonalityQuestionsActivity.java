@@ -142,49 +142,9 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                             press1 = true;
                             Log.v(TAG, "First answer selected!");
                             ID.add("1");
-                        }
-                        else
-                            press1 = false;
-                    }
-                    //q2
-                    for (j = 0; j < set2.size(); j++) {
-                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
-                            press1 = true;
-                            Log.v(TAG, "First answer selected!");
-                            ID.add("1");
-                        }
-                        else
-                            press1 = false;
-                    }
-                    //q3
-                    for (j = 0; j < set3.size(); j++) {
-                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
-                            press1 = true;
-                            Log.v(TAG, "First answer selected!");
-                            ID.add("1");
-                        }
-                        else
-                            press1 = false;
-                    }
-                    //q4
-                    for (j = 0; j < set4.size(); j++) {
-                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
-                            press1 = true;
-                            Log.v(TAG, "First answer selected!");
-                            ID.add("1");
-                        }
-                        else
-                            press1 = false;
-                    }
-                    //q5
-                    for (j = 0; j < set5.size(); j++) {
-                        if (answer1.getText().toString().equals(qna.get(i).get(1))) {
-                            press1 = true;
-                            Log.v(TAG, "First answer selected!");
-                            ID.add("1");
-                        }
-                        else
-                            press1 = false;
+                        } else{
+                            press1 = false;}
+
                     }
                 }
             }
@@ -201,48 +161,8 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                             Log.v(TAG, "Second answer selected!");
                             ID.add("2");
                         }
-                        else
-                            press2 = false;
-                    }
-                    //q2
-                    for (j = 0; j < set2.size(); j++) {
-                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
-                            press2 = true;
-                            Log.v(TAG, "Second answer selected!");
-                            ID.add("2");
-                        }
-                        else
-                            press2 = false;
-                    }
-                    //q3
-                    for (j = 0; j < set3.size(); j++) {
-                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
-                            press2 = true;
-                            Log.v(TAG, "Second answer selected!");
-                            ID.add("2");
-                        }
-                        else
-                            press2 = false;
-                    }
-                    //q4
-                    for (j = 0; j < set4.size(); j++) {
-                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
-                            press2 = true;
-                            Log.v(TAG, "Second answer selected!");
-                            ID.add("2");
-                        }
-                        else
-                            press2 = false;
-                    }
-                    //q5
-                    for (j = 0; j < set5.size(); j++) {
-                        if (answer2.getText().toString().equals(qna.get(i).get(2))) {
-                            press2 = true;
-                            Log.v(TAG, "Second answer selected!");
-                            ID.add("2");
-                        }
-                        else
-                            press2 = false;
+                        else{
+                            press2 = false;}
                     }
                 }
             }
