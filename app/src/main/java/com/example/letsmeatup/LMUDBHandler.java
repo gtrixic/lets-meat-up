@@ -30,6 +30,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public static String COLUMN_GENDER = "Gender";
     public static String COLUMN_DOB = "DOB";
     public static String COLUMN_SP = "SP";
+    public static String COLUMN_MATCHID = "MatchID";
     //Restaurant account table
     public static String RESTAURANTS = "RestaurantAccounts";
     public static String COLUMN_RESTAURANTNAME = "RName";
@@ -46,7 +47,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + ACCOUNTS + "(AccountID"+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_FULLNAME +
                 " TEXT," +COLUMN_USERNAME + " TEXT," + COLUMN_PASSWORD + " TEXT,"
                 + COLUMN_EMAIL + " TEXT," + COLUMN_GENDER + " TEXT," + COLUMN_DOB
-                + " TEXT," + COLUMN_SP + " TEXT" + ")";
+                + " TEXT," + COLUMN_SP + " TEXT," + COLUMN_MATCHID +" INTEGER"+")";
         String CREATE_RESTAURANT_TABLE = "CREATE TABLE " + RESTAURANTS + "(" +COLUMN_RESTAURANTNAME + " TEXT," + COLUMN_ADDRESS + " TEXT,"+ COLUMN_RPASSWORD + " TEXT,"+
                 COLUMN_CATEGORY + " TEXT,"+
                 COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)";
