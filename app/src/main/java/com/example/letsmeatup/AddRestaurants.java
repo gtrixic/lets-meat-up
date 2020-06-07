@@ -22,7 +22,7 @@ public class AddRestaurants extends AppCompatActivity {
         sendterm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getYelpAPI api = new getYelpAPI(AddRestaurants.this,term.getText().toString());
+                getYelpAPI api = new getYelpAPI(AddRestaurants.this);
                 HashMap<String,String> params = new HashMap<>();
                 params.put("term",term.getText().toString());
                 params.put("location","Singapore");

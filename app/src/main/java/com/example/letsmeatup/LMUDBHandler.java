@@ -20,7 +20,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private String FILENAME = "LMUDBHandler.java";
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
-    public static int DATABASE_VERSION = 4;
+    public static int DATABASE_VERSION = 6;
     //User accounts table
     public static String ACCOUNTS = "UserAccounts";
     public static String COLUMN_FULLNAME = "Fullname";
@@ -57,6 +57,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS "+ACCOUNTS);
+        db.execSQL("DROP TABLE IF EXISTS "+RESTAURANTS);
         onCreate(db);
     }
     public void addUser(AccountData accountData){
@@ -81,6 +82,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_ADDRESS,rdata.getAddress());
         values.put(COLUMN_PASSWORD,rdata.getPassword());
         values.put(COLUMN_RESTAURANTEMAIL,rdata.getEmail());
+        values.put(COLUMN_CATEGORY,rdata.getCategory());
         values.put(COLUMN_PFP,rdata.getPfpLink());
         //Get Database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -169,6 +171,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             db.close();
         }
     }
+    //Used with yelp api, only for admin use
     public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
         for(RestaurantData rdata : rDataList){
             this.addRestaurant(rdata);
