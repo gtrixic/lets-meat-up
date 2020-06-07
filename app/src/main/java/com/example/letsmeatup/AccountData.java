@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 import java.sql.Date;
 
 public class AccountData {
+    //storing all the AccountData information
     private int id;
     private String fullName;
     private String username;

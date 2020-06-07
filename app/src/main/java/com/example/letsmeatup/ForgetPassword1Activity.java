@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class ForgetPassword1Activity extends AppCompatActivity {
+    public static final String TAG = "Let's-Meat-Up";
+    String FILENAME = "ForgetPassword1Activity.java";
     EditText enterOnce;
     EditText enterTwice;
     ImageButton goNext;

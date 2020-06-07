@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PersonalityQuestionsActivity extends AppCompatActivity {
-    public static final String TAG = "Let's Meat Up";
-    String FILENAME = "PersonalityQuestionsActivity.java";
+    private static final String TAG = "Let's-Meat-Up";
+    private String FILENAME = "PersonalityQuestionsActivity.java";
     ArrayList<String> qns = new ArrayList<>();
     String[] answerarray = {"introverted","extroverted","tidy","messy","indoors","outdoors","stubborn","open-minded","small","big"};
     HashMap<String, Integer> answers = new HashMap<>();
@@ -68,8 +68,6 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(pnLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(pnAdapter);
-
-        //TODO:FIND A WAY TO MAKE THE BUTTONS BECOME SELECTED AND RETURN EITHER 1 OR 2
 
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {

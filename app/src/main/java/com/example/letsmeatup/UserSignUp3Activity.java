@@ -12,7 +12,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 public class UserSignUp3Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private String TAG = "Let's Meat Up! SignUpActivity";
+    private static final String TAG = "Let's-Meat-Up";
+    private String FILENAME = "SignUpActivity.java";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

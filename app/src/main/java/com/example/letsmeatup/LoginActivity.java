@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginPass =  findViewById(R.id.loginPassword);
                 if (validCredentialUser(loginUser.getText().toString(), loginPass.getText().toString())) {
 
-                    dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());
+                    dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());//if user did not complete Personality QNA
                     dbHandler.saveEmail(LoginActivity.this,loginUser.getText().toString());
 
                     if(dbHandler.getUser(LoginActivity.this,"username") != null){

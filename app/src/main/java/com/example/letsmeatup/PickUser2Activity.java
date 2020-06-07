@@ -18,8 +18,6 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class PickUser2Activity extends AppCompatActivity {
-    //TODO: Compare Personality Questions codes
-    //TODO: Retrieve 2nd users information
     TextView name;
     TextView ageT;
     TextView gender;
@@ -29,7 +27,7 @@ public class PickUser2Activity extends AppCompatActivity {
     String firstmID;
     AccountData firstUser;
     AccountData secondUser;
-    private String TAG = "Let's Meat Up";
+    private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "PickUser2Activity.java";
     LMUDBHandler dbHandler = new LMUDBHandler(this, null, null, 1);
 

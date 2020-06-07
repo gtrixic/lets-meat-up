@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 public class ForgetPassword2Activity extends AppCompatActivity { //show successful change of password
     ImageButton goNext;
+    public static final String TAG = "Let's-Meat-Up";
+    String FILENAME = "ForgetPassword2Activity.java";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

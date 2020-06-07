@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 public class PickUserActivity extends AppCompatActivity {
     ImageButton startButton;
+    private static final String TAG = "Let's-Meat-Up";
+    private String FILENAME = "PickUserActivity.java";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

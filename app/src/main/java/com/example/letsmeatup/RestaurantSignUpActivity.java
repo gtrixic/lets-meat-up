@@ -11,7 +11,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class RestaurantSignUpActivity extends AppCompatActivity {
-    private static String TAG  = "Let's-Meat-Up RestaurantSignUp";
+    private static final String TAG = "Let's-Meat-Up";
+    private String FILENAME = "RestaurantSignUpActivity.java";
     Boolean allInputsFilled = true;
     LMUDBHandler lmudbHandler = new LMUDBHandler(this,null,null,1);
     @Override
@@ -51,7 +52,7 @@ public class RestaurantSignUpActivity extends AppCompatActivity {
                         if(rData.checkPassword(checkPassword.getText().toString())){
                             lmudbHandler.addRestaurant(rData);
                             Toast.makeText(RestaurantSignUpActivity.this,"Restaurant created!",Toast.LENGTH_SHORT).show();
-                            Log.v(TAG,"Restaurant Account Created: "+rData.getRestaurantName());
+                            Log.v(TAG,FILENAME+"Restaurant Account Created: "+rData.getRestaurantName());
                             Intent intent = new Intent(RestaurantSignUpActivity.this,RestaurantSignUp2Activity.class);
                             startActivity(intent);
                         }
