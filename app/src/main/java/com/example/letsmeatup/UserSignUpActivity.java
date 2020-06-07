@@ -84,6 +84,7 @@ public class UserSignUpActivity extends AppCompatActivity {
                             lmudbHandler.addUser(dbAccountData);
                             Toast.makeText(UserSignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
                             Log.v(TAG, "User Created :" + Username.getText().toString());
+                            lmudbHandler.saveUsername(UserSignUpActivity.this,Username.getText().toString());
                             Intent intent = new Intent(UserSignUpActivity.this,UserSignUp2Activity.class);
                             startActivity(intent);
                         }

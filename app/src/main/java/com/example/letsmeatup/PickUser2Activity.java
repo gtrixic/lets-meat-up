@@ -28,9 +28,11 @@ public class PickUser2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_user2);
     }
-    public void getSecondUser(String pq){
+    /*public void getSecondUser(String pq){
         secondUser = dbHandler.findMatchID()
     }
+
+     */
     public void requestAlert(){
         AlertDialog.Builder req = new AlertDialog.Builder(this);
         req.setMessage("Request Sent!");

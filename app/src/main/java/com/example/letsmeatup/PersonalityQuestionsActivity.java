@@ -30,6 +30,7 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
     Button submit;
     RecyclerView recyclerView;
     pnAdapter pnAdapter;
+    LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
 
     @Override
@@ -75,6 +76,7 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.v(TAG,pnAdapter.returnCode().toString());
+                dbHandler.addMatchID(pnAdapter.returnCode(),PersonalityQuestionsActivity.this);
                 Intent intent = new Intent(PersonalityQuestionsActivity.this, mainPageActivity.class);
                 startActivity(intent);
             }

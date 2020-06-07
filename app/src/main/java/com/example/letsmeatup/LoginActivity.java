@@ -34,7 +34,14 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser =  findViewById(R.id.loginUsernameEmail);
                 loginPass =  findViewById(R.id.loginPassword);
                 if (validCredential(loginUser.getText().toString(), loginPass.getText().toString())) {
-                    mainPage();
+                    dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());
+                    if(dbHandler.findMatchID(dbHandler.getUser(LoginActivity.this).getUsername()) == null){
+                        Intent intent = new Intent(LoginActivity.this,PersonalityQuestionsActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        mainPage();
+                    }
                 }
                 else {
                     Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();

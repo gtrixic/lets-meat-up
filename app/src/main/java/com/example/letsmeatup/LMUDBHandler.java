@@ -24,7 +24,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private static String PREF_NAME = "prefs";
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
-    public static int DATABASE_VERSION = 6;
+    public static int DATABASE_VERSION = 7;
     //User accounts table
     public static String ACCOUNTS = "UserAccounts";
     public static String COLUMN_FULLNAME = "Fullname";
@@ -61,6 +61,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        Log.v(TAG,"Upgraded Database from version "+oldVersion+" to version "+newVersion);
         db.execSQL("DROP TABLE IF EXISTS "+ACCOUNTS);
         db.execSQL("DROP TABLE IF EXISTS "+RESTAURANTS);
         onCreate(db);
@@ -181,23 +182,24 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
         return queryData;
     }
-    /*
+
     public String findMatchID(String id){
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+id +"\"";
         SQLiteDatabase  db =this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()) {
-            queryData.setMatchid(cursor.getString(8));
+            queryData.setMatchid(cursor.getString(7));
             cursor.close();
         }
         else{
             queryData = null;
         }
         db.close();
+        return queryData.getMatchid();
     }
     
-     */
+
     public void updatePassword(String input, String password){
         AccountData dbData = this.findUser(input);
         AccountData dbData2 = this.findEmail(input);
@@ -224,10 +226,10 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
     //add match param
-    public void addMatchID(String[] matchID){
+    public void addMatchID(String[] matchID,Context ctx){
         //TODO:Add SharedPreference to store login info to retrieve username, or store username info in SharedPreference during signup.
         //find user in database
-        AccountData account = this.findUser()
+        AccountData account = this.getUser(ctx);
         //convert matchid to string
         StringBuffer matchid = new StringBuffer();
         for (int i = 0; i < matchID.length;i++){
@@ -236,7 +238,8 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_MATCHID,matchid.toString());
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update(ACCOUNTS,cv,COLUMN)
+        db.update(ACCOUNTS,cv,COLUMN_USERNAME+"='"+account.getUsername()+"'",null);
+        Log.v(TAG,"MatchID Added!");
     }
 
     private static SharedPreferences getPrefs(Context context){
@@ -246,10 +249,12 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     public void saveUsername(Context context, String input){
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString("username",input);
+        editor.apply();
     }
 
-    public AccountData getUser(Context ctx,String input){
-        String username = getPrefs(ctx).getString("username",input);
+    public AccountData getUser(Context ctx){
+        String username = getPrefs(ctx).getString("username","default_username");
+        Log.v(TAG,username);
         return findUser(username);
     }
 
