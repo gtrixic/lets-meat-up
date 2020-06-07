@@ -21,9 +21,7 @@ Make new friends or potential partners with this application with someone random
 
 **Roles & Contributions of Members:**
 
-Benjamin (Group Leader)
-    
-
+Benjamin (Group Leader):
 1.  Made most application function ideas
     
 2.  In-charge of user and restaurant database creation
@@ -32,8 +30,7 @@ Benjamin (Group Leader)
     
 4.  Implemented Yelp.API
     
- Cammy
-    
+Cammy:
 1.  Created most of the app design using Figma
     
 2.  In-charge of Login and ForgetPassword Activities and XMLs
@@ -41,9 +38,7 @@ Benjamin (Group Leader)
 3.  Assisted on other Figma-to-XML implementations
     
 
-Gek Teng
-    
-
+Gek Teng:
 1.  Assisted in app design using Figma
     
 2.  In-charge of PersonalityQuestions Activity and XMLs
@@ -51,9 +46,7 @@ Gek Teng
 3.  In-charge of CreateUser and CreateRestaurant XMLs
     
 
-Jia Wen
-    
-
+Jia Wen:
 1.  Assisted in app design using Figma
     
 2.  Created most of the base outlines for the functions
@@ -61,7 +54,7 @@ Jia Wen
 
   
 
-User Guide
+**User Guide**
 
   
 
@@ -87,8 +80,8 @@ In the Sign-up or Login Selection page, users are able to choose if they wish to
 
   
 
-![](https://lh3.googleusercontent.com/5gBeCUH-FM6xdYF3m9kyqIzOAaJ_DTghMVkEYLKwpxazGma8HmlB2kSiSRVfETPPH3GJsJ4XzLg3VEL9DLfwIrt6OKzIIBeEQTB4yyPFbTPWk46-h6H3pcCo--HwVpKSG78FmPg)![](https://lh5.googleusercontent.com/Fv0AKzwaunCeZ7QHPxvauDxfxPwMkVbcogNG83tJLn7c1vHWoi0eKBdWPB5r-1VoEfFZKQdhUk48KXjhXkIOVFTlrL46H8RRIJ3vAj7_QvxNUynbQXh24kRW51RmuO9HQQtCnD0)
-
+![](https://lh4.googleusercontent.com/M-YpQ6pQZpOXVlani3n2mvWKStG2wolOi36Y6qPvfaxywcX0VsAJf-xq34tlBrnE_DCRnc8bzMX2dVIsD_ysqJEorKn5-ouXyZyum0uC)
+![](https://lh4.googleusercontent.com/x8mlm101elDoF3-7JRdZ3rJJMmJ9a13g1SFcIQ4R7dKTCWBWaDMnTRO8s7W13hHjI_NDCFF_dwPTTsd-XSntXT9bOZb0LepZSA7amyQt)
   
 
 **Sign-Up (Declare Account Type Page)**
@@ -103,7 +96,7 @@ Both “Create User Account” and “Create Business Account” are ImageButton
 
 Depending on which account they are signing up as, they will be sent to either the User Sign Up page or theBusiness Sign Up Page using Intent.
 
-![](https://lh4.googleusercontent.com/PkkXR9sRMvHhd39wS6twJuPRK6lepog2jLXABwbTFFMoSrfmI71VbbH3tSCL2VvOLttg-GysjkE5kn-daTXTBz9rTpOwrnKUyyPlyeCKV1E2J1p3PXcp5TeyYb9lNohwSLxAZos)
+![](https://lh5.googleusercontent.com/Db6e8Qu1p9uNKhYu_z14OdytSp1io-hh27CFKB1kFO7krDvVwwIiVWHf0OBOCExSbl-chdz8wazKYxDAMxCfZtCFKoEvvUOlLgG523ph)
 
   
 
@@ -125,7 +118,7 @@ All the information entered is recorded into the UserAccounts database using SQL
 
   
 
-![](https://lh3.googleusercontent.com/nbSRU0uFpDU7eym-CRJampAkD9Xlsbme4KWLEE2cvt71qv845fYRYYq5DMWM0gccGRCoFtDg0VzkfBFXxtQcwlkAhbjqWeXW9m9h7HG1bj40g6k7iXqzIDgNdI7M_kOwrl1hu3Y)
+![](https://lh4.googleusercontent.com/oYsM3LiRJb9DkOWsgNVx5IbDBUs7n0UYXj7KEMwJHdbUSWdUmq4Zdj7L0ba8DN1ppQ7p_1mXwJLMXqWfAL2pAi5Gix4uIIrR3NqXUAGf)
 
   
 
@@ -139,7 +132,7 @@ The profile picture will be added to the UserAccount database using Firebase and
 
   
 
-![](https://lh4.googleusercontent.com/JVZ2HKtiFy0qzYcM5uCHW4bYSt-6lZ87GpNjGAnNnNDDuOxvMKp42FPivqboLjaDLfFahae7AomBE2mGIJe0K_e_MNMOHSF4xLqiGfN2Rog7iD8qHT07eEr-Q6bfTzjaD4lGtMw)
+![](https://lh5.googleusercontent.com/xrysfV-tMqdsybkU-cGU71D0qasSHZlLjCrVmrOOoxvAWTMa2MPDdm0mV8K91GzJSsWoYSkFovlmSfsng141T3vzGQrEI2no-jzLS4ec)
 
   
 
@@ -153,7 +146,7 @@ The user will then be asked to state their allergies/preferences and their diet 
 
 The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
 
-![](https://lh6.googleusercontent.com/_NZ2m16xZBYXJ2V6Tt3JIT1A-vkD3TI5Puo_hpXaUwFyVVQ5KHwutlALb_ic_3WaIVM-XXSCE6op73tI7xM-pVcDH7pSPESEUNfE1M9k8t3pLuBEVRwJ1m0_ba_2BYhBXqCRhcM)
+![](https://lh4.googleusercontent.com/F6l9qjhyP90PXNbNxx1EcpPnjy8S7WfQ3xv4bNfDpikqszxSjfXXgkk9SnLcArRcVgCFDbPJ0nxRqVCqB5rP82-Lg-Oj2ZlW6WYCAx2q)
 
   
 
@@ -169,8 +162,8 @@ The options they choose will be translated into a code which will be tagged to e
 
 The page is created using RecyclerView where each question has a TextView of the question and 2 Buttons to choose. “Submit” is a Button.
 
-![](https://lh4.googleusercontent.com/wdfZ0s2pPpfsatu4xozsE6dqUMmak2GrrBSEFbh9UGYtqUI6VyXotr65q9gmW69G_mbeyIFK0hZRplNjWkMKr4oBJOIzd8cfGFB_nIvamGRU22-YEdkYZCYrHoTpcATOQAGzOeI)![](https://lh3.googleusercontent.com/egG3tSgJ7wOq4eZxhcnIp7EqfaC9KOKTckLq402kp_69t5ACYPYFk6cc03Zro22wCrewhc5KmdY5W6gMQXQm38LzPB-e7p1odmo-2bEX-qm-SOVvoV5rY1M-axPZjS_Y11fWqF4)
-
+![](https://lh4.googleusercontent.com/6EEXFpTSg6cBYnyJildYpASl5OpiRWknwNnqoUUdkUqlwuaQmb7PAnRROoy2co6V-cxZBIqPqVzD9GdJ9vQHB291E_HENc5UyGca07rH)
+![](https://lh4.googleusercontent.com/EZPWtZPM_9k47p4Lpl5lSz4MfcDvWI7yms-ZB3aTRmbeevnThw8d1TnteCcRzZufzTL8X9UbDM9y0eCR60t6QoOyehfoxQnYroSAU0oA)
   
 
 **Sign-Up (Create Restaurant Page 1)**
@@ -189,7 +182,7 @@ After confirming their restaurant information, users will be directed to the Cre
 
 All the information entered is recorded into the RestaurantAccounts database using SQLite.
 
-![](https://lh5.googleusercontent.com/HsTV3cRZ7lATNUdzYud_DH1sv2lR9XKp6vswSKBcX4gPg8DvCqc-6tXw_Ig-iRVPbTysSGMXeiwvUgq_eV8Oud2eREkYCRDTTEKU5Tvq-gbCufqAS55SnHXuoatS6FmE82430bU)
+![](https://lh3.googleusercontent.com/Z9zFPLbmhTqsNeHRnU20qI9fI710726dLiAOGiwlTDT_LeQUPXQmCUrUUDSKtH5OTIyUREmT4V-H05E1L8sZdN0OlmNFN2lDHqUMYOtt)
 
   
 
@@ -200,6 +193,8 @@ The user will then be asked to add a profile picture for their account. After ad
   
 
 The profile picture will be added to the RestaurantAccount database using Firebase and SQLite. “Confirm Profile” is a Button.
+
+![](https://lh5.googleusercontent.com/iMxGuGR3kEPn_WpGa_duc23_U498K5C1-LaSjCoettT1O5PLsYpzSrCl4wpEm0qlMkY7KDi8ijXIxtV4g-EQUEex58cSjQc--tVSqpE)
 
   
 
@@ -216,9 +211,9 @@ All information is checked against the database that was created using SQLite.
 
   
 
-![](https://lh3.googleusercontent.com/em5gm8IiYRIu1wT00lE0GnJMrfpo2ULGBXK_ok1xboQA9YkZiQ_bmzrnxwc8lhruIBFZWv7mH32-mw54Qw4L4VriTfybkfvMwnm13rtn09n6cW72OoakfWT3fsCqjNAT-UA8g08)
+![](https://lh4.googleusercontent.com/Nie7kOj66vjMzD8OBSuOhECfDfuOiIrRTE6XAxO9vVZmg3pJ5Eez9Ikg2Si4vTH9oUqV3BXjc7-8zBg1eXlq-RMX39GCaccQbnJhnN_u)
 
-  
+
 
 **Forget Password (Page 1)**
 
@@ -228,7 +223,7 @@ The user will be asked to enter either their username or email. If the username 
 
 The small “Let’s Meat Up” icon is an ImageView, “Username/Email” is an EditText (Plain Text), the “Next Page Button” is an ImageButton.
 
-![](https://lh3.googleusercontent.com/TlKitmYGSkcF7Od4jNE8YCUcEAnM0gSb9pQQuUI8eSX9mryvctGRF5xNDSbZEzGKVlhwnP-eRDfiabluDm1-bFx8o_tyBsfVor8JZYBkpzeBJ4SUDus9CARqYVAuwc45UwBG5Iw)
+![](https://lh4.googleusercontent.com/heFRL07Oj6Fnbwv6T7IIGlEkESVl6RmLhM8NUEAz9PzF7GDXk_U29b2p9jOPwu9qFSsLBwtV1uVp5uxe1ZTAEBNmNPhX8tqQSNdHHpVG)
 
 **Forget Password (Page 2)**
 
@@ -240,7 +235,7 @@ The user will then be asked to enter and re-enter their password. If the 2 passw
 
   
 
-![](https://lh6.googleusercontent.com/mdjRDLdwHRRb70cbYu5QVZePCVdiD-pseqVBJjpNc6bp3FRqqxyhQN5McpktWn8qhhZDEgGQ2rHkphQ0cy9Afm5MPOKxGPq6y76UVcvJnNUZN7Z3-F_KxQ6KykgWkuSdIUuntog)
+![](https://lh3.googleusercontent.com/kURxZ8fZ-w2XNOYtkbEoHxF_sJEM3w9Bs616vQhYLUL99LwZN6sab87sh5NJe_W1FSf4HC-jlXt_w5nTtljsi7n1GH_5CVYgC_5hFrl3)
 
 **Forget Password (Page 3)**
 
@@ -250,4 +245,48 @@ This page will show up in the case of a successful change of password in the dat
 
 “Let’s Meat Up” icon is an ImageView, “Change of password successful!” is a TextView, and the “Next Page Button” is an ImageButton.
 
-![](https://lh3.googleusercontent.com/1NI_qp0FlcM-ORyXzzpYZWkfN_0_2i_O_YIMPo4QxxEDh7hhFq_LWIE0qkQviVqtTSnw6tFpI9ufcmIQoWNArQYapHyMz-G9zsspFm5KR10NiiVP4WQfT7BdxGjWpqB8ldb3Nr0)
+![](https://lh5.googleusercontent.com/ZpUddna-i1fgJNHNGG7IViZbk6zkE8ZNZDyzWF89U8V81X388lXnJ3-AnZ4DbuB9vslOhsj9Op1g9WIlUkYZA3BRCRAUnhaXl3l_vADB)
+
+**Home (Find new matches/Accept match requests Page)**
+
+After the user holding a user account successfully logs in to their account, they will be directed to this page where they can either find new people to match with or accept incoming match requests.
+
+Depending on which option they select, the user will be sent to either the Random User page or the Incoming Requests page through the use of Intent.
+
+“Pick User”, “Accept User”, “Profile Button” and “Help Button” are all ImageButtons.
+
+![](https://lh6.googleusercontent.com/F-Vlcx1D_y-d--i8k2EOSXDWXL3xghHmOrQ8t1ABwrgA88TkVpG1E6xS8Hb9rPvVdjYZwz7KvIFaQn0b4pBEkmEVMR0k--SbhZ-JLBZx)
+
+**Random User (Find New Matches)**
+
+If the user holding a user account selects the &quot;Pick User&quot; Button, they will be directed to this page.
+
+Upon pressing &quot;Start&quot;, a match for the user will be generated based on the users&#39; code tags. When a match is found, the name, age, gender and sexual preference of the matched user will be displayed. The user is then given the option to send a request or ignore the matched user.
+
+If the user selects &quot;Request&quot;, a pop-up will appear to alert the user that the request has been sent. The pop-up also allows the user to choose if they want to return to the home screen or continue searching for more matches.
+
+“Start”, “Request”, “Ignore”, “Profile Button” and “Help Button” are all ImageButtons.
+
+![](https://lh4.googleusercontent.com/kJUU67-moONlOAfA658oQmq59vkIkfs8E6FghsrmiCpC3OFvLAD0rxVli4qAOocwhUOM4JBy3Wzg5hqAk8BTXYKqgmzVmZq4tbdIBfM)
+
+**Profile**
+
+If the user selects the &quot;Profile&quot; button, they will be directed to this page.
+
+On this page, the user can either view all their reservations or go to settings.
+
+Both “View Reservations” and “Settings” are Buttons.
+
+**View Reservations (User Account)**
+
+If the user holds a user account and chooses to view reservations, they will be directed to this page.
+
+Reservations will be displayed as a numbered list. Each reservation will show the matched user&#39;s username, restaurant name, meeting time and date.
+
+**View Reservations (Restaurant Account)**
+
+If the user holds a restaurant account and chooses to view reservations, they will be directed to this page.
+
+Reservations will be displayed as a numbered list. Each reservation will show the matched users&#39; usernames, contact numbers, meeting time and date. Under each reservation is an option for the restaurant account holder to reject the reservation.
+
+“Reject Reservation” is a Button.
