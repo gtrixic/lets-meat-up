@@ -21,9 +21,7 @@ Make new friends or potential partners with this application with someone random
 
 **Roles & Contributions of Members:**
 
-Benjamin (Group Leader)
-    
-
+Benjamin (Group Leader):
 1.  Made most application function ideas
     
 2.  In-charge of user and restaurant database creation
@@ -32,8 +30,7 @@ Benjamin (Group Leader)
     
 4.  Implemented Yelp.API
     
- Cammy
-    
+Cammy:
 1.  Created most of the app design using Figma
     
 2.  In-charge of Login and ForgetPassword Activities and XMLs
@@ -41,9 +38,7 @@ Benjamin (Group Leader)
 3.  Assisted on other Figma-to-XML implementations
     
 
-Gek Teng
-    
-
+Gek Teng:
 1.  Assisted in app design using Figma
     
 2.  In-charge of PersonalityQuestions Activity and XMLs
@@ -51,9 +46,7 @@ Gek Teng
 3.  In-charge of CreateUser and CreateRestaurant XMLs
     
 
-Jia Wen
-    
-
+Jia Wen:
 1.  Assisted in app design using Figma
     
 2.  Created most of the base outlines for the functions
@@ -61,7 +54,7 @@ Jia Wen
 
   
 
-User Guide
+**User Guide**
 
   
 
@@ -251,3 +244,47 @@ This page will show up in the case of a successful change of password in the dat
 “Let’s Meat Up” icon is an ImageView, “Change of password successful!” is a TextView, and the “Next Page Button” is an ImageButton.
 
 ![](https://lh3.googleusercontent.com/1NI_qp0FlcM-ORyXzzpYZWkfN_0_2i_O_YIMPo4QxxEDh7hhFq_LWIE0qkQviVqtTSnw6tFpI9ufcmIQoWNArQYapHyMz-G9zsspFm5KR10NiiVP4WQfT7BdxGjWpqB8ldb3Nr0)
+
+**Home (Find new matches/Accept match requests Page)**
+
+After the user holding a user account successfully logs in to their account, they will be directed to this page where they can either find new people to match with or accept incoming match requests.
+
+Depending on which option they select, the user will be sent to either the Random User page or the Incoming Requests page through the use of Intent.
+
+“Pick User”, “Accept User”, “Profile Button” and “Help Button” are all ImageButtons.
+
+![](https://lh6.googleusercontent.com/F-Vlcx1D_y-d--i8k2EOSXDWXL3xghHmOrQ8t1ABwrgA88TkVpG1E6xS8Hb9rPvVdjYZwz7KvIFaQn0b4pBEkmEVMR0k--SbhZ-JLBZx)
+
+**Random User (Find New Matches)**
+
+If the user holding a user account selects the &quot;Pick User&quot; Button, they will be directed to this page.
+
+Upon pressing &quot;Start&quot;, a match for the user will be generated based on the users&#39; code tags. When a match is found, the name, age, gender and sexual preference of the matched user will be displayed. The user is then given the option to send a request or ignore the matched user.
+
+If the user selects &quot;Request&quot;, a pop-up will appear to alert the user that the request has been sent. The pop-up also allows the user to choose if they want to return to the home screen or continue searching for more matches.
+
+“Start”, “Request”, “Ignore”, “Profile Button” and “Help Button” are all ImageButtons.
+
+![](https://lh4.googleusercontent.com/kJUU67-moONlOAfA658oQmq59vkIkfs8E6FghsrmiCpC3OFvLAD0rxVli4qAOocwhUOM4JBy3Wzg5hqAk8BTXYKqgmzVmZq4tbdIBfM)
+
+**Profile**
+
+If the user selects the &quot;Profile&quot; button, they will be directed to this page.
+
+On this page, the user can either view all their reservations or go to settings.
+
+Both “View Reservations” and “Settings” are Buttons.
+
+**View Reservations (User Account)**
+
+If the user holds a user account and chooses to view reservations, they will be directed to this page.
+
+Reservations will be displayed as a numbered list. Each reservation will show the matched user&#39;s username, restaurant name, meeting time and date.
+
+**View Reservations (Restaurant Account)**
+
+If the user holds a restaurant account and chooses to view reservations, they will be directed to this page.
+
+Reservations will be displayed as a numbered list. Each reservation will show the matched users&#39; usernames, contact numbers, meeting time and date. Under each reservation is an option for the restaurant account holder to reject the reservation.
+
+“Reject Reservation” is a Button.
