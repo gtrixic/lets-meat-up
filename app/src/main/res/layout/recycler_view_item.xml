@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="270dp"
+    android:layout_height="300dp"
     android:background="#353552"
     android:orientation="vertical"
     android:padding="8dp">
@@ -46,6 +46,17 @@
       android:paddingRight="20dp"
       android:text="2"
       android:textAllCaps="false"
+      android:textColor="#FFFFFF"
+      android:textSize="24sp" />
+
+  <TextView
+      android:id="@+id/userAns"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="10dp"
+      android:fontFamily="@font/josefinsanslight"
+      android:text="nothing is selected"
       android:textColor="#FFFFFF"
       android:textSize="24sp" />
 </LinearLayout>
