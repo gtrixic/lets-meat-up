@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void mainPage(){
         Intent go = new Intent(LoginActivity.this,mainPageActivity.class);
+        go.putExtra("ID", loginUser.getText().toString());
         startActivity(go);
     }
     public void forgetPassPage(){

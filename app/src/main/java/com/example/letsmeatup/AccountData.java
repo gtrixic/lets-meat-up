@@ -18,6 +18,7 @@ public class AccountData {
     private String gender;
     private String dob;
     private String sp;
+    private String matchid;
 
     public AccountData(){}
     public AccountData(int id,String fullName, String username, String password,
@@ -30,6 +31,7 @@ public class AccountData {
         this.gender = gender;
         this.dob = dob;
         this.sp = sp;
+        this.matchid = matchid;
 
     }
     public int getID(){return this.id;}
@@ -90,6 +92,14 @@ public class AccountData {
 
     public void setSp(String sp) {
         this.sp = sp;
+    }
+
+    public String getMatchid() {
+        return matchid;
+    }
+
+    public void setMatchid(String matchid) {
+        this.matchid = matchid;
     }
 
     //Method for checking if email is valid or empty

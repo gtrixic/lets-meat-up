@@ -16,6 +16,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class LMUDBHandler extends SQLiteOpenHelper {
     private String TAG = "Let's Meat Up";
@@ -137,20 +138,19 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         return queryData;
     }
     public AccountData findEmail(String email){
-        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
-        SQLiteDatabase  db =this.getWritableDatabase();
-        Cursor cursor =db.rawQuery(query,null);
-        AccountData queryData = new AccountData();
-        if (cursor.moveToFirst()){
-            queryData.setFullName(cursor.getString(1));
-            queryData.setUsername(cursor.getString(2));
-            queryData.setPassword(cursor.getString(3));
-            queryData.setEmail(cursor.getString(4));
-            queryData.setGender(cursor.getString(5));
-            queryData.setDob(cursor.getString(6));
-            queryData.setSp(cursor.getString(7  ));
-            cursor.close();
-
+                String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
+                SQLiteDatabase  db =this.getWritableDatabase();
+                Cursor cursor =db.rawQuery(query,null);
+                AccountData queryData = new AccountData();
+                if (cursor.moveToFirst()){
+                    queryData.setFullName(cursor.getString(1));
+                    queryData.setUsername(cursor.getString(2));
+                    queryData.setPassword(cursor.getString(3));
+                    queryData.setEmail(cursor.getString(4));
+                    queryData.setGender(cursor.getString(5));
+                    queryData.setDob(cursor.getString(6));
+                    queryData.setSp(cursor.getString(7  ));
+                    cursor.close();
         }
         else{
             queryData = null;
@@ -158,6 +158,46 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
         return queryData;
     }
+    public AccountData findMatchingID(String mID){
+        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_MATCHID +"=\""+mID +"\"";
+            SQLiteDatabase  db =this.getWritableDatabase();
+            Cursor cursor =db.rawQuery(query,null);
+            AccountData queryData = new AccountData();
+            Random ran = new Random();
+            int randomMatchID = ran.nextInt(10);
+            if (cursor.moveToPosition(randomMatchID)){
+                queryData.setFullName(cursor.getString(1));
+                queryData.setUsername(cursor.getString(2));
+                queryData.setPassword(cursor.getString(3));
+                queryData.setEmail(cursor.getString(4));
+                queryData.setGender(cursor.getString(5));
+                queryData.setDob(cursor.getString(6));
+            queryData.setSp(cursor.getString(7  ));
+            cursor.close();
+        }
+        else{
+            queryData = null;
+        }
+        db.close();
+        return queryData;
+    }
+    /*
+    public String findMatchID(String id){
+        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+id +"\"";
+        SQLiteDatabase  db =this.getWritableDatabase();
+        Cursor cursor =db.rawQuery(query,null);
+        AccountData queryData = new AccountData();
+        if (cursor.moveToFirst()) {
+            queryData.setMatchid(cursor.getString(8));
+            cursor.close();
+        }
+        else{
+            queryData = null;
+        }
+        db.close();
+    }
+    
+     */
     public void updatePassword(String input, String password){
         AccountData dbData = this.findUser(input);
         AccountData dbData2 = this.findEmail(input);
