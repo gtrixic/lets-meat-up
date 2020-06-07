@@ -5,49 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#353552"
-    tools:context=".mainPageActivity">
+    tools:context=".PickUserActivity">
 
     <ImageButton
-        android:id="@+id/acceptUserButton"
+        android:id="@+id/profileButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/acceptuser" />
-
-    <ImageButton
-        android:id="@+id/pickUserButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pickuser" />
-
-    <TextView
-        android:id="@+id/or"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="13dp"
-        android:fontFamily="@font/josefinsansregular"
-        android:text="or"
-        android:textColor="#FFE9F9"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/acceptUserButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pickUserButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@drawable/profile" />
 
     <ImageButton
-        android:id="@+id/helpButton"
+        android:id="@+id/helpButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -57,14 +29,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/tutorial" />
 
-    <ImageButton
-        android:id="@+id/profileButton"
+    <TextView
+        android:id="@+id/userTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/josefinsansregular"
+        android:text="Random User"
+        android:textColor="#FFE9F9"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/start" />
 </androidx.constraintlayout.widget.ConstraintLayout>
