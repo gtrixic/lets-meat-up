@@ -253,7 +253,7 @@ After the user holding a user account successfully logs in to their account, the
 
 Depending on which option they select, the user will be sent to either the Random User page or the Incoming Requests page through the use of Intent.
 
-“Pick User”, “Accept User”, “Profile Button”at the top left corner and “Help Button” at the top right corner are all ImageButtons.
+“Pick User”, “Accept User”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
 
 ![](https://lh6.googleusercontent.com/F-Vlcx1D_y-d--i8k2EOSXDWXL3xghHmOrQ8t1ABwrgA88TkVpG1E6xS8Hb9rPvVdjYZwz7KvIFaQn0b4pBEkmEVMR0k--SbhZ-JLBZx)
 
@@ -265,7 +265,7 @@ Upon pressing &quot;Start&quot;, a match for the user will be generated based on
 
 If the user selects &quot;Request&quot;, a pop-up will appear to alert the user that the request has been sent. The pop-up also allows the user to choose if they want to return to the home screen or continue searching for more matches.
 
-“Start”, “Request”, “Ignore”, “Profile Button”at the top left corner and “Help Button” at the top right corner are all ImageButtons.
+“Start”, “Request”, “Ignore”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
 
 ![](https://lh4.googleusercontent.com/kJUU67-moONlOAfA658oQmq59vkIkfs8E6FghsrmiCpC3OFvLAD0rxVli4qAOocwhUOM4JBy3Wzg5hqAk8BTXYKqgmzVmZq4tbdIBfM)
 
