@@ -9,17 +9,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class UserSignUp3Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "SignUpActivity.java";
+    LMUDBHandler lmudbHandler = new LMUDBHandler(this,null,null,1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sign_up3);
-
+        final EditText allergyEditText = findViewById(R.id.allergies_preference);
         final Spinner diet = findViewById(R.id.diet);
         ArrayAdapter dAdapter = ArrayAdapter.createFromResource(this, R.array.diet_array, R.layout.spinner_layout);
         dAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
@@ -32,6 +34,12 @@ public class UserSignUp3Activity extends AppCompatActivity implements AdapterVie
         createProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // brings the user to the personality questions page
+                if (allergyEditText.getText().toString() != null){
+                StringBuffer allergyline = new StringBuffer();
+                allergyline.append(diet.getSelectedItem().toString());
+                allergyline.append(": "+allergyEditText.getText().toString());
+                lmudbHandler.addAllergies(allergyline.toString(),UserSignUp3Activity.this);}
+
                 Intent intent = new Intent(UserSignUp3Activity.this, PersonalityQuestionsActivity.class);
                 startActivity(intent);
             }
