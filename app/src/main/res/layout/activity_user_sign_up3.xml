@@ -53,6 +53,8 @@
         android:layout_width="240dp"
         android:layout_height="146dp"
         android:background="@drawable/edit_text_border"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:ems="10"
         android:fontFamily="@font/josefinsanslight"
         android:inputType="textPersonName"

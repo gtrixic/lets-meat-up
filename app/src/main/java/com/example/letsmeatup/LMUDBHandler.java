@@ -129,6 +129,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             queryData.setGender(cursor.getString(5));
             queryData.setDob(cursor.getString(6));
             queryData.setSp(cursor.getString(7));
+            queryData.setMatchid(cursor.getString(8));
             cursor.close();
 
         }
@@ -164,8 +165,11 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             SQLiteDatabase  db =this.getWritableDatabase();
             Cursor cursor =db.rawQuery(query,null);
             AccountData queryData = new AccountData();
+            Log.v(TAG, FILENAME+mID);
             Random ran = new Random();
-            int randomMatchID = ran.nextInt(10);
+            Log.v(TAG,FILENAME+String.valueOf(cursor.getCount()));
+            int randomMatchID = ran.nextInt(cursor.getCount());
+            Log.v(TAG,String.valueOf(randomMatchID));
             if (cursor.moveToPosition(randomMatchID)){
                 queryData.setFullName(cursor.getString(1));
                 queryData.setUsername(cursor.getString(2));
@@ -173,9 +177,10 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 queryData.setEmail(cursor.getString(4));
                 queryData.setGender(cursor.getString(5));
                 queryData.setDob(cursor.getString(6));
-            queryData.setSp(cursor.getString(7  ));
-            cursor.close();
-        }
+                queryData.setSp(cursor.getString(7  ));
+                queryData.setMatchid(cursor.getString(8));
+                cursor.close();
+            }
         else{
             queryData = null;
         }
@@ -189,17 +194,18 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Cursor cursor =db.rawQuery(query,null);
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()) {
-            queryData.setMatchid(cursor.getString(7));
+            queryData.setMatchid(cursor.getString(8));
+            Log.v(TAG,queryData.getMatchid());
             cursor.close();
         }
         else{
+            Log.v(TAG,"No user found!");
             queryData = null;
         }
         db.close();
+
         return queryData.getMatchid();
     }
-    
-
     public void updatePassword(String input, String password){
         AccountData dbData = this.findUser(input);
         AccountData dbData2 = this.findEmail(input);
