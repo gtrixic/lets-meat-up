@@ -118,7 +118,7 @@ All the information entered is recorded into the UserAccounts database using SQL
 
   
 
-![](https://lh5.googleusercontent.com/2UJN_iIXaMHRAonwGhekhn85B_ElyDJ61ANy2O4S1vf71HFPrqFkQ3al_3LpjlpCEIfdjl-AVNrxzHFG38iI6Mnh5wlioWbE_MJaGv-M=s1600)
+![](https://lh3.googleusercontent.com/82Pf03xGYF2U7BbN26Yl7EGuyxusFNkHOcmRYZIJlR6RdKPkBSeD8-_zybXofK5HXPpLNefYCUkTZ6cbHbVTlNHAv_fOm_WZ4pcBC4jb)
 
   
 
@@ -146,7 +146,7 @@ The user will then be asked to state their allergies/preferences and their diet 
 
 The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
 
-![](https://lh4.googleusercontent.com/Zy-SGI0wwk9-SELJEBTN99rH2Ic25lXJVPOamfAooJEZF-vIadyMhZ3mofiafpELpDGCO_q89Y4wLlNknpiScI35Dj2RrAkyNG89UJWQvbA-hFfRHsEDsG_akQCJc2c8288pnJBO)
+![](https://lh3.googleusercontent.com/C6-Oc4mLqfRSM9GsVR4DaZpTAV34BXFUybYeCMjLOwPQvBQiDXWDo66iza2aoD2l-yPmOp8Fb6juu2IsiSQFs6ZMEbHn2kdx47xmc7ah)
 
   
 
@@ -162,11 +162,11 @@ The options they choose will be translated into a code which will be tagged to e
 
 The page is created using RecyclerView where each question has a TextView of the question and 2 Buttons to choose. “Submit” is a Button.
 
-![](https://lh6.googleusercontent.com/IMDpiOC73E3dOS3Mj1ufmb6Laov0mnhbDX1LwD6xi-9X7AgN2GAw9gdCmj4rZDaqGYBAMvkV73-zgNVhdJJRsv2lZLEDTStV8XTmoLpbjy8cXrxHiwMtuTNna8fBeKQ7A7WD0AeM)
-![](https://lh5.googleusercontent.com/EeU5qNiQY4UHARPLwyHotwqpOkJWDzTfW7awanvMCUcvdvONux3IzTQOqCbAOk0492FFo8RrgdoeAnTPSqk-I0NM5O_zp-swAtwIrSro5wLlWWJn-xUEUwYgchpR7GtdkZ8VRqFd)
-![](https://lh6.googleusercontent.com/-bG6Y1VQmM4Bjk-SBoq6xXx0jEvDRr-pKWIukjo8Y4xQ1v5arz3h38EVqzl87vGB_OdmU62RzG7WFl6q3Y2eJYxubM7GJaFZmCD1HaW4wOMZc9_Sd8kemM3CcLpXWLNO3cRIEzce)
-![](https://lh4.googleusercontent.com/XzrkGmoRJxnzHEzaIdxMB_aE32v4hThcCf7OVfkYFkuL1Hh5UTC1fPEf3oTjmc1f5gYwq6bfaGJTO1tijYaHskg3wJTKW8702MFc6J-2CjxW8ays2_4bONxMtCvKormSo3SzeNTr)
-![](https://lh6.googleusercontent.com/Hc8CGe_BGYOaEFNUHyxsCiFWTRQ9Drobg93cvuBGJh1-t_r8c2Yd_HGyWLUXvw6zp19kvayEBRIsWvYYRlKDbRxxC5iypiw6nazPjiRbuo1qsyz_gfncNWn-5cRCnavDogwLwzcb)
+![](https://lh4.googleusercontent.com/SxMGOVulATYLpIIULr_Ibcx1ryio1TpSvmEu5B-gCFN_WIngooaOuEiLoP65pdEPyqbYnK-pf0gyRsd6Qzd8RkNCh9mruydx-tzAmnMU)
+![](https://lh4.googleusercontent.com/ELVg7a1zCllFatlFxzmUtvbMwjEO2tSS8qv8Ti5cF0A2a69e3YbALPrB9reHy-x3JRENw3DE88r2fmzzrtmxs82ciHF3c8MFdvlRbUDp)
+![](https://lh5.googleusercontent.com/t4X7d_1m3TbsielYqNfG7QLcs1DoYOgK2wyqPNPt8DpI4cFAIU6CC-9bzzE5bIK7_h5Hw_HkhRNshsP4HDFVzPsejCLHl8cAy3lJjWAs)
+![](https://lh3.googleusercontent.com/v3R6WbQr8mE0zbXGTDV8JIl2kiJQ_-ANlNVdcArUhueNrgzaZbHJHVF3w-ziEB8EYlgkB6D1Ya5s--LiyJRtahu0ZWNYV2BuhROBcJQg)
+![](https://lh5.googleusercontent.com/O18aoldOXTk3TRsNjf5bCIRgfayBw4gcCR8AzQfpoI_CurhGXrPj3fMY9RDMD1IJA11_i1GyzP3LrIf3-xTR_lzob-4M5usgz8Ox6SoR)
   
 
 **Sign-Up (Create Restaurant Page 1)**
@@ -197,7 +197,7 @@ The user will then be asked to add a profile picture for their account. After ad
 
 The profile picture will be added to the RestaurantAccount database using Firebase and SQLite. “Confirm Profile” is a Button.
 
-![](https://lh4.googleusercontent.com/nSTCKYyzn2MOePMMuniNx31PQ6OcFt0GRd_XryKQQGeTT0DOXYelYm8sE-rJ5chayYj0Ku-sMXx67yBuS-hFQHuvMGDH5s7sHYvZXudxY7XxhTnRy-qeCijSSS7tPZ5xmGY8rNmr)
+![](https://lh6.googleusercontent.com/fmHJvM0O8n4RLbl-ByRXjlDUnP5S9paae5WkoyAbg1GW-jzjH0AOml9h_LMrrtklA3FO_1nIjZKL4ou_cfWJPL5pC8dkvtUgP_NIAJEp)
 
   
 
@@ -258,7 +258,7 @@ Depending on which option they select, the user will be sent to either the Rando
 
 “Pick User”, “Accept User”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
 
-![](https://lh6.googleusercontent.com/F-Vlcx1D_y-d--i8k2EOSXDWXL3xghHmOrQ8t1ABwrgA88TkVpG1E6xS8Hb9rPvVdjYZwz7KvIFaQn0b4pBEkmEVMR0k--SbhZ-JLBZx)
+![](https://lh3.googleusercontent.com/hE1ClkLa6VIvGM-hI-ZED_I-uBikSdYXbREVDYFVfDApb51sDd1Ff1QZ5_Coonn53QRVWA6tkJ6YCG9ehCQ15XnwbjtZ759UshN6svBD)
 
 **Random User (Find New Matches)**
 
@@ -270,10 +270,10 @@ If the user selects &quot;Request&quot;, a pop-up will appear to alert the user 
 
 “Start”, “Request”, “Ignore”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
 
-![](https://lh5.googleusercontent.com/OrM9Vr-CX9qoeQTeFGlDkauGD7Dq_TPJuP1OutOHDl7GcA6799ocWRTrVs9k-S4ce7VM-V6-m9Alq1DOHRAGQzzmuh0O0AARqpqLysbx1R6PwSdLFEUtAkxsG8vESvC_vNp-YW0I)
-![](https://lh4.googleusercontent.com/kS5iIQK1ZrBQqhs0bFT9iDWs3Ty7Sb6l4lop_8Lxim00DYIB0eVKdOzBkCtB6qGIWimTaAVQcitp1YKCU_191CCXUcV_30uO0ZXExbEvaXzzAWad9MIbQc7YNzPRvKlsIH_x0zQL)
-![](https://lh5.googleusercontent.com/HW-sHUvbyhhl_1BAdb24s_KIJFdOr11eu3aaFO_Tqu_O8dPICzjf4t55-UeCzQAjKXhfIm4KCs_oQsB05tnyEg6iOVmi_f_9AI8sN39DpORRufU51c7muLFXNEUPFOa0WS-CVAvt)
-![](https://lh3.googleusercontent.com/q6P8R2B6-IDvTwXCi8AnwNoDDD5fZyxV0eU-WrrbMVNXo4Xb4VAQX1UHnFoCnuPKRtHhNegeErl9M-K36NvHAs4HbT8xPgr4TUlqj8pATPGq3VzVO-huGumt43Xzd9VKJdwMrSDw)
+![](https://lh4.googleusercontent.com/sFzv0KDS9eJNfca1TtTnb6GYQAQbxChyRfjLo-tRVU1nYcvf_GW8V2IycWWfkwB2lnFei0uzlEvBz3lQN8ao-p8BqXWNq5sHeH1_VPYj)
+![](https://lh5.googleusercontent.com/W-AV_W13QzrATCg3KKQ8tia2s2zDKiRAL1M2Z_mwEH-1EF3yEiKPUiOHdOCU4C3Ho41fk7iVXjpD8in6E_KIX5-HN7keDFjMqlbOzOir)
+![](https://lh6.googleusercontent.com/_ynAiVoasp62q2vPa9-YHPESzNxxW_t6OIUqzga9DjkKgKrzCcwGPentdTzdx0jWuV1c75Z2F7HkWISZ-_CEKMUVPcnrytAA2UWbQex2)
+![](https://lh6.googleusercontent.com/1mGV8JHra3zGUzyMuaNyDBUCEEMMRk3CwDJyZXWiML92hqyTl6eYB0oPRcnSveLbPnU9K4vOvYSoL2MiPUQlI88DIuY2If8p-vRp56NP)
 
 **Profile**
 
