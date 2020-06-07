@@ -3,6 +3,7 @@ package com.example.letsmeatup;
 import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 public class LMUDBHandler extends SQLiteOpenHelper {
     private String TAG = "Let's Meat Up";
     private String FILENAME = "LMUDBHandler.java";
+    private static String PREF_NAME = "prefs";
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
     public static int DATABASE_VERSION = 6;
@@ -183,6 +185,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     //add match param
     public void addMatchID(String[] matchID){
+        //TODO:Add SharedPreference to store login info to retrieve username, or store username info in SharedPreference during signup.
         //find user in database
         AccountData account = this.findUser()
         //convert matchid to string
@@ -194,6 +197,20 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         cv.put(COLUMN_MATCHID,matchid.toString());
         SQLiteDatabase db = this.getWritableDatabase();
         db.update(ACCOUNTS,cv,COLUMN)
+    }
+
+    private static SharedPreferences getPrefs(Context context){
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    public void saveUsername(Context context, String input){
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString("username",input);
+    }
+
+    public AccountData getUser(Context ctx,String input){
+        String username = getPrefs(ctx).getString("username",input);
+        return findUser(username);
     }
 
 }

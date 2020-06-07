@@ -1,5 +1,6 @@
 package com.example.letsmeatup;
 
+import android.content.SharedPreferences;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -97,11 +98,12 @@ public class AccountData {
 
     }
     //Method for checking if both passwords are the same
-    public  boolean isPasswordMatch(String password2){
+    public boolean isPasswordMatch(String password2){
         if (this.password.equals(password2)){
             return true;
         }
         return false;
     }
+
 
 }
