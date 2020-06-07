@@ -1,5 +1,6 @@
 package com.example.letsmeatup;
 
+import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -178,6 +179,21 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             this.addRestaurant(rdata);
         }
 
+    }
+
+    //add match param
+    public void addMatchID(String[] matchID){
+        //find user in database
+        AccountData account = this.findUser()
+        //convert matchid to string
+        StringBuffer matchid = new StringBuffer();
+        for (int i = 0; i < matchID.length;i++){
+            matchid.append(matchID[i]);
+        }
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_MATCHID,matchid.toString());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(ACCOUNTS,cv,COLUMN)
     }
 
 }

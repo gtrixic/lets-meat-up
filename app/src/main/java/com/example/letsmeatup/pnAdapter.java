@@ -3,18 +3,27 @@ package com.example.letsmeatup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class pnAdapter extends RecyclerView.Adapter<pnViewHolder> {
-    ArrayList<ArrayList<String>> qna;
+    private ArrayList<String> qna;
+    private HashMap<String,Integer>ans;
+    private String[] answers;
+    String[] code = {"1","1","1","1","1"};
 
 
-    public pnAdapter(ArrayList<ArrayList<String>> input)
+
+    public pnAdapter(ArrayList<String> input,HashMap<String,Integer>ans,String[]answers)
     {
-        qna = input;
+        this.qna = input;
+        this.ans = ans;
+        this.answers = answers;
     }
 
     public pnViewHolder onCreateViewHolder (ViewGroup parent, int ViewType)
@@ -24,20 +33,40 @@ public class pnAdapter extends RecyclerView.Adapter<pnViewHolder> {
         return new pnViewHolder(item);
     }
 
-    public void onBindViewHolder (pnViewHolder holder, int position)
+    public void onBindViewHolder (final pnViewHolder holder, final int position)
     {
-        ArrayList<String> a = qna.get(position);
-        String s = a.get(0);
-        String ss = a.get(1);
-        String sss = a.get(2);
-        holder.txt.setText(s);
-        holder.ans1.setText(ss);
-        holder.ans2.setText(sss);
+        String qn = qna.get(position);
+        String ans1 = answers[position+position];
+        String ans2 = answers[position+position+1];
+        String selectedAns = "";
+        holder.txt.setText(qn);
+        holder.ans1.setText(ans1);
+        holder.ans2.setText(ans2);
+        holder.answerdisplay.setText(selectedAns);
+        holder.ans1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.answerdisplay.setText(holder.ans1.getText());
+
+            }
+        });
+        holder.ans2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.answerdisplay.setText(holder.ans2.getText());
+                code[position] = "2";
+            }
+        });
+
+
     }
     public int getItemCount()
     {
         return qna.size();
     }
 
+    public String[] returnCode(){
+        return code;
+    }
 
 }

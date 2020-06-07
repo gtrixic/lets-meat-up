@@ -10,6 +10,7 @@ public class pnViewHolder extends RecyclerView.ViewHolder {
     TextView txt;
     Button ans1;
     Button ans2;
+    TextView answerdisplay;
 
     public pnViewHolder(View view)
     {
@@ -17,5 +18,7 @@ public class pnViewHolder extends RecyclerView.ViewHolder {
         txt = view.findViewById(R.id.question);
         ans1 = view.findViewById(R.id.button1);
         ans2 = view.findViewById(R.id.button2);
+        answerdisplay = view.findViewById(R.id.userAns);
+
     }
 }
