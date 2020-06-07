@@ -25,21 +25,21 @@ public class CreateUserOrBusinessActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
     }
-    private void createUser(){
+    private void createUser(){ // method to bring user to create user page
         Intent user = new Intent(CreateUserOrBusinessActivity.this,UserSignUpActivity.class);
         startActivity(user);
     }
-    private void createBusiness(){
+    private void createBusiness(){ // method to bring user to create restaurant page
         Intent business = new Intent(CreateUserOrBusinessActivity.this,AddRestaurants.class);
         startActivity(business);
     }
     public void OnClickButton1(View v){
         switch(v.getId()){
-            case R.id.createuser:
+            case R.id.createuser: // when user selects create user image button
                 Log.v(TAG, "Creating user!");
                 createUser();
                 break;
-            case R.id.createbusiness:
+            case R.id.createbusiness: // when user selects create restaurant image button
                 Log.v(TAG,"Creating business!");
                 createBusiness();
                 break;

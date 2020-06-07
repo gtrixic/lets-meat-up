@@ -19,7 +19,7 @@ public class UserSignUp3Activity extends AppCompatActivity {
         createProfile = findViewById(R.id.createProfile);
         createProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // brings the user to the personality questions page
                 Intent intent = new Intent(UserSignUp3Activity.this, PersonalityQuestionsActivity.class);
                 startActivity(intent);
             }

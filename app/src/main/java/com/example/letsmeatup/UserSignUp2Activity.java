@@ -23,7 +23,7 @@ public class UserSignUp2Activity extends AppCompatActivity {
         ImageButton nextButton = findViewById(R.id.nextArrow);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // when user clicks the next arrow button
                 AlertDialog.Builder b = new AlertDialog.Builder(UserSignUp2Activity.this);
                 b.setTitle("WIP");
                 b.setMessage("Adding profile picture is still WIP, sorry!");
@@ -35,17 +35,19 @@ public class UserSignUp2Activity extends AppCompatActivity {
                 });
                 AlertDialog alert = b.create();
                 alert.show();
+                // moves from this page to next page of sign up
                 Intent intent = new Intent(UserSignUp2Activity.this,UserSignUp3Activity.class);
                 startActivity(intent);
             }
         });
+        // alert for users that this goes to the login page
         final AlertDialog.Builder b =new AlertDialog.Builder(this);
         b.setTitle("WARNING!");
         b.setMessage("This will bring you to the login page, are you sure?");
         b.setCancelable(false);
         b.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which) { // brings user to login page
                 Log.v(TAG,"User has selected to go to login page.");
                 Intent intent = new Intent(UserSignUp2Activity.this,LoginActivity.class);
                 startActivity(intent);
@@ -53,7 +55,7 @@ public class UserSignUp2Activity extends AppCompatActivity {
         });
         b.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which) { // user remains on this page
                 Log.v(TAG,"User has selected to stay on page."  );
             }
         });

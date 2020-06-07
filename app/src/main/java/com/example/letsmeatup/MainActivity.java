@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
     @Override
-    public void onStart(){
+    public void onStart(){ // shows the app logo while moving to the signup or login page
         super.onStart();
         final Intent transition = new Intent(MainActivity.this,SignupOrLoginActivity.class);
         Handler handler = new Handler();

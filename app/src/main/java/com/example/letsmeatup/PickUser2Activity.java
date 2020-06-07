@@ -31,6 +31,7 @@ public class PickUser2Activity extends AppCompatActivity {
     /*public void getSecondUser(String pq){
         secondUser = dbHandler.findMatchID()
     }
+    public void requestAlert(){ //the alert that comes out when user clicks request
 
      */
     public void requestAlert(){
@@ -46,11 +47,11 @@ public class PickUser2Activity extends AppCompatActivity {
         AlertDialog alert = req.create();
         alert.show();
     }
-    public void mainPage(){
+    public void mainPage(){ //from this page to mainpageactivity
         Intent go = new Intent(PickUser2Activity.this,mainPageActivity.class);
         startActivity(go);
     }
-    public void ignoreAlert(){
+    public void ignoreAlert(){ //the alert that comes out when user clicks ignore
         AlertDialog.Builder ign = new AlertDialog.Builder(this);
         ign.setMessage("Request Sent!");
         ign.setCancelable(false);

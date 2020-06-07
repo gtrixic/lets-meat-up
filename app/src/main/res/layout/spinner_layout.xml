@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spinner_background"
+    android:fontFamily="@font/josefinsanslight"
+    android:padding="10dp"
+    android:text="Gender Preference"
+    android:textColor="#FFFFFF"
+    android:textColorHint="#FFFFFF"
+    android:textSize="20sp">
+
+</CheckedTextView>

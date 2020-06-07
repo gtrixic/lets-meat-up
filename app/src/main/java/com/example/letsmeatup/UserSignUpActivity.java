@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -13,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class UserSignUpActivity extends AppCompatActivity {
+public class UserSignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String TAG ="Let's-Meat-Up SignUpActivity";
     String[] Gender = {"M","F"};
     String GenderSelected;
@@ -26,6 +27,7 @@ public class UserSignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sign_up);
+
         Spinner genderSpinner = findViewById(R.id.gender);
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -45,6 +47,13 @@ public class UserSignUpActivity extends AppCompatActivity {
         //setting array adapter data for spinner
         genderSpinner.setAdapter(arrayAdapter);
 
+        //spinner for gender preference
+        final Spinner genderPref = findViewById(R.id.genderpreference);
+        ArrayAdapter gpAdapter = ArrayAdapter.createFromResource(this, R.array.gender_pref_array, R.layout.spinner_layout);
+        gpAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+        genderPref.setAdapter(gpAdapter);
+        genderPref.setOnItemSelectedListener(this);
+
 
         ImageButton nextButton = findViewById(R.id.nextArrow);
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -57,9 +66,8 @@ public class UserSignUpActivity extends AppCompatActivity {
                 EditText checkPassword = findViewById(R.id.passwordtwice);
                 EditText Email = findViewById(R.id.email);
                 EditText Date = findViewById(R.id.DOB);
-                EditText SP = findViewById(R.id.sexualpreference);
                 //put edit texts into an array to loop through to check if any values return null
-                EditText[] Info = {FullName,Username,Password,checkPassword,Email,SP};
+                EditText[] Info = {FullName,Username,Password,checkPassword,Email};
                 for(EditText line : Info){
                     if (line.getText().toString() == null){
                         allInputFilled = false;
@@ -79,7 +87,7 @@ public class UserSignUpActivity extends AppCompatActivity {
                         dbAccountData.setEmail(Email.getText().toString());
                         dbAccountData.setGender(GenderSelected);
                         dbAccountData.setDob(Date.getText().toString());
-                        dbAccountData.setSp(SP.getText().toString());
+                        dbAccountData.setSp(genderPref.getSelectedItem().toString());
                         if(dbAccountData.isPasswordMatch(checkPassword.getText().toString())) {
                             lmudbHandler.addUser(dbAccountData);
                             Toast.makeText(UserSignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
@@ -126,5 +134,13 @@ public class UserSignUpActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.v(TAG, parent.getSelectedItem().toString() + "selected.");
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
