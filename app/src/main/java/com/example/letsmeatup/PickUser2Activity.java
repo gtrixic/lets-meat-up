@@ -59,15 +59,20 @@ public class PickUser2Activity extends AppCompatActivity {
     }
 
     public void getSecondUser() {
+        // gets user details for the current user
         firstUser = dbHandler.getUser(this);
         Log.v(TAG,FILENAME+firstUser.getUsername());
+        // gets matching id from user details
         firstmID = firstUser.getMatchid();
         Log.v(TAG,FILENAME+firstmID);
+        // use method to match the users
         secondUser = dbHandler.findMatchingID(firstmID);
+        // setting user details into Textviews
         name.setText(secondUser.getFullName());
         String stdate = secondUser.getDob();
         Date date = new Date();
         Date c = Calendar.getInstance().getTime();
+        // getting age from dob
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             date = format.parse(stdate);
@@ -82,7 +87,7 @@ public class PickUser2Activity extends AppCompatActivity {
         sp.setText(secondUser.getSp());
     }
 
-    public void requestAlert() {
+    public void requestAlert() { // tells user that request to pair is sent
         AlertDialog.Builder req = new AlertDialog.Builder(this);
         req.setMessage("Request Sent!");
         req.setCancelable(false);

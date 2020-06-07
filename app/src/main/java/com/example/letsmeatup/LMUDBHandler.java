@@ -119,6 +119,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
+        // temp account details holder
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
             queryData.setID((cursor.getInt(0)));
@@ -143,6 +144,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
                 SQLiteDatabase  db =this.getWritableDatabase();
                 Cursor cursor =db.rawQuery(query,null);
+                // temp account details holder
                 AccountData queryData = new AccountData();
                 if (cursor.moveToFirst()){
                     queryData.setFullName(cursor.getString(1));
@@ -164,8 +166,10 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_MATCHID +"=\""+mID +"\"";
             SQLiteDatabase  db =this.getWritableDatabase();
             Cursor cursor =db.rawQuery(query,null);
+            // temp account details holder
             AccountData queryData = new AccountData();
             Log.v(TAG, FILENAME+mID);
+            // get random number to choose paired user
             Random ran = new Random();
             Log.v(TAG,FILENAME+String.valueOf(cursor.getCount()));
             int randomMatchID = ran.nextInt(cursor.getCount());
@@ -192,6 +196,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+id +"\"";
         SQLiteDatabase  db =this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
+        // temp account details holder
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()) {
             queryData.setMatchid(cursor.getString(8));
