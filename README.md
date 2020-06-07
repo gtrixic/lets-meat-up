@@ -118,7 +118,7 @@ All the information entered is recorded into the UserAccounts database using SQL
 
   
 
-![](https://lh4.googleusercontent.com/oYsM3LiRJb9DkOWsgNVx5IbDBUs7n0UYXj7KEMwJHdbUSWdUmq4Zdj7L0ba8DN1ppQ7p_1mXwJLMXqWfAL2pAi5Gix4uIIrR3NqXUAGf)
+![](https://lh5.googleusercontent.com/2UJN_iIXaMHRAonwGhekhn85B_ElyDJ61ANy2O4S1vf71HFPrqFkQ3al_3LpjlpCEIfdjl-AVNrxzHFG38iI6Mnh5wlioWbE_MJaGv-M=s1600)
 
   
 
@@ -146,7 +146,7 @@ The user will then be asked to state their allergies/preferences and their diet 
 
 The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
 
-![](https://lh4.googleusercontent.com/F6l9qjhyP90PXNbNxx1EcpPnjy8S7WfQ3xv4bNfDpikqszxSjfXXgkk9SnLcArRcVgCFDbPJ0nxRqVCqB5rP82-Lg-Oj2ZlW6WYCAx2q)
+![](https://lh4.googleusercontent.com/Zy-SGI0wwk9-SELJEBTN99rH2Ic25lXJVPOamfAooJEZF-vIadyMhZ3mofiafpELpDGCO_q89Y4wLlNknpiScI35Dj2RrAkyNG89UJWQvbA-hFfRHsEDsG_akQCJc2c8288pnJBO)
 
   
 
@@ -162,8 +162,11 @@ The options they choose will be translated into a code which will be tagged to e
 
 The page is created using RecyclerView where each question has a TextView of the question and 2 Buttons to choose. “Submit” is a Button.
 
-![](https://lh4.googleusercontent.com/6EEXFpTSg6cBYnyJildYpASl5OpiRWknwNnqoUUdkUqlwuaQmb7PAnRROoy2co6V-cxZBIqPqVzD9GdJ9vQHB291E_HENc5UyGca07rH)
-![](https://lh4.googleusercontent.com/EZPWtZPM_9k47p4Lpl5lSz4MfcDvWI7yms-ZB3aTRmbeevnThw8d1TnteCcRzZufzTL8X9UbDM9y0eCR60t6QoOyehfoxQnYroSAU0oA)
+![](https://lh6.googleusercontent.com/IMDpiOC73E3dOS3Mj1ufmb6Laov0mnhbDX1LwD6xi-9X7AgN2GAw9gdCmj4rZDaqGYBAMvkV73-zgNVhdJJRsv2lZLEDTStV8XTmoLpbjy8cXrxHiwMtuTNna8fBeKQ7A7WD0AeM)
+![](https://lh5.googleusercontent.com/EeU5qNiQY4UHARPLwyHotwqpOkJWDzTfW7awanvMCUcvdvONux3IzTQOqCbAOk0492FFo8RrgdoeAnTPSqk-I0NM5O_zp-swAtwIrSro5wLlWWJn-xUEUwYgchpR7GtdkZ8VRqFd)
+![](https://lh6.googleusercontent.com/-bG6Y1VQmM4Bjk-SBoq6xXx0jEvDRr-pKWIukjo8Y4xQ1v5arz3h38EVqzl87vGB_OdmU62RzG7WFl6q3Y2eJYxubM7GJaFZmCD1HaW4wOMZc9_Sd8kemM3CcLpXWLNO3cRIEzce)
+![](https://lh4.googleusercontent.com/XzrkGmoRJxnzHEzaIdxMB_aE32v4hThcCf7OVfkYFkuL1Hh5UTC1fPEf3oTjmc1f5gYwq6bfaGJTO1tijYaHskg3wJTKW8702MFc6J-2CjxW8ays2_4bONxMtCvKormSo3SzeNTr)
+![](https://lh6.googleusercontent.com/Hc8CGe_BGYOaEFNUHyxsCiFWTRQ9Drobg93cvuBGJh1-t_r8c2Yd_HGyWLUXvw6zp19kvayEBRIsWvYYRlKDbRxxC5iypiw6nazPjiRbuo1qsyz_gfncNWn-5cRCnavDogwLwzcb)
   
 
 **Sign-Up (Create Restaurant Page 1)**
@@ -194,7 +197,7 @@ The user will then be asked to add a profile picture for their account. After ad
 
 The profile picture will be added to the RestaurantAccount database using Firebase and SQLite. “Confirm Profile” is a Button.
 
-![](https://lh5.googleusercontent.com/iMxGuGR3kEPn_WpGa_duc23_U498K5C1-LaSjCoettT1O5PLsYpzSrCl4wpEm0qlMkY7KDi8ijXIxtV4g-EQUEex58cSjQc--tVSqpE)
+![](https://lh4.googleusercontent.com/nSTCKYyzn2MOePMMuniNx31PQ6OcFt0GRd_XryKQQGeTT0DOXYelYm8sE-rJ5chayYj0Ku-sMXx67yBuS-hFQHuvMGDH5s7sHYvZXudxY7XxhTnRy-qeCijSSS7tPZ5xmGY8rNmr)
 
   
 
@@ -267,7 +270,10 @@ If the user selects &quot;Request&quot;, a pop-up will appear to alert the user 
 
 “Start”, “Request”, “Ignore”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
 
-![](https://lh4.googleusercontent.com/kJUU67-moONlOAfA658oQmq59vkIkfs8E6FghsrmiCpC3OFvLAD0rxVli4qAOocwhUOM4JBy3Wzg5hqAk8BTXYKqgmzVmZq4tbdIBfM)
+![](https://lh5.googleusercontent.com/OrM9Vr-CX9qoeQTeFGlDkauGD7Dq_TPJuP1OutOHDl7GcA6799ocWRTrVs9k-S4ce7VM-V6-m9Alq1DOHRAGQzzmuh0O0AARqpqLysbx1R6PwSdLFEUtAkxsG8vESvC_vNp-YW0I)
+![](https://lh4.googleusercontent.com/kS5iIQK1ZrBQqhs0bFT9iDWs3Ty7Sb6l4lop_8Lxim00DYIB0eVKdOzBkCtB6qGIWimTaAVQcitp1YKCU_191CCXUcV_30uO0ZXExbEvaXzzAWad9MIbQc7YNzPRvKlsIH_x0zQL)
+![](https://lh5.googleusercontent.com/HW-sHUvbyhhl_1BAdb24s_KIJFdOr11eu3aaFO_Tqu_O8dPICzjf4t55-UeCzQAjKXhfIm4KCs_oQsB05tnyEg6iOVmi_f_9AI8sN39DpORRufU51c7muLFXNEUPFOa0WS-CVAvt)
+![](https://lh3.googleusercontent.com/q6P8R2B6-IDvTwXCi8AnwNoDDD5fZyxV0eU-WrrbMVNXo4Xb4VAQX1UHnFoCnuPKRtHhNegeErl9M-K36NvHAs4HbT8xPgr4TUlqj8pATPGq3VzVO-huGumt43Xzd9VKJdwMrSDw)
 
 **Profile**
 
