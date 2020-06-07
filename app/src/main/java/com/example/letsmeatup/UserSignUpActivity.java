@@ -42,8 +42,8 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
         });
         //Creating Adapter to contain gender string array
         //temporarily using simple layout for arrayadapter, will update
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,Gender);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.spinner_layout,Gender);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         //setting array adapter data for spinner
         genderSpinner.setAdapter(arrayAdapter);
 

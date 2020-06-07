@@ -30,7 +30,7 @@ public class CreateUserOrBusinessActivity extends AppCompatActivity {
         startActivity(user);
     }
     private void createBusiness(){ // method to bring user to create restaurant page
-        Intent business = new Intent(CreateUserOrBusinessActivity.this,AddRestaurants.class);
+        Intent business = new Intent(CreateUserOrBusinessActivity.this, RestaurantSignUpActivity.class);
         startActivity(business);
     }
     public void OnClickButton1(View v){
