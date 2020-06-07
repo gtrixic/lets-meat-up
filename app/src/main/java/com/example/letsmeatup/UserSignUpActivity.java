@@ -15,7 +15,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class UserSignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private String TAG ="Let's-Meat-Up SignUpActivity";
+    private static final String TAG ="Let's-Meat-Up";
+    private String FILENAME = "UserSignUpActivity.java";
     String[] Gender = {"M","F"};
     String GenderSelected;
     Boolean allInputFilled = true;

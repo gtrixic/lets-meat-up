@@ -9,15 +9,14 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class CreateUserOrBusinessActivity extends AppCompatActivity {
-    private ImageButton userAccount;
-    private ImageButton businessAccount;
+    ImageButton userAccount;
+    ImageButton businessAccount;
     private static final String TAG = "Let's Meat Up";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user_or_business);
-        Intent recData = getIntent();
         userAccount = findViewById(R.id.createuser);
         businessAccount = findViewById(R.id.createbusiness);
     }

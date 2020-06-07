@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class UserSignUp2Activity extends AppCompatActivity {
-    private static String TAG = "Let's-Meat-Up UserSignUp2Activity";
+    private static final String TAG = "Let's-Meat-Up";
+    private String FILENAME = "UserSignUp2Activity.java";
     //TODO:ADD PROFILE PICTURE WITH FIREBASE STORAGE SDK
 
     @Override

@@ -21,7 +21,7 @@ public class AddRestaurants extends AppCompatActivity {
         Button sendterm = findViewById(R.id.SendTerm);
         sendterm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //adding restaurants into the database via YelpAPI
                 getYelpAPI api = new getYelpAPI(AddRestaurants.this);
                 HashMap<String,String> params = new HashMap<>();
                 params.put("term",term.getText().toString());

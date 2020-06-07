@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Intent recData = getIntent();
         login = findViewById(R.id.nextArrow);
         forgetPass = findViewById(R.id.forgetPasswordButton);
         login.setOnClickListener(new View.OnClickListener() { // when user clicks login
@@ -35,7 +34,8 @@ public class LoginActivity extends AppCompatActivity {
                 loginPass =  findViewById(R.id.loginPassword);
                 if (validCredential(loginUser.getText().toString(), loginPass.getText().toString())) {
                     dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());
-                    if(dbHandler.findMatchID(dbHandler.getUser(LoginActivity.this).getUsername()) == null){
+                    if(dbHandler.findMatchID(dbHandler.getUser(LoginActivity.this).getUsername()) == null){ //if user did not complete
+                                                                                                                //personality QNA
                         Intent intent = new Intent(LoginActivity.this,PersonalityQuestionsActivity.class);
                         startActivity(intent);
                     }

@@ -1,6 +1,7 @@
 package com.example.letsmeatup;
 
 public class RestaurantData {
+    //store RestaurantData information
     private String Name;
     private String Address;
     private String Password;

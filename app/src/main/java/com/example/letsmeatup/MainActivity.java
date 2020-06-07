@@ -9,6 +9,8 @@ import android.os.Handler;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "Let's-Meat-Up";
+    private String FILENAME = "MainActivity.java";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
