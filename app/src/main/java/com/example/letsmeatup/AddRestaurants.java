@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -30,6 +31,7 @@ public class AddRestaurants extends AppCompatActivity {
                 params.put("limit","50");
                 params.put("sort_by","rating");
                 api.execute(params);
+                Toast.makeText(AddRestaurants.this,"50 Restaurants with tag: "+term.getText().toString()+" added!",Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,8 +1,10 @@
 package com.example.letsmeatup;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +36,7 @@ public class ForgetPassword1Activity extends AppCompatActivity {
                 if(checkSimilarity(enterOnce.getText().toString(),enterTwice.getText().toString())){ //if the 2 passwords are identical
                     dbHandler.updatePassword(input, enterOnce.getText().toString()); //password is updated in database
                     nextPage();
+                    finish();
                 }
                 else{
                     Toast.makeText(ForgetPassword1Activity.this,"Passwords do not match",Toast.LENGTH_SHORT).show();
@@ -41,6 +44,20 @@ public class ForgetPassword1Activity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                        System.exit(0);
+                    }
+                }).create().show();
     }
     public boolean checkSimilarity(String once, String twice){ //to check if the 2 password inputs are the same
         if(once.equals(twice)){

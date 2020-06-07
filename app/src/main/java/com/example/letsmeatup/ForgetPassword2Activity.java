@@ -1,7 +1,9 @@
 package com.example.letsmeatup;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,5 +29,20 @@ public class ForgetPassword2Activity extends AppCompatActivity { //show successf
     public void nextPage(){
         Intent next = new Intent(ForgetPassword2Activity.this,LoginActivity.class);
         startActivity(next);
+        finish();
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                        System.exit(0);
+                    }
+                }).create().show();
     }
 }

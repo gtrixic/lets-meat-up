@@ -96,6 +96,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                             lmudbHandler.saveUsername(UserSignUpActivity.this,Username.getText().toString());
                             Intent intent = new Intent(UserSignUpActivity.this,UserSignUp2Activity.class);
                             startActivity(intent);
+                            finish();
                         }
                         else{
                             Toast.makeText(UserSignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();

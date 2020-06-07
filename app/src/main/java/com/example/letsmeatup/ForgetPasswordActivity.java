@@ -1,7 +1,9 @@
 package com.example.letsmeatup;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,10 +38,25 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                        System.exit(0);
+                    }
+                }).create().show();
+    }
     public void nextPage(){ //after validating user input, pass the input to the next page of forget password
         Intent next = new Intent(ForgetPasswordActivity.this,ForgetPassword1Activity.class);
         next.putExtra("input",enterInfo.getText().toString());
         startActivity(next);
+        finish();
     }
     public boolean validCredential(String input){ //check if the username/email entered exists in the database
         AccountData dbData = dbHandler.findUser(input); //if user entered username

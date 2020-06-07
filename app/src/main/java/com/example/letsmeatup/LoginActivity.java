@@ -1,7 +1,9 @@
 package com.example.letsmeatup;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.autofill.UserData;
@@ -37,8 +39,14 @@ public class LoginActivity extends AppCompatActivity {
                     //save both username and email shared preferences as the loginuser temporarily
                     dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());//if user did not complete Personality QNA
                     dbHandler.saveEmail(LoginActivity.this,loginUser.getText().toString());
+                    Log.v(TAG,"Shared Preference User: "+dbHandler.getUser(LoginActivity.this,"username").getUsername());
+                    if (dbHandler.getUser(LoginActivity.this, "username").getUsername().equals("ADMIN")){
+                        Log.v(TAG,"Going to admin page");
+                        Intent intent = new Intent(LoginActivity.this, AddRestaurants.class);
+                        startActivity(intent);
+                    }
                     //try to get user via username
-                    if(dbHandler.getUser(LoginActivity.this,"username") != null){
+                    else if(dbHandler.getUser(LoginActivity.this,"username") != null){
                         //set account data into variable
                         AccountData account = dbHandler.getUser(LoginActivity.this,"username");
                         //get correct email from accountdata and save into shared preference
@@ -70,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                             mainPage();
                         }
                     }
+
+
                     else {
                         mainPage();
                     }
@@ -123,6 +133,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+                        Intent intent = new Intent(LoginActivity.this,SignupOrLoginActivity.class);
+                        startActivity(intent);
     }
 
 }

@@ -204,7 +204,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()) {
             queryData.setMatchid(cursor.getString(8));
-            Log.v(TAG,queryData.getMatchid());
             cursor.close();
         }
         else{

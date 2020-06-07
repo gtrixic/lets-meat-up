@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="gender_pref_array">
+        <item>heterosexual</item>
         <item>homosexual</item>
         <item>bisexual</item>
-        <item>heterosexual</item>
     </string-array>
 </resources>
