@@ -27,6 +27,7 @@ public class PickUser2Activity extends AppCompatActivity {
     String firstmID;
     AccountData firstUser;
     AccountData secondUser;
+
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "PickUser2Activity.java";
     LMUDBHandler dbHandler = new LMUDBHandler(this, null, null, 1);
@@ -57,6 +58,7 @@ public class PickUser2Activity extends AppCompatActivity {
     }
 
     public void getSecondUser() {
+        boolean isUser = false;
         // gets user details for the current user
         firstUser = dbHandler.getUser(this,"username");
         Log.v(TAG,FILENAME+firstUser.getUsername());
@@ -65,6 +67,12 @@ public class PickUser2Activity extends AppCompatActivity {
         Log.v(TAG,FILENAME+firstmID);
         // use method to match the users
         secondUser = dbHandler.findMatchingID(firstmID);
+        while (!isUser){
+            if(firstUser.getUsername().equals(secondUser.getUsername())){
+                secondUser = dbHandler.findMatchingID(firstmID);
+            }
+            else{isUser = true;}
+        }
         // setting user details into Textviews
         name.setText(secondUser.getFullName());
         String stdate = secondUser.getDob();

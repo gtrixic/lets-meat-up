@@ -189,6 +189,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         else{
             queryData = null;
         }
+
         db.close();
         return queryData;
     }

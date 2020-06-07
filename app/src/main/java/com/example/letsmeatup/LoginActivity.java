@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
                     dbHandler.saveEmail(LoginActivity.this,loginUser.getText().toString());
 
                     if(dbHandler.getUser(LoginActivity.this,"username") != null){
-                        AccountData account = dbHandler.getUser(LoginActivity.this,"email");
+                        AccountData account = dbHandler.getUser(LoginActivity.this,"username");
                         dbHandler.saveEmail(LoginActivity.this,account.getEmail());
                         if(dbHandler.findMatchID(account.getUsername())== null) {
 
