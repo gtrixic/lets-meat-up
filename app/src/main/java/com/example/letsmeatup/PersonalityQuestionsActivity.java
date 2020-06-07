@@ -69,8 +69,6 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
 
         //TODO:FIND A WAY TO MAKE THE BUTTONS BECOME SELECTED AND RETURN EITHER 1 OR 2
 
-
-
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,12 +79,5 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
-
-
-
-
-
 }
