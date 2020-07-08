@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "792132536236",
+    "firebase_url": "https://let-s-meat-up.firebaseio.com",
+    "project_id": "let-s-meat-up",
+    "storage_bucket": "let-s-meat-up.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792132536236:android:09cd49cdd2045bb6b91c09",
+        "android_client_info": {
+          "package_name": "com.example.letsmeatup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792132536236-vtn3vlu671p0uftcrvv6nav5u8se3116.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.letsmeatup",
+            "certificate_hash": "738baa30e074d12018fde500fa79b2cf9334af59"
+          }
+        },
+        {
+          "client_id": "792132536236-c8ljcdcq30tjj6h8fto5d0t2kuqhq19t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu0EFogxRUg9tmx0QKWcub7hjhFCainXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792132536236-c8ljcdcq30tjj6h8fto5d0t2kuqhq19t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
