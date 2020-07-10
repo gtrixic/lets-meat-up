@@ -28,6 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity {
     EditText loginUser;
     EditText loginPass;
@@ -65,24 +68,38 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             // Sign in success, update UI with the signed-in user's information
-                                            Log.d(TAG, "signInWithEmail:success");
+                                            Log.v(TAG, "signInWithEmail:success");
                                             FirebaseUser user = mAuth.getCurrentUser();
                                             //Save user info
                                             //check if there is match id in database
                                             //query current user
-                                            Query matchidQuery = fireRef.orderByChild("Email").equalTo(user.getEmail());
-                                            matchidQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            Log.v(TAG,"Current user's email:"+user.getEmail());
+                                            Query matchIDQuery = fireRef.orderByChild("email").equalTo(user.getEmail());
+                                            final List<AccountData> accountDataList = new ArrayList<>();
+                                            matchIDQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                                                        String matchID = singleSnapshot.getValue(String.class);
-                                                        if (matchID == null) {
+                                                    for(DataSnapshot s : dataSnapshot.getChildren()){
+                                                    AccountData account = s.getValue(AccountData.class);
+                                                    Log.v(TAG,"Account Name"+account.getFullName());
+                                                    accountDataList.add(account);
+                                                    }
+
+
+                                                    if(dataSnapshot.exists()){
+
+                                                        Log.v(TAG,"MatchID:"+ accountDataList.get(0).getMatchid());
+                                                        if (accountDataList.get(0).getMatchid().equals("0")) {
+                                                            Log.v(TAG,"Personality questions not done!");
                                                             //go to personality question activity
                                                             Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
                                                             startActivity(intent);
                                                         }
-                                                        //goes to main page
-                                                        mainPage();
+                                                        else {
+                                                            //goes to main page
+                                                            Log.v(TAG, "Personality questions done!");
+                                                            mainPage();
+                                                        }
                                                     }
                                                 }
 
