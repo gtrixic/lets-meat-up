@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.402" />
 
     <TextView
-        android:id="@+id/dobView"
+        android:id="@+id/genderView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsanslight"
@@ -40,9 +40,11 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/dobView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664" />
+        app:layout_constraintVertical_bias="0.662" />
 
     <TextView
         android:id="@+id/name"
