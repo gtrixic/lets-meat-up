@@ -191,7 +191,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/edit"
+        android:id="@+id/confirm"
         android:layout_width="163dp"
         android:layout_height="45dp"
         android:background="@drawable/edit_text_border"
