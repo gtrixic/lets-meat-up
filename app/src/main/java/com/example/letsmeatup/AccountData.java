@@ -18,7 +18,7 @@ public class AccountData {
     private String email;
     private String gender;
     private String dob;
-    private String sp;
+    private String al;
     private String matchid;
 
     public AccountData(){}
@@ -31,6 +31,7 @@ public class AccountData {
         this.email = email;
         this.gender = gender;
         this.dob = dob;
+        this.al = al;
         this.matchid = matchid;
 
     }

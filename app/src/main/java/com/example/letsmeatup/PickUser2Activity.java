@@ -21,7 +21,7 @@ public class PickUser2Activity extends AppCompatActivity {
     TextView name;
     TextView ageT;
     TextView gender;
-    TextView sp;
+    TextView allergy;
     ImageButton request;
     ImageButton ignore;
     String firstmID;
@@ -39,7 +39,7 @@ public class PickUser2Activity extends AppCompatActivity {
         name = findViewById(R.id.nameText);
         ageT = findViewById(R.id.ageText);
         gender = findViewById(R.id.genderText);
-        sp = findViewById(R.id.spText);
+        allergy = findViewById(R.id.allergyText);
         request = findViewById(R.id.requestButton);
         ignore = findViewById(R.id.ignoreButton);
         getSecondUser();
@@ -90,7 +90,7 @@ public class PickUser2Activity extends AppCompatActivity {
         String strAge = String.valueOf(ageinyears);
         ageT.setText(strAge);
         gender.setText(secondUser.getGender());
-
+        allergy.setText(secondUser.get());
     }
 
     public void requestAlert() { // tells user that request to pair is sent
