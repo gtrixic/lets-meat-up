@@ -69,22 +69,22 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+RESTAURANTS);
         onCreate(db);
     }
-/*    public void addUser(AccountData accountData){ //adding a new user into the user accounts table
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_FULLNAME,accountData.getFullName());
-        values.put(COLUMN_USERNAME, accountData.getUsername());
-        values.put(COLUMN_PASSWORD, accountData.getPassword());
-        values.put(COLUMN_EMAIL,accountData.getEmail());
-        values.put(COLUMN_GENDER,accountData.getGender());
-        values.put(COLUMN_DOB,accountData.getDob());
-        values.put(COLUMN_SP, accountData.getSp());
-        //Get Database
-        SQLiteDatabase db = this.getWritableDatabase();
-        Log.v(TAG, FILENAME+ ": "+ values.toString());
-        db.insert(ACCOUNTS, null, values);
-        db.close();
-
-    }
+//    public void addUser(AccountData accountData){ //adding a new user into the user accounts table
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_FULLNAME,accountData.getFullName());
+//        values.put(COLUMN_USERNAME, accountData.getUsername());
+//        values.put(COLUMN_PASSWORD, accountData.getPassword());
+//        values.put(COLUMN_EMAIL,accountData.getEmail());
+//        values.put(COLUMN_GENDER,accountData.getGender());
+//        values.put(COLUMN_DOB,accountData.getDob());
+//        values.put(COLUMN_SP, accountData.getSp());
+//        //Get Database
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Log.v(TAG, FILENAME+ ": "+ values.toString());
+//        db.insert(ACCOUNTS, null, values);
+//        db.close();
+//
+//    }
     public void addRestaurant(RestaurantData rdata){ //adding a new user into the restaurant accounts table
         ContentValues values = new ContentValues();
         values.put(COLUMN_RESTAURANTNAME,rdata.getRestaurantName());
@@ -132,7 +132,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             queryData.setEmail(cursor.getString(4));
             queryData.setGender(cursor.getString(5));
             queryData.setDob(cursor.getString(6));
-            queryData.setSp(cursor.getString(7));
             queryData.setMatchid(cursor.getString(8));
             cursor.close();
 
@@ -156,7 +155,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                     queryData.setEmail(cursor.getString(4));
                     queryData.setGender(cursor.getString(5));
                     queryData.setDob(cursor.getString(6));
-                    queryData.setSp(cursor.getString(7  ));
+
                     cursor.close();
         }
         else{
@@ -164,8 +163,8 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return queryData;
-    }*/
-   /* public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
+    }
+   public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_MATCHID +"=\""+mID +"\"";
             SQLiteDatabase  db =this.getWritableDatabase();
             Cursor cursor =db.rawQuery(query,null);
@@ -184,8 +183,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 queryData.setEmail(cursor.getString(4));
                 queryData.setGender(cursor.getString(5));
                 queryData.setDob(cursor.getString(6));
-                queryData.setSp(cursor.getString(7));
-                queryData.setMatchid(cursor.getString(8));
+                queryData.setMatchid(cursor.getString(7));
                 cursor.close();
             }
         else{
@@ -194,9 +192,9 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
         db.close();
         return queryData;
-    }*/
+    }
 
-    /*public String findMatchID(String id){ //return the match ID of the user by the username
+    public String findMatchID(String id){ //return the match ID of the user by the username
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+id +"\"";
         SQLiteDatabase  db =this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
@@ -230,16 +228,16 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             db.update(ACCOUNTS, cv,COLUMN_EMAIL+"='"+input+"'",null); //update password in table
             db.close();
         }
-    }*/
+    }
     //Used with yelp api, only for admin use
-    /*public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
+    public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
         for(RestaurantData rdata : rDataList){
             this.addRestaurant(rdata);
         }
 
-    }*/
+    }
 
-    /*//add match param
+    //add match param
     public void addMatchID(String[] matchID,Context ctx){
         //find user in database
         AccountData account;
@@ -264,7 +262,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             Log.v(TAG,"User not Logged in?");
         }
 
-    }*/
+    }
 
     private static SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -290,7 +288,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
 
-   /* public AccountData getUser(Context ctx,String inputype){//return the current user's AccountData
+   public AccountData getUser(Context ctx,String inputype){//return the current user's AccountData
         switch(inputype){
             case "username":
                 String username = getPrefs(ctx).getString("username","default_username");
@@ -328,6 +326,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.update(ACCOUNTS,cv,COLUMN_USERNAME +"= '" +account.getUsername()+"'",null);
         Log.v(TAG,"Allergy field added!");
 
-    }*/
+    }
 
 }

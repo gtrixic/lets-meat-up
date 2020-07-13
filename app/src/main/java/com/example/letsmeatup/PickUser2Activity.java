@@ -90,7 +90,7 @@ public class PickUser2Activity extends AppCompatActivity {
         String strAge = String.valueOf(ageinyears);
         ageT.setText(strAge);
         gender.setText(secondUser.getGender());
-        sp.setText(secondUser.getSp());
+
     }
 
     public void requestAlert() { // tells user that request to pair is sent
