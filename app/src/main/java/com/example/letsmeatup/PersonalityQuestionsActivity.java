@@ -83,9 +83,12 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                     }
                 }
                 if(allInputsFilled){
-                dbHandler.addMatchID(pnAdapter.returnCode(),PersonalityQuestionsActivity.this);
-                Intent intent = new Intent(PersonalityQuestionsActivity.this, mainPageActivity.class);
-                startActivity(intent);}
+                    //add match id to user's account
+                    //get user id
+                    String userid = dbHandler.getUserDetail(PersonalityQuestionsActivity.this,"id");
+                    dbHandler.addMatchID(pnAdapter.returnCode(),userid);
+                    Intent intent = new Intent(PersonalityQuestionsActivity.this, mainPageActivity.class);
+                    startActivity(intent);}
                 else{
                     allInputsFilled = true;
                 }

@@ -34,7 +34,7 @@ public class ForgetPassword1Activity extends AppCompatActivity {
                 enterOnce = findViewById(R.id.enterPassword);
                 enterTwice = findViewById(R.id.reenterPassword);
                 if(checkSimilarity(enterOnce.getText().toString(),enterTwice.getText().toString())){ //if the 2 passwords are identical
-                    dbHandler.updatePassword(input, enterOnce.getText().toString()); //password is updated in database
+//                    dbHandler.updatePassword(input, enterOnce.getText().toString()); //password is updated in database
                     nextPage();
                     finish();
                 }
