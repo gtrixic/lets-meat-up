@@ -17,7 +17,6 @@
         <activity android:name=".ForgetPassword1Activity" />
         <activity android:name=".PersonalityQuestionsActivity" />
         <activity android:name=".mainPageActivity" />
-        <activity android:name=".CreateUserOrBusinessActivity" />
         <activity android:name=".UserSignUp3Activity" />
         <activity android:name=".RestaurantSignUp2Activity" />
         <activity android:name=".UserSignUp2Activity" />
