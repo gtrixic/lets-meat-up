@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginPass;
     ImageButton login;
     Button forgetPass;
-    private static String PREF_NAME = "prefs";
     DatabaseReference fireRef = FirebaseDatabase.getInstance().getReference("Users");
     public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "LoginActivity.java";

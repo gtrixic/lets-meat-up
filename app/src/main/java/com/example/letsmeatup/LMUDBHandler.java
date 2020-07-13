@@ -11,6 +11,10 @@ import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.service.autofill.UserData;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -22,6 +26,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private String TAG = "Let's-Meat-Up";
     private String FILENAME = "LMUDBHandler.java";
     private static String PREF_NAME = "prefs";
+    private DatabaseReference fireRef;
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
     public static int DATABASE_VERSION = 8;
@@ -59,6 +64,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)"; //creating restaurant table
         db.execSQL(CREATE_ACCOUNTS_TABLE);
         db.execSQL(CREATE_RESTAURANT_TABLE);
+
 
     }
     @Override
@@ -125,7 +131,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         // temp account details holder
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
-            queryData.setID((cursor.getInt(0)));
+            queryData.setID((cursor.getString(0)));
             queryData.setFullName(cursor.getString(1));
             queryData.setUsername(cursor.getString(2));
             queryData.setPassword(cursor.getString(3));
@@ -238,29 +244,15 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
     //add match param
-    public void addMatchID(String[] matchID,Context ctx){
-        //find user in database
-        AccountData account;
-        try {
-            account = this.getUser(ctx,"username");
-            if (account == null){
-                account = this.getUser(ctx,"email");
-            }
-
-            //convert matchid to string
-            StringBuffer matchid = new StringBuffer();
-            for (int i = 0; i < matchID.length;i++){
-                matchid.append(matchID[i]);
-            }
-            ContentValues cv = new ContentValues();
-            cv.put(COLUMN_MATCHID,matchid.toString());
-            SQLiteDatabase db = this.getWritableDatabase();
-            db.update(ACCOUNTS,cv,COLUMN_USERNAME+"='"+account.getUsername()+"'",null);
-            Log.v(TAG,"MatchID Added!");
+    public void addMatchID(String[] matchID,String id){
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        //convert matchid to string
+        StringBuffer matchid = new StringBuffer();
+        for (int i = 0; i < matchID.length;i++){
+            matchid.append(matchID[i]);
         }
-        catch (Exception e){
-            Log.v(TAG,"User not Logged in?");
-        }
+        //point to current user
+        fireRef.child(id).child("matchid").setValue(matchid.toString());
 
     }
 
@@ -272,7 +264,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString("username",account.getUsername());
         editor.putString("email",account.getEmail());
-        editor.putInt("id",account.getID());
+        editor.putString("id",account.getID());
         editor.putString("fullname",account.getFullName());
         editor.putString("password",account.getPassword());
         editor.putString("gender",account.getGender());
@@ -288,26 +280,20 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
 
-   public AccountData getUser(Context ctx,String inputype){//return the current user's AccountData
+   public String getUserDetail(Context ctx,String inputype){//return the current user's AccountData
         switch(inputype){
             case "username":
                 String username = getPrefs(ctx).getString("username","default_username");
-                Log.v(TAG,username);
-                AccountData d = findUser(username);
-                if(d != null){
-                    return d;
-                }
-                break;
+                return username;
+
 
             case "email":
                 String email = getPrefs(ctx).getString("email","default_email");
-                Log.v(TAG,email);
-                AccountData d1 =  findEmail(email);
-                if(d1 != null){
-                    return d1;
+                return email;
+            case "id":
+                String id = getPrefs(ctx).getString("id","def");
+                return id;
 
-                }
-                break;
 
 
         }
@@ -317,7 +303,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     public void addAllergies(String allergystring,Context ctx){
         //get account data
-        AccountData account = this.getUser(ctx,"username");
+        AccountData account = new AccountData();
         //set content values
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ALLERGIES,allergystring);
