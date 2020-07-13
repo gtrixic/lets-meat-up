@@ -69,7 +69,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+RESTAURANTS);
         onCreate(db);
     }
-    public void addUser(AccountData accountData){ //adding a new user into the user accounts table
+/*    public void addUser(AccountData accountData){ //adding a new user into the user accounts table
         ContentValues values = new ContentValues();
         values.put(COLUMN_FULLNAME,accountData.getFullName());
         values.put(COLUMN_USERNAME, accountData.getUsername());
@@ -164,8 +164,8 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return queryData;
-    }
-    public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
+    }*/
+   /* public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_MATCHID +"=\""+mID +"\"";
             SQLiteDatabase  db =this.getWritableDatabase();
             Cursor cursor =db.rawQuery(query,null);
@@ -194,9 +194,9 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
         db.close();
         return queryData;
-    }
+    }*/
 
-    public String findMatchID(String id){ //return the match ID of the user by the username
+    /*public String findMatchID(String id){ //return the match ID of the user by the username
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+id +"\"";
         SQLiteDatabase  db =this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
@@ -230,16 +230,16 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             db.update(ACCOUNTS, cv,COLUMN_EMAIL+"='"+input+"'",null); //update password in table
             db.close();
         }
-    }
+    }*/
     //Used with yelp api, only for admin use
-    public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
+    /*public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
         for(RestaurantData rdata : rDataList){
             this.addRestaurant(rdata);
         }
 
-    }
+    }*/
 
-    //add match param
+    /*//add match param
     public void addMatchID(String[] matchID,Context ctx){
         //find user in database
         AccountData account;
@@ -264,17 +264,23 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             Log.v(TAG,"User not Logged in?");
         }
 
-    }
+    }*/
 
     private static SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveUsername(Context context, String input){
+    public void saveUser(Context context, AccountData account){
         SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString("username",input);
+        editor.putString("username",account.getUsername());
+        editor.putString("email",account.getEmail());
+        editor.putInt("id",account.getID());
+        editor.putString("fullname",account.getFullName());
+        editor.putString("password",account.getPassword());
+        editor.putString("gender",account.getGender());
+        editor.putString("dob",account.getDob());
         editor.apply();
-        Log.v(TAG,"Shared Preference set for username!");
+        Log.v(TAG,"Shared Preference set for user!");
     }
     public void saveEmail(Context context, String input){
         SharedPreferences.Editor editor = getPrefs(context).edit();
@@ -284,7 +290,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public AccountData getUser(Context ctx,String inputype){//return the current user's AccountData
+   /* public AccountData getUser(Context ctx,String inputype){//return the current user's AccountData
         switch(inputype){
             case "username":
                 String username = getPrefs(ctx).getString("username","default_username");
@@ -322,6 +328,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.update(ACCOUNTS,cv,COLUMN_USERNAME +"= '" +account.getUsername()+"'",null);
         Log.v(TAG,"Allergy field added!");
 
-    }
+    }*/
 
 }

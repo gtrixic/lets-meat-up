@@ -23,7 +23,7 @@ public class AccountData {
 
     public AccountData(){}
     public AccountData(int id,String fullName, String username, String password,
-                       String email, String gender, String dob, String sp,String matchid){
+                       String email, String gender, String dob,String matchid){
         this.id = id;
         this.fullName = fullName;
         this.username = username;
@@ -31,7 +31,6 @@ public class AccountData {
         this.email = email;
         this.gender = gender;
         this.dob = dob;
-        this.sp = sp;
         this.matchid = matchid;
 
     }

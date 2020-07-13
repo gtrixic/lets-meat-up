@@ -5,8 +5,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.service.autofill.UserData;
 import android.util.Log;
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginPass;
     ImageButton login;
     Button forgetPass;
+    private static String PREF_NAME = "prefs";
     DatabaseReference fireRef = FirebaseDatabase.getInstance().getReference("Users");
     public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "LoginActivity.java";
@@ -87,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                                     if(dataSnapshot.exists()){
-
+                                                        dbHandler.saveUser(LoginActivity.this,accountDataList.get(0));
                                                         Log.v(TAG,"MatchID:"+ accountDataList.get(0).getMatchid());
                                                         if (accountDataList.get(0).getMatchid().equals("0")) {
                                                             Log.v(TAG,"Personality questions not done!");
@@ -167,5 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this,SignupOrLoginActivity.class);
                         startActivity(intent);
     }
+
+
 
 }
