@@ -87,14 +87,6 @@ public class AccountData {
         this.dob = dob;
     }
 
-    public String getSp() {
-        return this.sp;
-    }
-
-    public void setSp(String sp) {
-        this.sp = sp;
-    }
-
     public String getMatchid() {
         return matchid;
     }

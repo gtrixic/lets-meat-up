@@ -63,12 +63,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
         //setting array adapter data for spinner
         genderSpinner.setAdapter(arrayAdapter);
 
-        //spinner for gender preference
-        final Spinner genderPref = findViewById(R.id.genderpreference);
-        ArrayAdapter gpAdapter = ArrayAdapter.createFromResource(this, R.array.gender_pref_array, R.layout.spinner_layout);
-        gpAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-        genderPref.setAdapter(gpAdapter);
-        genderPref.setOnItemSelectedListener(this);
+
 
 
         ImageButton nextButton = findViewById(R.id.nextArrow);
@@ -110,7 +105,6 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                 dbAccountData.setEmail(Email.getText().toString());
                                 dbAccountData.setGender(GenderSelected);
                                 dbAccountData.setDob(Date.getText().toString());
-                                dbAccountData.setSp(genderPref.getSelectedItem().toString());
                                 dbAccountData.setMatchid("0");
                                 if (dbAccountData.isPasswordMatch(checkPassword.getText().toString())) {
                                     //Generate ID
