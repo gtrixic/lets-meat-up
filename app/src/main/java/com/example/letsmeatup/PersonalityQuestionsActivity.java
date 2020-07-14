@@ -87,7 +87,7 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
                     //get user id
                     String userid = dbHandler.getUserDetail(PersonalityQuestionsActivity.this,"id");
                     dbHandler.addMatchID(pnAdapter.returnCode(),userid);
-                    Intent intent = new Intent(PersonalityQuestionsActivity.this, mainPageActivity.class);
+                    Intent intent = new Intent(PersonalityQuestionsActivity.this, LoginActivity.class);
                     startActivity(intent);}
                 else{
                     allInputsFilled = true;

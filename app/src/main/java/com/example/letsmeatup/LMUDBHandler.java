@@ -296,6 +296,11 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             return false;
         }
     }
+    public void signOut(Context ctx){
+        SharedPreferences.Editor editor = getPrefs(ctx).edit();
+        editor.clear();
+        editor.apply();
+    }
     public void saveEmail(Context context, String input){
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString("email",input);

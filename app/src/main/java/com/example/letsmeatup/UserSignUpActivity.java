@@ -146,10 +146,6 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
 
                                                 Toast.makeText(UserSignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
                                                 Log.v(TAG, "User Created :" + Username.getText().toString());
-
-                                                //Save data
-                                                //TODO: Add methods to save data into current session
-                                                lmudbHandler.saveUser(UserSignUpActivity.this, dbAccountData);
                                                 Intent intent = new Intent(UserSignUpActivity.this, UserSignUp2Activity.class);
                                                 startActivity(intent);
                                                 finish();
