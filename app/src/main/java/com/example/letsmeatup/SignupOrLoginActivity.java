@@ -16,6 +16,7 @@ public class SignupOrLoginActivity extends AppCompatActivity {
     public Button loginButton;
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "SignupOrLoginActivity.java";
+    private LMUDBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +24,21 @@ public class SignupOrLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup_or_login);
         createButton = findViewById(R.id.createButton);
         loginButton = findViewById(R.id.loginButton);
+        db = new LMUDBHandler(this,null,null,1);
+        Log.v(TAG,Boolean.toString(db.checkLoginstatus(this)));
+        if(db.checkLoginstatus(this)){
+            Log.v(TAG,Boolean.toString(db.getLogin(this)));
+
+            if(db.getLogin(this)){
+                Intent intent = new Intent(SignupOrLoginActivity.this, mainPageActivity.class);
+                startActivity(intent);
+            }
+        }
     }
     public void onStart(){
+
         super.onStart();
+
     }
     private void CreateAccount(){ //from this page to UserSignUpActivity page
         Intent create = new Intent(SignupOrLoginActivity.this,CreateUserOrBusinessActivity.class);

@@ -93,13 +93,14 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                     emailQuery.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            //prevent the toast from showing if the data gets updated 
+                            //prevent the toast from showing if the data gets updated
                             int runtime = 0;
                             if(dataSnapshot.exists() && runtime > 0)
                              {
                                 Toast.makeText(UserSignUpActivity.this, "User is already registered in the database!", Toast.LENGTH_SHORT).show();
                                 Log.v(TAG, "Email: " + Email.getText().toString());
                             } else {
+
                                 final AccountData dbAccountData = new AccountData();
                                 dbAccountData.setFullName(FullName.getText().toString());
                                 dbAccountData.setUsername(Username.getText().toString());
@@ -109,52 +110,57 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                 dbAccountData.setDob(Date.getText().toString());
                                 dbAccountData.setMatchid("0");
                                 if (dbAccountData.isPasswordMatch(checkPassword.getText().toString())) {
-                                    //Generate ID
-                                    //count number of entries in db
-                                    fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            //get total num
-                                            int ID = (int) dataSnapshot.getChildrenCount();
-                                            //convert to ID
-                                            String stringID = String.valueOf(ID).format("%04d", ID);
-                                            dbAccountData.setID(stringID);
-                                            fireRef.child(stringID).setValue(dbAccountData);
+                                    //Creat account in mAuth
+                                    final boolean[] AuthCreate = new boolean[1];
+                                    mAuth = FirebaseAuth.getInstance();
+                                    mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
+                                            .addOnCompleteListener(UserSignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (task.isSuccessful()) {
+                                                        AuthCreate[0] = true;
+                                                        // Sign in success, update UI with the signed-in user's information
+                                                        Log.v(TAG, "createUserWithEmail:success");
+                                                        FirebaseUser user = mAuth.getCurrentUser();
+                                                    } else {
+                                                        AuthCreate[0] = false;
+                                                        // If sign in fails, display a message to the user.
+                                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                                        Toast.makeText(UserSignUpActivity.this, "Authentication failed.",
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                    if (AuthCreate[0] == true){
+                                        //Generate ID
+                                        //count number of entries in db
+                                        fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                //get total num
+                                                int ID = (int) dataSnapshot.getChildrenCount();
+                                                //convert to ID
+                                                String stringID = String.valueOf(ID).format("%04d", ID);
+                                                dbAccountData.setID(stringID);
+                                                fireRef.child(stringID).setValue(dbAccountData);
 
-                                            Toast.makeText(UserSignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
-                                            Log.v(TAG, "User Created :" + Username.getText().toString());
-                                            //Creat account in mAuth
-                                            mAuth = FirebaseAuth.getInstance();
-                                            mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
-                                                    .addOnCompleteListener(UserSignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                                            if (task.isSuccessful()) {
-                                                                // Sign in success, update UI with the signed-in user's information
-                                                                Log.v(TAG, "createUserWithEmail:success");
-                                                                FirebaseUser user = mAuth.getCurrentUser();
-                                                            } else {
-                                                                // If sign in fails, display a message to the user.
-                                                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                                                Toast.makeText(UserSignUpActivity.this, "Authentication failed.",
-                                                                        Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        }
-                                                    });
+                                                Toast.makeText(UserSignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
+                                                Log.v(TAG, "User Created :" + Username.getText().toString());
 
-                                            //Save data
-                                            //TODO: Add methods to save data into current session
-                                            lmudbHandler.saveUser(UserSignUpActivity.this,dbAccountData);
-                                            Intent intent = new Intent(UserSignUpActivity.this,UserSignUp2Activity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
+                                                //Save data
+                                                //TODO: Add methods to save data into current session
+                                                lmudbHandler.saveUser(UserSignUpActivity.this, dbAccountData);
+                                                Intent intent = new Intent(UserSignUpActivity.this, UserSignUp2Activity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                                            Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
-                                        }
-                                    });
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                                            }
+                                        });
+                                }
                                 } else {
                                     Toast.makeText(UserSignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                                 }
