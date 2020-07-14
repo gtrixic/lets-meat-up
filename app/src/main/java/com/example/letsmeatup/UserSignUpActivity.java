@@ -93,7 +93,9 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                     emailQuery.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists())
+                            //prevent the toast from showing if the data gets updated 
+                            int runtime = 0;
+                            if(dataSnapshot.exists() && runtime > 0)
                              {
                                 Toast.makeText(UserSignUpActivity.this, "User is already registered in the database!", Toast.LENGTH_SHORT).show();
                                 Log.v(TAG, "Email: " + Email.getText().toString());
