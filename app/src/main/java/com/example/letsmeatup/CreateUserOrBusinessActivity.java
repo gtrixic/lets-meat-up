@@ -25,7 +25,7 @@ public class CreateUserOrBusinessActivity extends AppCompatActivity {
         super.onStart();
     }
     private void createUser(){ // method to bring user to create user page
-        Intent user = new Intent(CreateUserOrBusinessActivity.this,UserSignUpActivity.class);
+        Intent user = new Intent(CreateUserOrBusinessActivity.this,UserSignUp2Activity.class);
         startActivity(user);
     }
     private void createBusiness(){ // method to bring user to create restaurant page
