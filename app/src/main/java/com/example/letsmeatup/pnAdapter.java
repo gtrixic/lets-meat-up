@@ -36,7 +36,7 @@ public class pnAdapter extends RecyclerView.Adapter<pnViewHolder> {
     public void onBindViewHolder (final pnViewHolder holder, final int position)
     {
         String qn = qna.get(position);
-        String ans1 = answers[position+position];
+        final String ans1 = answers[position+position];
         String ans2 = answers[position+position+1];
         String selectedAns = "";
         holder.txt.setText(qn);
@@ -47,7 +47,7 @@ public class pnAdapter extends RecyclerView.Adapter<pnViewHolder> {
             @Override
             public void onClick(View v) {
                 holder.answerdisplay.setText(holder.ans1.getText());
-                code[position]="1";
+                code[position] = "1";
 
             }
         });

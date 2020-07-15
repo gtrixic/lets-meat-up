@@ -43,7 +43,8 @@ public class mainPageActivity extends AppCompatActivity {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         finish();
-                        System.exit(0);
+                        Intent logout = new Intent(mainPageActivity.this,LoginActivity.class);
+                        startActivity(logout);
                     }
                 }).create().show();
     }
