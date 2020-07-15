@@ -1,15 +1,29 @@
 package com.example.letsmeatup;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.service.autofill.UserData;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 
@@ -22,6 +36,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private String TAG = "Let's-Meat-Up";
     private String FILENAME = "LMUDBHandler.java";
     private static String PREF_NAME = "prefs";
+    private DatabaseReference fireRef;
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
     public static int DATABASE_VERSION = 8;
@@ -60,6 +75,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_ACCOUNTS_TABLE);
         db.execSQL(CREATE_RESTAURANT_TABLE);
 
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){ //upgrading database from old to new version and
@@ -69,22 +85,22 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+RESTAURANTS);
         onCreate(db);
     }
-    public void addUser(AccountData accountData){ //adding a new user into the user accounts table
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_FULLNAME,accountData.getFullName());
-        values.put(COLUMN_USERNAME, accountData.getUsername());
-        values.put(COLUMN_PASSWORD, accountData.getPassword());
-        values.put(COLUMN_EMAIL,accountData.getEmail());
-        values.put(COLUMN_GENDER,accountData.getGender());
-        values.put(COLUMN_DOB,accountData.getDob());
-        values.put(COLUMN_SP, accountData.getSp());
-        //Get Database
-        SQLiteDatabase db = this.getWritableDatabase();
-        Log.v(TAG, FILENAME+ ": "+ values.toString());
-        db.insert(ACCOUNTS, null, values);
-        db.close();
-
-    }
+//    public void addUser(AccountData accountData){ //adding a new user into the user accounts table
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_FULLNAME,accountData.getFullName());
+//        values.put(COLUMN_USERNAME, accountData.getUsername());
+//        values.put(COLUMN_PASSWORD, accountData.getPassword());
+//        values.put(COLUMN_EMAIL,accountData.getEmail());
+//        values.put(COLUMN_GENDER,accountData.getGender());
+//        values.put(COLUMN_DOB,accountData.getDob());
+//        values.put(COLUMN_SP, accountData.getSp());
+//        //Get Database
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Log.v(TAG, FILENAME+ ": "+ values.toString());
+//        db.insert(ACCOUNTS, null, values);
+//        db.close();
+//
+//    }
     public void addRestaurant(RestaurantData rdata){ //adding a new user into the restaurant accounts table
         ContentValues values = new ContentValues();
         values.put(COLUMN_RESTAURANTNAME,rdata.getRestaurantName());
@@ -125,14 +141,13 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         // temp account details holder
         AccountData queryData = new AccountData();
         if (cursor.moveToFirst()){
-            queryData.setID((cursor.getInt(0)));
+            queryData.setID((cursor.getString(0)));
             queryData.setFullName(cursor.getString(1));
             queryData.setUsername(cursor.getString(2));
             queryData.setPassword(cursor.getString(3));
             queryData.setEmail(cursor.getString(4));
             queryData.setGender(cursor.getString(5));
             queryData.setDob(cursor.getString(6));
-            queryData.setSp(cursor.getString(7));
             queryData.setMatchid(cursor.getString(8));
             cursor.close();
 
@@ -156,7 +171,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                     queryData.setEmail(cursor.getString(4));
                     queryData.setGender(cursor.getString(5));
                     queryData.setDob(cursor.getString(6));
-                    queryData.setSp(cursor.getString(7  ));
+
                     cursor.close();
         }
         else{
@@ -165,7 +180,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
         return queryData;
     }
-    public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
+   public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_MATCHID +"=\""+mID +"\"";
             SQLiteDatabase  db =this.getWritableDatabase();
             Cursor cursor =db.rawQuery(query,null);
@@ -184,8 +199,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 queryData.setEmail(cursor.getString(4));
                 queryData.setGender(cursor.getString(5));
                 queryData.setDob(cursor.getString(6));
-                queryData.setSp(cursor.getString(7));
-                queryData.setMatchid(cursor.getString(8));
+                queryData.setMatchid(cursor.getString(7));
                 cursor.close();
             }
         else{
@@ -240,29 +254,15 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
     //add match param
-    public void addMatchID(String[] matchID,Context ctx){
-        //find user in database
-        AccountData account;
-        try {
-            account = this.getUser(ctx,"username");
-            if (account == null){
-                account = this.getUser(ctx,"email");
-            }
-
-            //convert matchid to string
-            StringBuffer matchid = new StringBuffer();
-            for (int i = 0; i < matchID.length;i++){
-                matchid.append(matchID[i]);
-            }
-            ContentValues cv = new ContentValues();
-            cv.put(COLUMN_MATCHID,matchid.toString());
-            SQLiteDatabase db = this.getWritableDatabase();
-            db.update(ACCOUNTS,cv,COLUMN_USERNAME+"='"+account.getUsername()+"'",null);
-            Log.v(TAG,"MatchID Added!");
+    public void addMatchID(String[] matchID,String id){
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        //convert matchid to string
+        StringBuffer matchid = new StringBuffer();
+        for (int i = 0; i < matchID.length;i++){
+            matchid.append(matchID[i]);
         }
-        catch (Exception e){
-            Log.v(TAG,"User not Logged in?");
-        }
+        //point to current user
+        fireRef.child(id).child("matchid").setValue(matchid.toString());
 
     }
 
@@ -270,11 +270,36 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveUsername(Context context, String input){
+    public void saveUser(Context context, AccountData account){
         SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString("username",input);
+        editor.putString("username",account.getUsername());
+        editor.putString("email",account.getEmail());
+        editor.putString("id",account.getID());
+        editor.putString("fullname",account.getFullName());
+        editor.putString("password",account.getPassword());
+        editor.putString("gender",account.getGender());
+        editor.putString("dob",account.getDob());
         editor.apply();
-        Log.v(TAG,"Shared Preference set for username!");
+        Log.v(TAG,"Shared Preference set for user!");
+    }
+    public void stayLogin(Context ctx,boolean val){
+        SharedPreferences.Editor editor = getPrefs(ctx).edit();
+        editor.putBoolean("login",val);
+        editor.apply();
+    }
+    public boolean getLogin(Context ctx){
+        return getPrefs(ctx).getBoolean("login",false);
+    }
+    public boolean checkLoginstatus(Context ctx){
+        if (getPrefs(ctx).contains("login")){return true;}
+        else{
+            return false;
+        }
+    }
+    public void signOut(Context ctx){
+        SharedPreferences.Editor editor = getPrefs(ctx).edit();
+        editor.clear();
+        editor.apply();
     }
     public void saveEmail(Context context, String input){
         SharedPreferences.Editor editor = getPrefs(context).edit();
@@ -284,26 +309,20 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public AccountData getUser(Context ctx,String inputype){//return the current user's AccountData
+   public String getUserDetail(Context ctx,String inputype){//return the current user's AccountData
         switch(inputype){
             case "username":
                 String username = getPrefs(ctx).getString("username","default_username");
-                Log.v(TAG,username);
-                AccountData d = findUser(username);
-                if(d != null){
-                    return d;
-                }
-                break;
+                return username;
+
 
             case "email":
                 String email = getPrefs(ctx).getString("email","default_email");
-                Log.v(TAG,email);
-                AccountData d1 =  findEmail(email);
-                if(d1 != null){
-                    return d1;
+                return email;
+            case "id":
+                String id = getPrefs(ctx).getString("id","def");
+                return id;
 
-                }
-                break;
 
 
         }
@@ -313,7 +332,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     public void addAllergies(String allergystring,Context ctx){
         //get account data
-        AccountData account = this.getUser(ctx,"username");
+        AccountData account = new AccountData();
         //set content values
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ALLERGIES,allergystring);
@@ -322,6 +341,51 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.update(ACCOUNTS,cv,COLUMN_USERNAME +"= '" +account.getUsername()+"'",null);
         Log.v(TAG,"Allergy field added!");
 
+    }
+    public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
+        if(FilePath != null){
+            Log.v(TAG,"Creating Progress Dialog.");
+            final ProgressDialog progressDialog = new ProgressDialog(ctx);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            //get current user id
+            Log.v(TAG,"Getting User ID.");
+            final String stringid = getUserDetail(ctx,"id");
+            //creates new reference to the id
+            Log.v(TAG,"Creating storage reference.");
+            final StorageReference ref = storageReference.child("User_Pictures/"+stringid);
+            Log.v(TAG,"Checking if file exists");
+            //check if file already exists in database
+            if(ref.getDownloadUrl() != null){
+                Log.v(TAG,"File exists!");
+                ref.delete();
+            }
+            ref.putFile(FilePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ctx,"Failed "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
+        else {
+            Toast.makeText(ctx, "No File Chosen!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

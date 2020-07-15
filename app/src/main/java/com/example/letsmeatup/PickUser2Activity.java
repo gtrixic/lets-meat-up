@@ -60,7 +60,7 @@ public class PickUser2Activity extends AppCompatActivity {
     public void getSecondUser() {
         boolean isUser = false;
         // gets user details for the current user
-        firstUser = dbHandler.getUser(this,"username");
+        //firstUser = dbHandler.getUser(this,"username");
         Log.v(TAG,FILENAME+firstUser.getUsername());
         // gets matching id from user details
         firstmID = firstUser.getMatchid();
@@ -90,7 +90,7 @@ public class PickUser2Activity extends AppCompatActivity {
         String strAge = String.valueOf(ageinyears);
         ageT.setText(strAge);
         gender.setText(secondUser.getGender());
-        sp.setText(secondUser.getSp());
+
     }
 
     public void requestAlert() { // tells user that request to pair is sent

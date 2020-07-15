@@ -11,7 +11,7 @@ import java.sql.Date;
 
 public class AccountData {
     //storing all the AccountData information
-    private int id;
+    private String id;
     private String fullName;
     private String username;
     private String password;
@@ -22,8 +22,8 @@ public class AccountData {
     private String matchid;
 
     public AccountData(){}
-    public AccountData(int id,String fullName, String username, String password,
-                       String email, String gender, String dob, String sp,String matchid){
+    public AccountData(String id,String fullName, String username, String password,
+                       String email, String gender, String dob,String matchid){
         this.id = id;
         this.fullName = fullName;
         this.username = username;
@@ -31,13 +31,12 @@ public class AccountData {
         this.email = email;
         this.gender = gender;
         this.dob = dob;
-        this.sp = sp;
         this.matchid = matchid;
 
     }
-    public int getID(){return this.id;}
+    public String getID(){return this.id;}
 
-    public void setID(int id){this.id = id;}
+    public void setID(String id){this.id = id;}
 
     public String getFullName() {
         return this.fullName;
@@ -85,14 +84,6 @@ public class AccountData {
 
     public void setDob(String dob) {
         this.dob = dob;
-    }
-
-    public String getSp() {
-        return this.sp;
-    }
-
-    public void setSp(String sp) {
-        this.sp = sp;
     }
 
     public String getMatchid() {

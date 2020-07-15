@@ -1,26 +1,49 @@
 package com.example.letsmeatup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.service.autofill.UserData;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     EditText loginUser;
     EditText loginPass;
     ImageButton login;
     Button forgetPass;
+    CheckBox logincheckbox;
+    DatabaseReference fireRef = FirebaseDatabase.getInstance().getReference("Users");
     public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "LoginActivity.java";
+    private FirebaseAuth mAuth;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
     @Override
@@ -29,75 +52,90 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         login = findViewById(R.id.nextArrow);
         forgetPass = findViewById(R.id.forgetPasswordButton);
+        logincheckbox = findViewById(R.id.logincheckbox);
+        //get firebase instance
+        mAuth = FirebaseAuth.getInstance();
         login.setOnClickListener(new View.OnClickListener() { // when user clicks login
             @Override
-            public void onClick(View v){
-                loginUser =  findViewById(R.id.loginUsernameEmail);
-                loginPass =  findViewById(R.id.loginPassword);
-                //first check if the credentials are valid
-                if (validCredentialUser(loginUser.getText().toString(), loginPass.getText().toString())) {
-                    //save both username and email shared preferences as the loginuser temporarily
-                    dbHandler.saveUsername(LoginActivity.this,loginUser.getText().toString());//if user did not complete Personality QNA
-                    dbHandler.saveEmail(LoginActivity.this,loginUser.getText().toString());
-                    Log.v(TAG,"Shared Preference User: "+dbHandler.getUser(LoginActivity.this,"username").getUsername());
-                    if (dbHandler.getUser(LoginActivity.this, "username").getUsername().equals("ADMIN")){
-                        Log.v(TAG,"Going to admin page");
-                        Intent intent = new Intent(LoginActivity.this, AddRestaurants.class);
-                        startActivity(intent);
-                    }
-                    //try to get user via username
-                    else if(dbHandler.getUser(LoginActivity.this,"username") != null){
-                        //set account data into variable
-                        AccountData account = dbHandler.getUser(LoginActivity.this,"username");
-                        //get correct email from accountdata and save into shared preference
-                        dbHandler.saveEmail(LoginActivity.this,account.getEmail());
-                        //checks if there is a MatchID in database for user
-                        if(dbHandler.findMatchID(account.getUsername())== null) {
-                            //go to personality question activity
-                            Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            //goes to main page
-                            mainPage();
-                        }
-                    }
-                    //try to get user via email login
-                    else if(dbHandler.getUser(LoginActivity.this,"email") != null){
-                        //saves accountdata into variable
-                        AccountData account = dbHandler.getUser(LoginActivity.this,"email");
-                        //saving correct username shared preference
-                        dbHandler.saveUsername(LoginActivity.this,account.getUsername());
-                        if(dbHandler.findMatchID(account.getUsername()) == null){
-                            //go to personality question page
-                            Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            //go to main page
-                            mainPage();
-                        }
-                    }
-
-
-                    else {
-                        mainPage();
-                    }
-
-                    Log.v(TAG,"SHAREDPREFINFO:"+dbHandler.getUser(LoginActivity.this,"username").getUsername()+"+"+dbHandler.getUser(LoginActivity.this,"username").getEmail());
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        forgetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-                forgetPassPage();
+                loginUser = findViewById(R.id.loginUsernameEmail);
+                loginPass = findViewById(R.id.loginPassword);
+                forgetPass.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        forgetPassPage();
+                    }
+                });
+                //first check if the credentials are valid
+                mAuth.signInWithEmailAndPassword(loginUser.getText().toString(), loginPass.getText().toString())
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.v(TAG, "signInWithEmail:success");
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            //Save user info
+                                            //check if there is match id in database
+                                            //query current user
+                                            Log.v(TAG,"Current user's email:"+user.getEmail());
+                                            Query matchIDQuery = fireRef.orderByChild("email").equalTo(user.getEmail());
+                                            final List<AccountData> accountDataList = new ArrayList<>();
+                                            matchIDQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    for(DataSnapshot s : dataSnapshot.getChildren()){
+                                                    AccountData account = s.getValue(AccountData.class);
+                                                    Log.v(TAG,"Account Name"+account.getFullName());
+                                                    accountDataList.add(account);
+                                                    }
+
+
+                                                    if(dataSnapshot.exists()){
+                                                        //add shared preference setting to save auto login
+                                                        if(logincheckbox.isChecked() == true){
+                                                        dbHandler.stayLogin(LoginActivity.this, true);}
+                                                        else{
+                                                            dbHandler.stayLogin(LoginActivity.this,false);
+                                                        }
+                                                        dbHandler.saveUser(LoginActivity.this,accountDataList.get(0));
+                                                        Log.v(TAG,"MatchID:"+ accountDataList.get(0).getMatchid());
+                                                        if (accountDataList.get(0).getMatchid().equals("0")) {
+                                                            Log.v(TAG,"Personality questions not done!");
+                                                            //go to personality question activity
+                                                            Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
+                                                            startActivity(intent);
+                                                        }
+                                                        else {
+                                                            //goes to main page
+                                                            Log.v(TAG, "Personality questions done!");
+                                                            mainPage();
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                    Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                                                }
+                                            });
+
+
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                            Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
             }
         });
     }
+
+
+
+
+
     public void mainPage(){ //method to proceed to main page
         Intent go = new Intent(LoginActivity.this,mainPageActivity.class);
         go.putExtra("ID", loginUser.getText().toString());
@@ -107,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent forget = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
         startActivity(forget);
     }
-    public boolean validCredentialUser(String input, String password) { //method to check if login credentials are valid
+   /* public boolean validCredentialUser(String input, String password) { //method to check if login credentials are valid
         AccountData dbData = dbHandler.findUser(input);
         AccountData dbData2 = dbHandler.findEmail(input);
         Log.v(TAG, FILENAME + ":SharedPref Info = " + input + "|" + password);
@@ -128,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
+    }*/
 
     protected void onStop(){
         super.onStop();
@@ -140,5 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this,SignupOrLoginActivity.class);
                         startActivity(intent);
     }
+
+
 
 }

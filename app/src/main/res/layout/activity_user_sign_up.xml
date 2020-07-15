@@ -99,21 +99,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.566" />
 
-    <Spinner
-        android:id="@+id/genderpreference"
-        android:layout_width="255dp"
-        android:layout_height="43dp"
-        android:background="@drawable/edit_text_border"
-        android:entries="@array/gender_pref_array"
-        android:fontFamily="@font/josefinsanslight"
-        android:spinnerMode="dropdown"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.842" />
 
     <Spinner
         android:id="@+id/gender"
