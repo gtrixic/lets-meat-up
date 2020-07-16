@@ -22,6 +22,7 @@ public class AccountData {
     private String allergy;
     private String diet;
     private String pending;
+    private String confirmed;
 
     public AccountData(){}
 
@@ -96,6 +97,10 @@ public class AccountData {
     public String getPending(){return pending;}
 
     public void setPending(String pending){this.pending = pending;}
+
+    public String getConfirmed(){return confirmed;}
+
+    public void setConfirmed(String confirmed){this.confirmed = confirmed;}
 
     //Method for checking if email is valid or empty
     public static boolean isValidEmail(CharSequence target){
