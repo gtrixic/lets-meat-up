@@ -80,12 +80,12 @@ public class LoginActivity extends AppCompatActivity {
                                             //query current user
                                             Log.v(TAG,"Current user's email:"+user.getEmail());
                                             Query matchIDQuery = fireRef.orderByChild("email").equalTo(user.getEmail());
-                                            final List<AccountViewData> accountDataList = new ArrayList<>();
+                                            final List<AccountData> accountDataList = new ArrayList<>();
                                             matchIDQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                     for(DataSnapshot s : dataSnapshot.getChildren()){
-                                                    AccountViewData account = s.getValue(AccountViewData.class);
+                                                    AccountData account = s.getValue(AccountData.class);
                                                     Log.v(TAG,"Account Name"+account.getFullName());
                                                     accountDataList.add(account);
                                                     }
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                                                             dbHandler.stayLogin(LoginActivity.this,false);
                                                         }
                                                         //Save user info
-                                                        dbHandler.saveViewUser(LoginActivity.this,accountDataList.get(0));
+                                                        dbHandler.saveUser(LoginActivity.this,accountDataList.get(0));
                                                         Log.v(TAG,"MatchID:"+ accountDataList.get(0).getMatchid());
                                                         if (accountDataList.get(0).getMatchid().equals("0")) {
                                                             Log.v(TAG,"Personality questions not done!");

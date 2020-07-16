@@ -49,6 +49,8 @@ public class UserSignUp3Activity extends AppCompatActivity implements AdapterVie
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface arg0, int arg1) {
+                                    String[] allergytext = {allergyEditText.getText().toString(),diet.getSelectedItem().toString()};
+                                    lmudbHandler.addAllergies(allergytext,UserSignUp3Activity.this);
                                     Intent intent = new Intent(UserSignUp3Activity.this, PersonalityQuestionsActivity.class);
                                     startActivity(intent);
                                 }
@@ -56,7 +58,7 @@ public class UserSignUp3Activity extends AppCompatActivity implements AdapterVie
                 }
 
 
-                finish();
+
             }
         });
     }
