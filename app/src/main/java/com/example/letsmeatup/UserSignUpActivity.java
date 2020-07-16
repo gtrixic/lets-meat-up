@@ -110,8 +110,9 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                 dbAccountData.setDob(Date.getText().toString());
                                 dbAccountData.setMatchid("0");
                                 if (dbAccountData.isPasswordMatch(checkPassword.getText().toString())) {
-                                    //Creat account in mAuth
-                                    final boolean[] AuthCreate = new boolean[1];
+                                    if (dbAccountData.isValidEmail(dbAccountData.getEmail())){
+                                        //Creat account in mAuth
+                                        final boolean[] AuthCreate = new boolean[1];
                                     mAuth = FirebaseAuth.getInstance();
                                     mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
                                             .addOnCompleteListener(UserSignUpActivity.this, new OnCompleteListener<AuthResult>() {
@@ -131,7 +132,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                                     }
                                                 }
                                             });
-                                    if (AuthCreate[0] == true){
+                                    if (AuthCreate[0] == true) {
                                         //Generate ID
                                         //count number of entries in db
                                         fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -156,7 +157,11 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                                 Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
                                             }
                                         });
+                                    }
                                 }
+                                    else{
+                                        Toast.makeText(UserSignUpActivity.this,"Email is invalid!",Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     Toast.makeText(UserSignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                                 }
