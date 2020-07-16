@@ -75,17 +75,17 @@ public class LoginActivity extends AppCompatActivity {
                                             // Sign in success, update UI with the signed-in user's information
                                             Log.v(TAG, "signInWithEmail:success");
                                             FirebaseUser user = mAuth.getCurrentUser();
-                                            //Save user info
+
                                             //check if there is match id in database
                                             //query current user
                                             Log.v(TAG,"Current user's email:"+user.getEmail());
                                             Query matchIDQuery = fireRef.orderByChild("email").equalTo(user.getEmail());
-                                            final List<AccountData> accountDataList = new ArrayList<>();
+                                            final List<AccountViewData> accountDataList = new ArrayList<>();
                                             matchIDQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                     for(DataSnapshot s : dataSnapshot.getChildren()){
-                                                    AccountData account = s.getValue(AccountData.class);
+                                                    AccountViewData account = s.getValue(AccountViewData.class);
                                                     Log.v(TAG,"Account Name"+account.getFullName());
                                                     accountDataList.add(account);
                                                     }
@@ -98,7 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                                                         else{
                                                             dbHandler.stayLogin(LoginActivity.this,false);
                                                         }
-                                                        dbHandler.saveUser(LoginActivity.this,accountDataList.get(0));
+                                                        //Save user info
+                                                        dbHandler.saveViewUser(LoginActivity.this,accountDataList.get(0));
                                                         Log.v(TAG,"MatchID:"+ accountDataList.get(0).getMatchid());
                                                         if (accountDataList.get(0).getMatchid().equals("0")) {
                                                             Log.v(TAG,"Personality questions not done!");
