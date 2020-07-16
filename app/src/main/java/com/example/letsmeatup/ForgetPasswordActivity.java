@@ -1,5 +1,6 @@
 package com.example.letsmeatup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,9 +13,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 public class ForgetPasswordActivity extends AppCompatActivity {
     TextView enterInfo;
     ImageButton next;
+    private DatabaseReference fireRef;
     public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "ForgetPasswordActivity.java";
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
@@ -29,12 +38,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 enterInfo = findViewById(R.id.usernameEmail);
-                if (validCredential(enterInfo.getText().toString())) { //valid user
-                    nextPage();
-                }
-                else { //invalid user
-                    Toast.makeText(ForgetPasswordActivity.this, "Invalid Username/Email", Toast.LENGTH_SHORT).show();
-                }
+                findUser(enterInfo.getText().toString());
             }
         });
     }
@@ -52,32 +56,36 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     }
                 }).create().show();
     }
+    public void findUser(String email){
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        //Query email
+        Query emailQuery = fireRef.orderByChild("email").equalTo(email);
+        emailQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
+                    dbHandler.saveUser(ForgetPasswordActivity.this,acc);
+                    nextPage();
+                }
+                else{
+                    Toast.makeText(ForgetPasswordActivity.this, "Invalid Username/Email", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG,"No Email Found!");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.v(TAG,"Error reading from firebase");
+            }
+        });
+
+
+    }
     public void nextPage(){ //after validating user input, pass the input to the next page of forget password
         Intent next = new Intent(ForgetPasswordActivity.this,ForgetPassword1Activity.class);
         next.putExtra("input",enterInfo.getText().toString());
         startActivity(next);
         finish();
-    }
-    public boolean validCredential(String input){ //check if the username/email entered exists in the database
-        AccountData dbData = dbHandler.findUser(input); //if user entered username
-        AccountData dbData2 = dbHandler.findEmail(input); //if user entered email
-        Log.v(TAG,FILENAME+":SharedPref Info = " + input);
-        if (dbData != null){
-        Log.v(TAG,FILENAME+":SharedPref Info = " + dbData.getUsername());
-            if(dbData.getUsername().equals(input)){
-                return true; //valid
-            }
-            else{return false;} //invalid
-        }
-        if (dbData2 != null) {
-            Log.v(TAG, FILENAME + ":SharedPref Info = " + dbData2.getEmail());
-            if (dbData2.getEmail().equals(input)) {
-                return true; //valid
-            } else {
-                return false; //invalid
-            }
-        }
-        return false; //if user did not enter any information into the textbox
     }
     protected void onStop(){
         super.onStop();

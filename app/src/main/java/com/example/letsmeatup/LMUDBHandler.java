@@ -16,11 +16,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -134,30 +145,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
         return rData;
     }
-    public AccountData findUser(String username){ //to returned the selected user by its username
-        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor =db.rawQuery(query,null);
-        // temp account details holder
-        AccountData queryData = new AccountData();
-        if (cursor.moveToFirst()){
-            queryData.setID((cursor.getString(0)));
-            queryData.setFullName(cursor.getString(1));
-            queryData.setUsername(cursor.getString(2));
-            queryData.setPassword(cursor.getString(3));
-            queryData.setEmail(cursor.getString(4));
-            queryData.setGender(cursor.getString(5));
-            queryData.setDob(cursor.getString(6));
-            queryData.setMatchid(cursor.getString(8));
-            cursor.close();
 
-        }
-        else{
-            queryData = null;
-        }
-        db.close();
-        return queryData;
-    }
     public AccountData findEmail(String email){ //to return the selected user by the email
                 String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
                 SQLiteDatabase  db =this.getWritableDatabase();
@@ -228,23 +216,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
         return queryData.getMatchid();
     }
-    public void updatePassword(String input, String password){ //update the user's password by its username with a new password
-        AccountData dbData = this.findUser(input); //if user enters username
-        AccountData dbData2 = this.findEmail(input); //if user enters email
-        SQLiteDatabase db = this.getWritableDatabase();
-        if (dbData!= null){
-            ContentValues cv = new ContentValues();
-            cv.put(COLUMN_PASSWORD, password);
-            db.update(ACCOUNTS, cv,COLUMN_USERNAME+"='"+input+"'",null); //update password in table
-            db.close();
-        }
-        if(dbData2!=null){
-            ContentValues cv = new ContentValues();
-            cv.put(COLUMN_PASSWORD, password);
-            db.update(ACCOUNTS, cv,COLUMN_EMAIL+"='"+input+"'",null); //update password in table
-            db.close();
-        }
-    }
+
     //Used with yelp api, only for admin use
     public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
         for(RestaurantData rdata : rDataList){
@@ -268,6 +240,44 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     private static SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+
+
+
+
+    public void updatePassword(String email, final String password, final Context ctx){
+        //change in fireauth
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        AuthCredential credential = EmailAuthProvider.getCredential(email,getUserDetail(ctx,"password"));
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            user.updatePassword(password).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Log.v(TAG,"Password updated in mAuth!");
+                                        //instantiate fireref
+                                        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+                                        //get account
+                                        fireRef.child(getUserDetail(ctx,"id")).child("password").setValue(password);
+                                        Log.v(TAG,"Password updated in firebase db!");
+                                    }
+                                    else{
+                                        Log.v(TAG,"Password failed to update.");
+                                        Toast.makeText(ctx,"Failed to update password, try again later.",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+
     }
 
     public void saveUser(Context context, AccountData account){
@@ -327,6 +337,9 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             case "id":
                 String id = getPrefs(ctx).getString("id","def");
                 return id;
+            case "password":
+                String password = getPrefs(ctx).getString("password","def");
+                return password;
 
 
 
