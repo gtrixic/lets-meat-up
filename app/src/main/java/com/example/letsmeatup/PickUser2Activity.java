@@ -57,6 +57,13 @@ public class PickUser2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestAlert();
+                if (secondUser.getPending()==null){
+                    secondUser.setPending(firstUser.getID());
+                }
+                else{
+                    String pend = secondUser.getPending()+","+firstUser.getID();
+                    secondUser.setPending(pend);
+                }
             }
         });
         ignore.setOnClickListener(new View.OnClickListener() {
