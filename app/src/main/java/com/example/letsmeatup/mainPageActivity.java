@@ -12,14 +12,26 @@ import android.widget.ImageButton;
 
 public class mainPageActivity extends AppCompatActivity {
     ImageButton pickUser;
+    ImageButton userProfile;
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "mainPageActivity.java";
+    private LMUDBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         pickUser = findViewById(R.id.pickUserButton);
+        userProfile = findViewById(R.id.profileButton);
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db = new LMUDBHandler(mainPageActivity.this,null,null,1);
+                db.signOut(mainPageActivity.this);
+                Intent signout = new Intent(mainPageActivity.this,LoginActivity.class);
+                startActivity(signout);
+            }
+        });
         //when pick user button is clicked
         pickUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +55,8 @@ public class mainPageActivity extends AppCompatActivity {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         finish();
-                        System.exit(0);
+                        Intent logout = new Intent(mainPageActivity.this,LoginActivity.class);
+                        startActivity(logout);
                     }
                 }).create().show();
     }

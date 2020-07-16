@@ -1,19 +1,29 @@
 package com.example.letsmeatup;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.service.autofill.UserData;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 
@@ -269,8 +279,44 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.putString("password",account.getPassword());
         editor.putString("gender",account.getGender());
         editor.putString("dob",account.getDob());
+        editor.putString("matchid",account.getMatchid());
         editor.apply();
         Log.v(TAG,"Shared Preference set for user!");
+    }
+
+    public void saveViewUser(Context ctx, AccountViewData account){
+        SharedPreferences.Editor editor = getPrefs(ctx).edit();
+        editor.putString("username",account.getUsername());
+        editor.putString("email",account.getEmail());
+        editor.putString("id",account.getID());
+        editor.putString("fullname",account.getFullName());
+        editor.putString("password",account.getPassword());
+        editor.putString("gender",account.getGender());
+        editor.putString("dob",account.getDob());
+        editor.putString("matchid",account.getMatchid());
+        editor.putString("allergy",account.getAllergy());
+        editor.putString("diet",account.getDiet());
+        editor.apply();
+    }
+
+    public void stayLogin(Context ctx,boolean val){
+        SharedPreferences.Editor editor = getPrefs(ctx).edit();
+        editor.putBoolean("login",val);
+        editor.apply();
+    }
+    public boolean getLogin(Context ctx){
+        return getPrefs(ctx).getBoolean("login",false);
+    }
+    public boolean checkLoginstatus(Context ctx){
+        if (getPrefs(ctx).contains("login")){return true;}
+        else{
+            return false;
+        }
+    }
+    public void signOut(Context ctx){
+        SharedPreferences.Editor editor = getPrefs(ctx).edit();
+        editor.clear();
+        editor.apply();
     }
     public void saveEmail(Context context, String input){
         SharedPreferences.Editor editor = getPrefs(context).edit();
@@ -301,17 +347,78 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     }
 
-    public void addAllergies(String allergystring,Context ctx){
-        //get account data
-        AccountData account = new AccountData();
-        //set content values
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ALLERGIES,allergystring);
-        //update db
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.update(ACCOUNTS,cv,COLUMN_USERNAME +"= '" +account.getUsername()+"'",null);
+    public void addAllergies(String[] allergystringarray,Context ctx){
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        //unpack array
+        String allergyString;
+        String dietString;
+        if(allergystringarray[0].length() == 0){
+            allergyString = "None";
+        }
+        else{
+            allergyString = allergystringarray[0];
+        }
+        if(allergystringarray[1].equals("Diet")){
+            dietString = "None";
+        }
+        else{
+            dietString = allergystringarray[1];
+        }
+        //Post to firebase
+        //Query id
+        String stringid = getUserDetail(ctx,"id");
+        fireRef.child(stringid).child("allergy").setValue(allergyString);
+        fireRef.child(stringid).child("diet").setValue(dietString);
+        //Log
         Log.v(TAG,"Allergy field added!");
 
+    }
+
+    public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
+        if(FilePath != null){
+            Log.v(TAG,"Creating Progress Dialog.");
+            final ProgressDialog progressDialog = new ProgressDialog(ctx);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            //get current user id
+            Log.v(TAG,"Getting User ID.");
+            final String stringid = getUserDetail(ctx,"id");
+            //creates new reference to the id
+            Log.v(TAG,"Creating storage reference.");
+            final StorageReference ref = storageReference.child("User_Pictures/"+stringid);
+            Log.v(TAG,"Checking if file exists");
+            //check if file already exists in database
+            if(ref.getDownloadUrl() != null){
+                Log.v(TAG,"File exists!");
+                ref.delete();
+            }
+            ref.putFile(FilePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ctx,"Failed "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
+        else {
+            Toast.makeText(ctx, "No File Chosen!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
