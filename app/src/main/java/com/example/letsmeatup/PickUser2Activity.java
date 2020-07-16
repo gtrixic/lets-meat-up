@@ -1,5 +1,6 @@
 package com.example.letsmeatup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,10 +12,17 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class PickUser2Activity extends AppCompatActivity {
@@ -24,9 +32,11 @@ public class PickUser2Activity extends AppCompatActivity {
     TextView allergy;
     ImageButton request;
     ImageButton ignore;
-    String firstmID;
     AccountData firstUser;
     AccountData secondUser;
+    String secondID;
+    private DatabaseReference fireRef;
+
 
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "PickUser2Activity.java";
@@ -58,30 +68,23 @@ public class PickUser2Activity extends AppCompatActivity {
     }
 
     public void getSecondUser() {
-        boolean isUser = false;
         // gets user details for the current user
-        //firstUser = dbHandler.getUser(this,"username");
+        //firstUser = dbHandler.getUserDetail(this,"username");
         Log.v(TAG,FILENAME+firstUser.getUsername());
-        // gets matching id from user details
-        firstmID = firstUser.getMatchid();
-        Log.v(TAG,FILENAME+firstmID);
-        // use method to match the users
-        secondUser = dbHandler.findMatchingID(firstmID);
-        while (!isUser){
-            if(firstUser.getUsername().equals(secondUser.getUsername())){
-                secondUser = dbHandler.findMatchingID(firstmID);
-            }
-            else{isUser = true;}
+        secondUser = dbHandler.findMatchingID(firstUser);
+        while(secondUser==firstUser){
+            secondUser = dbHandler.findMatchingID(firstUser);
         }
+        Log.v(TAG,FILENAME+secondUser.getUsername());
         // setting user details into Textviews
         name.setText(secondUser.getFullName());
-        String stdate = secondUser.getDob();
+        String stDate = secondUser.getDob();
         Date date = new Date();
         Date c = Calendar.getInstance().getTime();
         // getting age from dob
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            date = format.parse(stdate);
+            date = format.parse(stDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -90,7 +93,7 @@ public class PickUser2Activity extends AppCompatActivity {
         String strAge = String.valueOf(ageinyears);
         ageT.setText(strAge);
         gender.setText(secondUser.getGender());
-        allergy.setText(secondUser.get());
+        allergy.setText(secondUser.getAllergy());
     }
 
     public void requestAlert() { // tells user that request to pair is sent

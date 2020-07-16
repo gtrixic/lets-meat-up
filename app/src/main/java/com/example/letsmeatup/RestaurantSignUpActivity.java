@@ -79,7 +79,7 @@ public class RestaurantSignUpActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RestaurantSignUpActivity.this,CreateUserOrBusinessActivity.class);
+                Intent intent = new Intent(RestaurantSignUpActivity.this,SignupOrLoginActivity.class);
                 startActivity(intent);
             }
         });

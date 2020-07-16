@@ -18,9 +18,12 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,6 +40,13 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private String FILENAME = "LMUDBHandler.java";
     private static String PREF_NAME = "prefs";
     private DatabaseReference fireRef;
+    // for pickUser2
+    String firstmID;
+    boolean isUser;
+    String queryID;
+    String randomID;
+    AccountData queryData;
+    //
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
     public static int DATABASE_VERSION = 8;
@@ -134,7 +144,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
         return rData;
     }
-    public AccountData findUser(String username){ //to returned the selected user by its username
+    AccountData findUser(String username){ //to returned the selected user by its username
         String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor =db.rawQuery(query,null);
@@ -158,6 +168,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
         return queryData;
     }
+
     public AccountData findEmail(String email){ //to return the selected user by the email
                 String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
                 SQLiteDatabase  db =this.getWritableDatabase();
@@ -177,35 +188,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         else{
             queryData = null;
         }
-        db.close();
-        return queryData;
-    }
-   public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
-        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_MATCHID +"=\""+mID +"\"";
-            SQLiteDatabase  db =this.getWritableDatabase();
-            Cursor cursor =db.rawQuery(query,null);
-            // temp account details holder
-            AccountData queryData = new AccountData();
-            Log.v(TAG, FILENAME+mID);
-            // get random number to choose paired user
-            Random ran = new Random();
-            Log.v(TAG,FILENAME+String.valueOf(cursor.getCount()));
-            int randomMatchID = ran.nextInt(cursor.getCount());
-            Log.v(TAG,String.valueOf(randomMatchID));
-            if (cursor.moveToPosition(randomMatchID)){ //enter account information into queryData
-                queryData.setFullName(cursor.getString(1));
-                queryData.setUsername(cursor.getString(2));
-                queryData.setPassword(cursor.getString(3));
-                queryData.setEmail(cursor.getString(4));
-                queryData.setGender(cursor.getString(5));
-                queryData.setDob(cursor.getString(6));
-                queryData.setMatchid(cursor.getString(7));
-                cursor.close();
-            }
-        else{
-            queryData = null;
-        }
-
         db.close();
         return queryData;
     }
@@ -296,10 +278,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         return getPrefs(ctx).getBoolean("login",false);
     }
     public boolean checkLoginstatus(Context ctx){
-        if (getPrefs(ctx).contains("login")){return true;}
-        else{
-            return false;
-        }
+        return getPrefs(ctx).contains("login");
     }
     public void signOut(Context ctx){
         SharedPreferences.Editor editor = getPrefs(ctx).edit();
@@ -317,27 +296,17 @@ public class LMUDBHandler extends SQLiteOpenHelper {
    public String getUserDetail(Context ctx,String inputype){//return the current user's AccountData
         switch(inputype){
             case "username":
-                String username = getPrefs(ctx).getString("username","default_username");
-                return username;
-
-
+                return getPrefs(ctx).getString("username","default_username");
             case "email":
-                String email = getPrefs(ctx).getString("email","default_email");
-                return email;
+                return getPrefs(ctx).getString("email","default_email");
             case "id":
-                String id = getPrefs(ctx).getString("id","def");
-                return id;
-
-
-
+                return getPrefs(ctx).getString("id","def");
         }
         return null;
-
     }
 
     public void addAllergies(String[] allergystringarray,Context ctx){
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
         //unpack array
         String allergyString;
         String dietString;
@@ -360,7 +329,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         fireRef.child(stringid).child("diet").setValue(dietString);
         //Log
         Log.v(TAG,"Allergy field added!");
-
     }
 
     public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
@@ -408,5 +376,37 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             Toast.makeText(ctx, "No File Chosen!", Toast.LENGTH_SHORT).show();
         }
     }
-
+    //PickUsr2Activity - to return the second user
+    public AccountData findMatchingID(final AccountData firstUser){
+        AccountData newAcc = new AccountData();
+        newAcc = firstUser;
+        isUser = false;
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                while (!isUser) {
+                    Log.v(TAG, FILENAME + firstUser.getUsername());
+                    // gets matching id from user details
+                    firstmID = firstUser.getMatchid();
+                    Log.v(TAG, FILENAME + firstmID);
+                    int count = (int) dataSnapshot.getChildrenCount();
+                    Log.e(dataSnapshot.getKey(), count + "");
+                    queryData = dataSnapshot.getValue(AccountData.class);
+                    Random ran = new Random();
+                    int randomMatchID = ran.nextInt(count);
+                    randomID = String.valueOf(randomMatchID).format("%04d", randomMatchID);
+                    queryID = String.valueOf(queryData.getID()).format("$04d", queryData.getID());
+                    if (queryID == randomID){}
+                    else{isUser = true;}
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("The read failed: " ,error.getMessage());
+            }
+        });
+        if (isUser){newAcc = queryData;}
+        return newAcc;
+    }
 }
