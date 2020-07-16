@@ -18,7 +18,6 @@ public class AccountData {
     private String email;
     private String gender;
     private String dob;
-    private String sp;
     private String matchid;
 
     public AccountData(){}
