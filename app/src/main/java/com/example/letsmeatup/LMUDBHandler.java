@@ -28,6 +28,8 @@ import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -48,6 +50,13 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private String FILENAME = "LMUDBHandler.java";
     private static String PREF_NAME = "prefs";
     private DatabaseReference fireRef;
+    // for pickUser2
+    String firstmID;
+    boolean isUser;
+    String queryID;
+    String randomID;
+    AccountData queryData;
+    //
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
     public static int DATABASE_VERSION = 8;
@@ -144,6 +153,30 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return rData;
+    }
+    AccountData findUser(String username){ //to returned the selected user by its username
+        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor =db.rawQuery(query,null);
+        // temp account details holder
+        AccountData queryData = new AccountData();
+        if (cursor.moveToFirst()){
+            queryData.setID((cursor.getString(0)));
+            queryData.setFullName(cursor.getString(1));
+            queryData.setUsername(cursor.getString(2));
+            queryData.setPassword(cursor.getString(3));
+            queryData.setEmail(cursor.getString(4));
+            queryData.setGender(cursor.getString(5));
+            queryData.setDob(cursor.getString(6));
+            queryData.setMatchid(cursor.getString(8));
+            cursor.close();
+
+        }
+        else{
+            queryData = null;
+        }
+        db.close();
+        return queryData;
     }
 
     public AccountData findEmail(String email){ //to return the selected user by the email
@@ -306,10 +339,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         return getPrefs(ctx).getBoolean("login",false);
     }
     public boolean checkLoginstatus(Context ctx){
-        if (getPrefs(ctx).contains("login")){return true;}
-        else{
-            return false;
-        }
+        return getPrefs(ctx).contains("login");
     }
     public void signOut(Context ctx){
         SharedPreferences.Editor editor = getPrefs(ctx).edit();
@@ -327,13 +357,9 @@ public class LMUDBHandler extends SQLiteOpenHelper {
    public String getUserDetail(Context ctx,String inputype){//return the current user's AccountData
         switch(inputype){
             case "username":
-                String username = getPrefs(ctx).getString("username","default_username");
-                return username;
-
-
+                return getPrefs(ctx).getString("username","default_username");
             case "email":
-                String email = getPrefs(ctx).getString("email","default_email");
-                return email;
+                return getPrefs(ctx).getString("email","default_email");
             case "id":
                 String id = getPrefs(ctx).getString("id","def");
                 return id;
@@ -421,5 +447,37 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             Toast.makeText(ctx, "No File Chosen!", Toast.LENGTH_SHORT).show();
         }
     }
-
+    //PickUsr2Activity - to return the second user
+    public AccountData findMatchingID(final AccountData firstUser){
+        AccountData newAcc = new AccountData();
+        newAcc = firstUser;
+        isUser = false;
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                while (!isUser) {
+                    Log.v(TAG, FILENAME + firstUser.getUsername());
+                    // gets matching id from user details
+                    firstmID = firstUser.getMatchid();
+                    Log.v(TAG, FILENAME + firstmID);
+                    int count = (int) dataSnapshot.getChildrenCount();
+                    Log.e(dataSnapshot.getKey(), count + "");
+                    queryData = dataSnapshot.getValue(AccountData.class);
+                    Random ran = new Random();
+                    int randomMatchID = ran.nextInt(count);
+                    randomID = String.valueOf(randomMatchID).format("%04d", randomMatchID);
+                    queryID = String.valueOf(queryData.getID()).format("$04d", queryData.getID());
+                    if (queryID == randomID){}
+                    else{isUser = true;}
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("The read failed: " ,error.getMessage());
+            }
+        });
+        if (isUser){newAcc = queryData;}
+        return newAcc;
+    }
 }

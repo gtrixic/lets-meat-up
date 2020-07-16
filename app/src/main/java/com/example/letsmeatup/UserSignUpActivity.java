@@ -164,7 +164,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                             }
                         }
 
-                        @Override
+                           @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
                         }
@@ -182,7 +182,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(UserSignUpActivity.this,CreateUserOrBusinessActivity.class);
+                Intent intent= new Intent(UserSignUpActivity.this,SignupOrLoginActivity.class);
                 startActivity(intent);
             }
         });
