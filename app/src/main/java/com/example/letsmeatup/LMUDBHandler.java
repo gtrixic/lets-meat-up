@@ -280,24 +280,12 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.putString("gender",account.getGender());
         editor.putString("dob",account.getDob());
         editor.putString("matchid",account.getMatchid());
+        editor.putString("allergy",account.getAllergy());
+        editor.putString("diet",account.getDiet());
         editor.apply();
         Log.v(TAG,"Shared Preference set for user!");
     }
 
-    public void saveViewUser(Context ctx, AccountViewData account){
-        SharedPreferences.Editor editor = getPrefs(ctx).edit();
-        editor.putString("username",account.getUsername());
-        editor.putString("email",account.getEmail());
-        editor.putString("id",account.getID());
-        editor.putString("fullname",account.getFullName());
-        editor.putString("password",account.getPassword());
-        editor.putString("gender",account.getGender());
-        editor.putString("dob",account.getDob());
-        editor.putString("matchid",account.getMatchid());
-        editor.putString("allergy",account.getAllergy());
-        editor.putString("diet",account.getDiet());
-        editor.apply();
-    }
 
     public void stayLogin(Context ctx,boolean val){
         SharedPreferences.Editor editor = getPrefs(ctx).edit();

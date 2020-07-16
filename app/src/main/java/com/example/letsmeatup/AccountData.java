@@ -19,20 +19,11 @@ public class AccountData {
     private String gender;
     private String dob;
     private String matchid;
+    private String allergy;
+    private String diet;
 
     public AccountData(){}
-    public AccountData(String id,String fullName, String username, String password,
-                       String email, String gender, String dob,String matchid){
-        this.id = id;
-        this.fullName = fullName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.gender = gender;
-        this.dob = dob;
-        this.matchid = matchid;
 
-    }
     public String getID(){return this.id;}
 
     public void setID(String id){this.id = id;}
@@ -92,6 +83,14 @@ public class AccountData {
     public void setMatchid(String matchid) {
         this.matchid = matchid;
     }
+
+    public String getAllergy(){return allergy;}
+
+    public void setAllergy(String allergy){this.allergy = allergy;}
+
+    public String getDiet(){return diet;}
+
+    public void setDiet(String diet){this.diet = diet;}
 
     //Method for checking if email is valid or empty
     public static boolean isValidEmail(CharSequence target){
