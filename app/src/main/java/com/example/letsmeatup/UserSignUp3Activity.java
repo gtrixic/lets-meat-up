@@ -36,14 +36,26 @@ public class UserSignUp3Activity extends AppCompatActivity implements AdapterVie
         createProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // brings the user to the personality questions page
-                if (allergyEditText.getText().toString().trim().length() > 0){
-                StringBuffer allergyline = new StringBuffer();
-                allergyline.append(diet.getSelectedItem().toString());
-                allergyline.append(": "+allergyEditText.getText().toString());
-                lmudbHandler.addAllergies(allergyline.toString(),UserSignUp3Activity.this);}
+                if (allergyEditText.getText().toString().trim().length() > 0 || !diet.getSelectedItem().toString().equals("Diet")){
+                String[] allergytext = {allergyEditText.getText().toString(),diet.getSelectedItem().toString()};
+                lmudbHandler.addAllergies(allergytext,UserSignUp3Activity.this);
+                    Intent intent = new Intent(UserSignUp3Activity.this, PersonalityQuestionsActivity.class);
+                    startActivity(intent);}
+                else{
+                    new AlertDialog.Builder(UserSignUp3Activity.this)
+                            .setTitle("WARNING")
+                            .setMessage("Not all fields have been filled, proceed?")
+                            .setNegativeButton(android.R.string.no, null)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                Intent intent = new Intent(UserSignUp3Activity.this, PersonalityQuestionsActivity.class);
-                startActivity(intent);
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    Intent intent = new Intent(UserSignUp3Activity.this, PersonalityQuestionsActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).create().show();
+                }
+
+
                 finish();
             }
         });

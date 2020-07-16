@@ -282,6 +282,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.apply();
         Log.v(TAG,"Shared Preference set for user!");
     }
+
     public void stayLogin(Context ctx,boolean val){
         SharedPreferences.Editor editor = getPrefs(ctx).edit();
         editor.putBoolean("login",val);
@@ -330,18 +331,34 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     }
 
-    public void addAllergies(String allergystring,Context ctx){
-        //get account data
-        AccountData account = new AccountData();
-        //set content values
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ALLERGIES,allergystring);
-        //update db
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.update(ACCOUNTS,cv,COLUMN_USERNAME +"= '" +account.getUsername()+"'",null);
+    public void addAllergies(String[] allergystringarray,Context ctx){
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        //unpack array
+        String allergyString;
+        String dietString;
+        if(allergystringarray[0].length() == 0){
+            allergyString = "None";
+        }
+        else{
+            allergyString = allergystringarray[0];
+        }
+        if(allergystringarray[1].equals("Diet")){
+            dietString = "None";
+        }
+        else{
+            dietString = allergystringarray[1];
+        }
+        //Post to firebase
+        //Query id
+        String stringid = getUserDetail(ctx,"id");
+        fireRef.child(stringid).child("allergy").setValue(allergyString);
+        fireRef.child(stringid).child("diet").setValue(dietString);
+        //Log
         Log.v(TAG,"Allergy field added!");
 
     }
+
     public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
         if(FilePath != null){
             Log.v(TAG,"Creating Progress Dialog.");
