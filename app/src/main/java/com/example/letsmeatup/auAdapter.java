@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
-    ArrayList<String> username;
-    String pending;
-    String[] ids = pending.split(",");
+    ArrayList<String> userRequest;
 
     public auAdapter(ArrayList<String> users)
     {
-        this.username = users;
+        this.userRequest = users;
     }
 
     public auViewHolder onCreateViewHolder (ViewGroup parent, int ViewType)
@@ -27,13 +25,19 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
 
     public void onBindViewHolder (final auViewHolder holder, final int position)
     {
-        String user = username.get(position);
+        String user = userRequest.get(position);
         holder.username.setText(user);
+        holder.confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
     public int getItemCount()
     {
-        return username.size();
+        return userRequest.size();
     }
 
 }
