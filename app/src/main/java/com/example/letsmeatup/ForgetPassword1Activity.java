@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,13 +34,24 @@ public class ForgetPassword1Activity extends AppCompatActivity {
             public void onClick(View v) {
                 enterOnce = findViewById(R.id.enterPassword);
                 enterTwice = findViewById(R.id.reenterPassword);
-                if(checkSimilarity(enterOnce.getText().toString(),enterTwice.getText().toString())){ //if the 2 passwords are identical
-//                    dbHandler.updatePassword(input, enterOnce.getText().toString()); //password is updated in database
-                    nextPage();
-                    finish();
+                if(checkBlank(enterOnce.getText().toString(),enterTwice.getText().toString())) {
+                    if (checkSimilarity(enterOnce.getText().toString(), enterTwice.getText().toString())) { //if the 2 passwords are identical
+                        //update password here
+                        dbHandler.updatePassword(input, enterOnce.getText().toString(), ForgetPassword1Activity.this);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                nextPage();
+                                finish();
+                            }
+                        }, 5000);   //5 seconds wait for update
+                    } else {
+                        Toast.makeText(ForgetPassword1Activity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                    Toast.makeText(ForgetPassword1Activity.this,"Passwords do not match",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgetPassword1Activity.this, "Not all inputs have been filled.", Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -66,6 +78,13 @@ public class ForgetPassword1Activity extends AppCompatActivity {
         else{
             return false;
         }
+    }
+
+    public boolean checkBlank(String once, String twice){
+        if(once == null || twice == null){
+            return false;
+        }
+        return true;
     }
     public void nextPage(){ //from this page to the successful password change page
         Intent next = new Intent(ForgetPassword1Activity.this,ForgetPassword2Activity.class);

@@ -53,6 +53,12 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.nextArrow);
         forgetPass = findViewById(R.id.forgetPasswordButton);
         logincheckbox = findViewById(R.id.logincheckbox);
+        forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgetPassPage();
+            }
+        });
         //get firebase instance
         mAuth = FirebaseAuth.getInstance();
         login.setOnClickListener(new View.OnClickListener() { // when user clicks login
@@ -60,12 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginUser = findViewById(R.id.loginUsernameEmail);
                 loginPass = findViewById(R.id.loginPassword);
-                forgetPass.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        forgetPassPage();
-                    }
-                });
+
                 //first check if the credentials are valid
                 mAuth.signInWithEmailAndPassword(loginUser.getText().toString(), loginPass.getText().toString())
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -135,8 +136,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
-
     public void mainPage(){ //method to proceed to main page
         Intent go = new Intent(LoginActivity.this,mainPageActivity.class);
         go.putExtra("ID", loginUser.getText().toString());
@@ -146,28 +145,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent forget = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
         startActivity(forget);
     }
-   /* public boolean validCredentialUser(String input, String password) { //method to check if login credentials are valid
-        AccountData dbData = dbHandler.findUser(input);
-        AccountData dbData2 = dbHandler.findEmail(input);
-        Log.v(TAG, FILENAME + ":SharedPref Info = " + input + "|" + password);
-        if (dbData != null) { //if user uses username to login
-            Log.v(TAG, FILENAME + ":SharedPref Info = " + dbData.getUsername() + "|" + dbData.getPassword());
-            if (dbData.getUsername().equals(input) && dbData.getPassword().equals(password)) {
-                return true; // user exists
-            } else {
-                return false;  // user either has the wrong password or username or user does not exist
-            }
-        }
-        if (dbData2 != null) { // if user uses email to login
-            Log.v(TAG, FILENAME + ":SharedPref Info = " + dbData2.getEmail() + "|" + dbData2.getPassword());
-            if (dbData2.getEmail().equals(input) && dbData2.getPassword().equals(password)) {
-                return true;  // user exists
-            } else {
-                return false;  //user either has the wrong password or user or does not exist
-            }
-        }
-        return false;
-    }*/
+
 
     protected void onStop(){
         super.onStop();

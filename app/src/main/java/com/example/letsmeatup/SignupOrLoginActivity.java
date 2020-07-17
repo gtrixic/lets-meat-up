@@ -41,7 +41,7 @@ public class SignupOrLoginActivity extends AppCompatActivity {
 
     }
     private void CreateAccount(){ //from this page to UserSignUpActivity page
-        Intent create = new Intent(SignupOrLoginActivity.this,CreateUserOrBusinessActivity.class);
+        Intent create = new Intent(SignupOrLoginActivity.this,UserSignUpActivity.class);
         startActivity(create);
     }
     private void LoginAccount(){ //from this page to LoginActivity page

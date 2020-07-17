@@ -3,7 +3,8 @@
     package="com.example.letsmeatup">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,13 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AcceptUserActivity" />
         <activity android:name=".PickUser2Activity" />
         <activity android:name=".PickUserActivity" />
         <activity android:name=".AddRestaurants" />
         <activity android:name=".ForgetPassword1Activity" />
         <activity android:name=".PersonalityQuestionsActivity" />
         <activity android:name=".mainPageActivity" />
-        <activity android:name=".CreateUserOrBusinessActivity" />
         <activity android:name=".UserSignUp3Activity" />
         <activity android:name=".RestaurantSignUp2Activity" />
         <activity android:name=".UserSignUp2Activity" />
@@ -27,7 +28,6 @@
         <activity android:name=".SignupOrLoginActivity" />
         <activity android:name=".ForgetPassword2Activity" />
         <activity android:name=".ForgetPasswordActivity" />
-        <activity android:name=".UserProfile" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
