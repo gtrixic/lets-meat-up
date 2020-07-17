@@ -50,13 +50,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private String FILENAME = "LMUDBHandler.java";
     private static String PREF_NAME = "prefs";
     private DatabaseReference fireRef;
-    // for pickUser2
-    String firstmID;
-    boolean isUser;
-    String queryID;
-    String randomID;
-    AccountData queryData;
-    //
 
     public static String DATABASE_NAME = "LMUaccountDB.db";
     public static int DATABASE_VERSION = 8;
@@ -449,27 +442,28 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
     //PickUsr2Activity - to return the second user
     public AccountData findMatchingID(final AccountData firstUser){
+        final boolean[] isUser = new boolean[1];
+        final AccountData[] queryData = new AccountData[1];
         AccountData newAcc = new AccountData();
         newAcc = firstUser;
-        isUser = false;
+        isUser[0] = false;
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
         fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                while (!isUser) {
+                while (!isUser[0]) {
                     Log.v(TAG, FILENAME + firstUser.getUsername());
                     // gets matching id from user details
-                    firstmID = firstUser.getMatchid();
+                    String firstmID = firstUser.getMatchid();
                     Log.v(TAG, FILENAME + firstmID);
                     int count = (int) dataSnapshot.getChildrenCount();
                     Log.e(dataSnapshot.getKey(), count + "");
-                    queryData = dataSnapshot.getValue(AccountData.class);
+                    queryData[0] = dataSnapshot.getValue(AccountData.class);
                     Random ran = new Random();
                     int randomMatchID = ran.nextInt(count);
-                    randomID = String.valueOf(randomMatchID).format("%04d", randomMatchID);
-                    queryID = String.valueOf(queryData.getID()).format("$04d", queryData.getID());
-                    if (queryID == randomID){}
-                    else{isUser = true;}
+                    String randomID = String.valueOf(randomMatchID).format("%04d", randomMatchID);
+                    String queryID = String.valueOf(queryData[0].getID()).format("$04d", queryData[0].getID());
+                    if (!queryID.equals(randomID)){isUser[0] = true;}
                 }
             }
             @Override
@@ -477,7 +471,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 Log.e("The read failed: " ,error.getMessage());
             }
         });
-        if (isUser){newAcc = queryData;}
+        if (isUser[0]){newAcc = queryData[0];}
         return newAcc;
     }
 }
