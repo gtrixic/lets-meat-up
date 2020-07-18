@@ -2,6 +2,9 @@ package com.example.letsmeatup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class AcceptUserActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    auAdapter adapter;
     FirebaseDatabase database;
     DatabaseReference fireRef;
     AccountData currentUser;
@@ -29,7 +34,7 @@ public class AcceptUserActivity extends AppCompatActivity {
     ImageView profilePic;
     String pending;
     String[] ids;
-    ArrayList<String> pendingUsers;
+    ArrayList<AccountData> pendingUsers;
 
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "AcceptUserActivity.java";
@@ -47,6 +52,8 @@ public class AcceptUserActivity extends AppCompatActivity {
         fireRef = database.getReference();
         currentUser = dbHandler.findUser(dbHandler.getUserDetail(this, "username"));
         pending = currentUser.getPending();
+        recyclerView =findViewById(R.id.AURecyclerView);
+        //populate pending users list
         ids = pending.split(",");
         for (int i = 0; i < ids.length; i++)
         {
@@ -55,9 +62,9 @@ public class AcceptUserActivity extends AppCompatActivity {
             idQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String userName = dataSnapshot.getValue().toString();
-                    pendingUsers.add(userName);
-                    Log.v(TAG, "Username: " + userName);
+                    AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
+                    pendingUsers.add(acc);
+                    Log.v(TAG, "Username: " + acc.getUsername());
                 }
 
                 @Override
@@ -66,6 +73,12 @@ public class AcceptUserActivity extends AppCompatActivity {
                 }
             });
         }
+        adapter = new auAdapter(AcceptUserActivity.this,pendingUsers);
+        LinearLayoutManager manager =new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+
 
     }
 

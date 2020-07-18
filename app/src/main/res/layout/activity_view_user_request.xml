@@ -59,6 +59,7 @@
         app:srcCompat="@drawable/help_button" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/AURecyclerView"
         android:layout_width="409dp"
         android:layout_height="586dp"
         app:layout_constraintBottom_toBottomOf="parent"
