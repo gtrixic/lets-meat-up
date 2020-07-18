@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 public class mainPageActivity extends AppCompatActivity {
     ImageButton pickUser;
     ImageButton userProfile;
+    ImageButton viewUsers;
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "mainPageActivity.java";
     private LMUDBHandler db;
@@ -23,6 +24,7 @@ public class mainPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
         pickUser = findViewById(R.id.pickUserButton);
         userProfile = findViewById(R.id.profileButton);
+        viewUsers = findViewById(R.id.acceptUserButton);
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,12 +41,25 @@ public class mainPageActivity extends AppCompatActivity {
                 pickUserScreen();
             }
         });
+        viewUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewUserRequests();
+            }
+        });
     }
     public void pickUserScreen(){ //from this page to PickUser page
         Intent pick = new Intent(mainPageActivity.this,PickUserActivity.class);
         Log.v(TAG,FILENAME+": User wishes to pick a user.");
         startActivity(pick);
     }
+
+    public void viewUserRequests(){
+        Intent viewRequests = new Intent(mainPageActivity.this, AcceptUserActivity.class);
+        Log.v(TAG, FILENAME+": User wishes to view user requests.");
+        startActivity(viewRequests);
+    }
+
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
