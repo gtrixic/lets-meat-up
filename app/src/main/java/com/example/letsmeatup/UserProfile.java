@@ -27,7 +27,6 @@ public class UserProfile extends AppCompatActivity {
     DatabaseReference databaseReference;
     StorageReference storageReference;
     SharedPreferences sharedPreferences;
-    String currentUser;
     ImageView pfp;
     TextView username;
     TextView name;
@@ -42,6 +41,7 @@ public class UserProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
         pfp = findViewById(R.id.profilePic);
         username = findViewById(R.id.usernameView);
         name = findViewById(R.id.nameView);
@@ -69,7 +69,7 @@ public class UserProfile extends AppCompatActivity {
         allergies.setText(dbHandler.getUserDetail(this, "allergies"));
 
         //edit profile
-        Button edit = findViewById(R.id.buttonEdit);
+        edit = findViewById(R.id.buttonEdit);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

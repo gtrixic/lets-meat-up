@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:background="#353552">
 
+    <Spinner
+        android:id="@+id/editGender"
+        android:layout_width="131dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="456dp"
+        android:entries="@array/gender_array"
+        android:fontFamily="@font/josefinsanslight"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/editAllergies"
         android:layout_width="300dp"
@@ -20,21 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.861" />
-
-    <EditText
-        android:id="@+id/editGender"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/josefinsanslight"
-        android:text="Male"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.226"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
 
     <ImageButton
         android:id="@+id/backArrow"
