@@ -1,6 +1,7 @@
 package com.example.letsmeatup;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,10 +69,15 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                     confirm = user.getConfirmed()+","+currentUser.getID();
                     user.setConfirmed(confirm);
                 }
-
+                deletePending(position, user);
             }
         });
-
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePending(position, user);
+            }
+        });
 
 
     }
@@ -79,6 +85,29 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
     public int getItemCount()
     {
         return userRequest.size();
+    }
+
+    private void deletePending(final int position, AccountData user) {
+
+        userRequest.remove(position);
+        notifyDataSetChanged();
+        String pending = currentUser.getPending();
+        if (pending.contains(","+user.getID()+","))
+        {
+            pending.replace(user.getID(), "");
+            pending.replace(",,", ",");
+            currentUser.setPending(pending);
+        }
+        else if (pending.contains(user.getID()+","))
+        {
+            pending.replace(user.getID()+",", "");
+            currentUser.setPending(pending);
+        }
+        else if(pending.contains(","+user.getID()))
+        {
+            pending.replace(","+user.getID(), "");
+            currentUser.setPending(pending);
+        }
     }
 
 }

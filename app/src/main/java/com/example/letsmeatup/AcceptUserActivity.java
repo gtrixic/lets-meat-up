@@ -90,31 +90,6 @@ public class AcceptUserActivity extends AppCompatActivity {
 
 
 
-
-    }
-
-    private void deletePending(final int position) {
-
-        AccountData delete = pendingUsers.get(position);
-        Log.v(TAG, "Delete: " + delete);
-        pendingUsers.remove(position);
-        adapter.notifyDataSetChanged();
-        if (pending.contains(","+delete.getID()+","))
-        {
-            pending.replace(delete.getID(), "");
-            pending.replace(",,", ",");
-            currentUser.setPending(pending);
-        }
-        else if (pending.contains(delete.getID()+","))
-        {
-            pending.replace(delete.getID()+",", "");
-            currentUser.setPending(pending);
-        }
-        else if(pending.contains(","+delete.getID()))
-        {
-            pending.replace(","+delete.getID(), "");
-            currentUser.setPending(pending);
-        }
     }
 
     public void viewUserProfile(final int position)
