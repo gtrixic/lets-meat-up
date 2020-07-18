@@ -1,11 +1,14 @@
 package com.example.letsmeatup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -27,7 +30,6 @@ public class AcceptUserActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference fireRef;
     AccountData currentUser;
-    AccountData otherUser;
     ImageButton confirm;
     ImageButton delete;
     TextView username;
@@ -73,14 +75,61 @@ public class AcceptUserActivity extends AppCompatActivity {
                 }
             });
         }
-        adapter = new auAdapter(AcceptUserActivity.this,pendingUsers);
+        adapter = new auAdapter(AcceptUserActivity.this,pendingUsers,currentUser);
         LinearLayoutManager manager =new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new auAdapter.OnItemClickListener() {
+            @Override
+            public void ItemClick(int position) {
+                viewUserProfile(position);
+            }
+        });
+
+
+
 
     }
 
+    private void deletePending(final int position) {
+
+        AccountData delete = pendingUsers.get(position);
+        Log.v(TAG, "Delete: " + delete);
+        pendingUsers.remove(position);
+        adapter.notifyDataSetChanged();
+        if (pending.contains(","+delete.getID()+","))
+        {
+            pending.replace(delete.getID(), "");
+            pending.replace(",,", ",");
+            currentUser.setPending(pending);
+        }
+        else if (pending.contains(delete.getID()+","))
+        {
+            pending.replace(delete.getID()+",", "");
+            currentUser.setPending(pending);
+        }
+        else if(pending.contains(","+delete.getID()))
+        {
+            pending.replace(","+delete.getID(), "");
+            currentUser.setPending(pending);
+        }
+    }
+
+    public void viewUserProfile(final int position)
+    {
+        Intent viewUser = new Intent(AcceptUserActivity.this, UserRequestProfileActivity.class);
+        AccountData move = pendingUsers.get(position);
+        Log.v(TAG, "Sending Info: " + move);
+        Bundle b = new Bundle();
+        b.putString("username", move.getUsername());
+        b.putString("name", move.getFullName());
+        b.putString("gender", move.getGender());
+        b.putString("dob", move.getDob());
+        b.putString("allergy", move.getAllergy());
+        viewUser.putExtras(b);
+        startActivity(viewUser);
+    }
 
 }
