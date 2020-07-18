@@ -13,12 +13,23 @@ public class auViewHolder extends RecyclerView.ViewHolder {
     ImageButton confirm;
     ImageButton delete;
 
-    public auViewHolder(View view)
+    public auViewHolder(View view, final auAdapter.OnItemClickListener onItemClickListener)
     {
         super(view);
         profilePic = view.findViewById(R.id.profilePic);
         username = view.findViewById(R.id.username);
         confirm = view.findViewById(R.id.confirmButton);
         delete = view.findViewById(R.id.deleteButton);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null)
+                {
+                    int position = getAdapterPosition();
+                    onItemClickListener.ItemClick(position);
+                }
+            }
+        });
     }
 }

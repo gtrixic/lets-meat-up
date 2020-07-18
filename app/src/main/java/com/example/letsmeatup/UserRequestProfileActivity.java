@@ -27,6 +27,6 @@ public class UserRequestProfileActivity extends AppCompatActivity {
         dob = findViewById(R.id.dobView2);
         allergies = findViewById(R.id.allergiesView2);
 
-        
+
     }
 }
