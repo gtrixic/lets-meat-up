@@ -109,6 +109,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                 dbAccountData.setGender(GenderSelected);
                                 dbAccountData.setDob(Date.getText().toString());
                                 dbAccountData.setMatchid("0");
+                                dbAccountData.setPfp("default");
                                 if (dbAccountData.isPasswordMatch(checkPassword.getText().toString())) {
                                     Log.v(TAG,"Passwords Match!");
                                     if (dbAccountData.isValidEmail(dbAccountData.getEmail())){

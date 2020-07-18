@@ -410,10 +410,24 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             final StorageReference ref = storageReference.child("User_Pictures/"+stringid);
             Log.v(TAG,"Checking if file exists");
             //check if file already exists in database
-            if(ref.getDownloadUrl() != null){
-                Log.v(TAG,"File exists!");
-                ref.delete();
-            }
+            fireRef.child(stringid).child("pfp").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()) {
+                        AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
+                        if (!acc.getPfp().equals("default")){
+                            Log.v(TAG, "File exists!");
+                            ref.delete();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.v(TAG,"Error getting account data");
+                }
+            });
+
             ref.putFile(FilePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
