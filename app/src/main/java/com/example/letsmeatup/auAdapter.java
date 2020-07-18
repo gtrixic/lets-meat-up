@@ -33,6 +33,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 
             }
         });
+
     }
 
     public int getItemCount()

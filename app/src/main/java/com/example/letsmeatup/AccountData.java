@@ -18,6 +18,7 @@ public class AccountData {
     private String email;
     private String gender;
     private String dob;
+    private String pfp;
     private String matchid;
     private String allergy;
     private String diet;
@@ -77,6 +78,10 @@ public class AccountData {
     public void setDob(String dob) {
         this.dob = dob;
     }
+
+    public String getPfp(){return this.pfp;}
+
+    public void setPfp(String pfp){this.pfp = pfp;}
 
     public String getMatchid() {
         return matchid;

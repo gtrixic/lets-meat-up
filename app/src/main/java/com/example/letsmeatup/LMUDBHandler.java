@@ -396,6 +396,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
     public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
         if(FilePath != null){
             Log.v(TAG,"Creating Progress Dialog.");
             final ProgressDialog progressDialog = new ProgressDialog(ctx);
@@ -417,6 +418,13 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    //post url to firebase
+                                    fireRef.child(stringid).child("pfp").setValue(uri.toString());
+                                }
+                            });
                             progressDialog.dismiss();
                             Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
                         }

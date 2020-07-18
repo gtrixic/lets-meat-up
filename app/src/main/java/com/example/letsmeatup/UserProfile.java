@@ -45,11 +45,11 @@ public class UserProfile extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //profile picture
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        databaseReference = FirebaseStorage.getInstance().getReference("Users").child(firebaseUser.getUid);
+//        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+//        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+//        databaseReference = FirebaseStorage.getInstance().getReference("Users").child(dbHandler.getUserDetail(this,));
 
 
-        viewUsername = dbHandler.getUserDetail(username);
+//        viewUsername = dbHandler.getUserDetail(username);
     }
 }
