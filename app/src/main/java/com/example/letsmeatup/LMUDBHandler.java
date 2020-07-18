@@ -42,6 +42,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -359,9 +360,18 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             case "password":
                 String password = getPrefs(ctx).getString("password","def");
                 return password;
-
-
-
+            case "name":
+                String name = getPrefs(ctx).getString("name","def");
+                return name;
+            case "age":
+                String age = getPrefs(ctx).getString("age", "def");
+                return age;
+            case "gender":
+                String gender = getPrefs(ctx).getString("gender", "def");
+                return gender;
+            case "dob":
+                String dob = getPrefs(ctx).getString("dob", "def");
+                return dob;
         }
         return null;
 
@@ -396,7 +406,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     }
 
     public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
-        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
         if(FilePath != null){
             Log.v(TAG,"Creating Progress Dialog.");
             final ProgressDialog progressDialog = new ProgressDialog(ctx);
@@ -410,35 +419,14 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             final StorageReference ref = storageReference.child("User_Pictures/"+stringid);
             Log.v(TAG,"Checking if file exists");
             //check if file already exists in database
-            fireRef.child(stringid).child("pfp").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()) {
-                        AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
-                        if (!acc.getPfp().equals("default")){
-                            Log.v(TAG, "File exists!");
-                            ref.delete();
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.v(TAG,"Error getting account data");
-                }
-            });
-
+            if(ref.getDownloadUrl() != null){
+                Log.v(TAG,"File exists!");
+                ref.delete();
+            }
             ref.putFile(FilePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    //post url to firebase
-                                    fireRef.child(stringid).child("pfp").setValue(uri.toString());
-                                }
-                            });
                             progressDialog.dismiss();
                             Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
                         }

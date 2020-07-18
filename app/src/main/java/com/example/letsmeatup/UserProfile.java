@@ -1,7 +1,12 @@
 package com.example.letsmeatup;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,14 +26,16 @@ public class UserProfile extends AppCompatActivity {
 
     DatabaseReference databaseReference;
     StorageReference storageReference;
-
+    SharedPreferences sharedPreferences;
+    String currentUser;
     ImageView pfp;
-    TextView viewUsername;
+    TextView username;
     TextView name;
     TextView age;
     TextView gender;
     TextView dob;
     TextView allergies;
+    Button edit;
     private FirebaseAuth mAuth;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
@@ -36,7 +43,7 @@ public class UserProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         pfp = findViewById(R.id.profilePic);
-        viewUsername = findViewById(R.id.usernameView);
+        username = findViewById(R.id.usernameView);
         name = findViewById(R.id.nameView);
         age = findViewById(R.id.ageView);
         gender = findViewById(R.id.genderView);
@@ -45,11 +52,32 @@ public class UserProfile extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //profile picture
-//        storageReference = FirebaseStorage.getInstance().getReference("uploads");
-//        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-//        databaseReference = FirebaseStorage.getInstance().getReference("Users").child(dbHandler.getUserDetail(this,));
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference("Users").child(dbHandler.getUserDetail(this, "pfp"));
+        //username
+        username.setText(dbHandler.getUserDetail(this, "username"));
+        //name
+        name.setText(dbHandler.getUserDetail(this, "name"));
+        //age
+        age.setText(dbHandler.getUserDetail(this, "age"));
+        //gender
+        gender.setText(dbHandler.getUserDetail(this, "gender"));
+        //dob
+        dob.setText(dbHandler.getUserDetail(this, "dob"));
+        //allergies
+        allergies.setText(dbHandler.getUserDetail(this, "allergies"));
 
+        //edit profile
+        Button edit = findViewById(R.id.buttonEdit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //go to EditProfile.java
+                Intent intent = new Intent(UserProfile.this, EditProfile.class);
+                startActivity(intent);
+            }
+        });
 
-//        viewUsername = dbHandler.getUserDetail(username);
     }
 }
