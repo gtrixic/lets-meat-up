@@ -114,7 +114,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                     Log.v(TAG,"Passwords Match!");
                                     if (dbAccountData.isValidEmail(dbAccountData.getEmail())){
                                         Log.v(TAG,"Valid Email!");
-                                        //Creat account in mAuth
+                                        //Create account in mAuth
                                         mAuth = FirebaseAuth.getInstance();
                                         mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
                                             .addOnCompleteListener(UserSignUpActivity.this, new OnCompleteListener<AuthResult>() {
