@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserRequestProfileActivity"></activity>
+        <activity android:name=".ViewChats"></activity>
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".UserRequestProfileActivity" />
         <activity android:name=".AcceptUserActivity" />
         <activity android:name=".PickUser2Activity" />
         <activity android:name=".PickUserActivity" />
@@ -31,7 +33,6 @@
         <activity android:name=".ForgetPassword2Activity" />
         <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".UserProfile" />
-        <activity android:name=".EditProfile" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

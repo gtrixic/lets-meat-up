@@ -8,7 +8,7 @@
     android:padding="20dp">
 
   <ImageView
-      android:id="@+id/imageView2"
+      android:id="@+id/CIPfp"
       android:layout_width="50dp"
       android:layout_height="50dp"
       android:layout_marginStart="8dp"
@@ -18,21 +18,21 @@
       tools:src="@tools:sample/avatars" />
 
   <TextView
-      android:id="@+id/textView"
+      android:id="@+id/CIUsername"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       android:fontFamily="@font/josefinsanslight"
       android:textColor="@android:color/white"
       android:textSize="22sp"
-      app:layout_constraintBottom_toTopOf="@+id/textView2"
-      app:layout_constraintStart_toEndOf="@+id/imageView2"
-      app:layout_constraintTop_toTopOf="@+id/imageView2"
+      app:layout_constraintBottom_toTopOf="@+id/CIlastmessage"
+      app:layout_constraintStart_toEndOf="@+id/CIPfp"
+      app:layout_constraintTop_toTopOf="@+id/CIPfp"
       app:layout_constraintVertical_bias="1.0"
       tools:text="@tools:sample/full_names" />
 
   <TextView
-      android:id="@+id/textView2"
+      android:id="@+id/CIlastmessage"
       android:layout_width="285dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
@@ -43,12 +43,12 @@
       android:textSize="20sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toEndOf="@+id/imageView2"
+      app:layout_constraintStart_toEndOf="@+id/CIPfp"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="@tools:sample/lorem[4:10]" />
 
   <TextView
-      android:id="@+id/textView3"
+      android:id="@+id/CILastTime"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
@@ -56,6 +56,6 @@
       android:textColor="#FFFFFF"
       android:textSize="20sp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/imageView2"
+      app:layout_constraintTop_toTopOf="@+id/CIPfp"
       tools:text="@tools:sample/date/hhmm" />
 </androidx.constraintlayout.widget.ConstraintLayout>
