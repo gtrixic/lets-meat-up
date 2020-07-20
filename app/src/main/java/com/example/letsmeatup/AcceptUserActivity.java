@@ -96,14 +96,8 @@ public class AcceptUserActivity extends AppCompatActivity {
     {
         Intent viewUser = new Intent(AcceptUserActivity.this, UserRequestProfileActivity.class);
         AccountData move = pendingUsers.get(position);
-        Log.v(TAG, "Sending Info: " + move);
-        Bundle b = new Bundle();
-        b.putString("username", move.getUsername());
-        b.putString("name", move.getFullName());
-        b.putString("gender", move.getGender());
-        b.putString("dob", move.getDob());
-        b.putString("allergy", move.getAllergy());
-        viewUser.putExtras(b);
+        Log.v(TAG, "Sending Info: " + move.getID());
+        viewUser.putExtra("id", move.getID());
         startActivity(viewUser);
     }
 

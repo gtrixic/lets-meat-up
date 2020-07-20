@@ -18,7 +18,6 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
     AccountData currentUser;
     String confirm;
     private OnItemClickListener onItemClickListener;
-    String[] removeFromPending;
 
     public void setOnItemClickListener(OnItemClickListener onItem) {
         this.onItemClickListener = onItem;
