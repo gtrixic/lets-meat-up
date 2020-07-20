@@ -29,11 +29,16 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
 
     public chatViewHolder onCreateViewHolder(ViewGroup parent,int ViewType){
         View item = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_view_chats,parent,false);
+                .inflate(R.layout.recycler_view_chat_item,parent,false);
         return new chatViewHolder(item,onItemClickListener);
     }
 
     public void onBindViewHolder(final chatViewHolder holder, final int position){
-        //to be filled
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return acceptedUsers.size();
     }
 }
