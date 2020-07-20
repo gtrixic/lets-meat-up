@@ -102,11 +102,11 @@ public class MessageActivity extends AppCompatActivity {
         userMessage.setCreatedAt(currentTime.getTime());
         userMessage.SetMessage(message);
         //push to Chats
-        fireRef.child("Chats").push().setValue(hashMap);
+        //fireRef.child("Chats").push().setValue(hashMap);
     }
 
-    private readMessages(final String id, String userid){
-        mChat = new ArrayList<>();
-        fireRef = FirebaseDatabase.getInstance().getReference();
-    }
+//    private readMessages(final String id, String userid){
+//        mChat = new ArrayList<>();
+//        fireRef = FirebaseDatabase.getInstance().getReference();
+//    }
 }
