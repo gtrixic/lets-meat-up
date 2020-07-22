@@ -26,8 +26,8 @@ public class RestaurantSignUpActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText Rname = findViewById(R.id.restaurantName);
-                EditText Address = findViewById(R.id.address);
+                EditText Rname = findViewById(R.id.addLocation);
+                EditText Address = findViewById(R.id.Paddress);
                 EditText Password = findViewById(R.id.Rpassword);
                 EditText checkPassword = findViewById(R.id.passwordtwice);
                 EditText Email = findViewById(R.id.email);

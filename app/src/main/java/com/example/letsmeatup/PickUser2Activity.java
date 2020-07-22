@@ -76,7 +76,8 @@ public class PickUser2Activity extends AppCompatActivity {
 
     public void getSecondUser() {
         // gets user details for the current user
-        //firstUser = dbHandler.getUserDetail(this,"username");
+        String username = dbHandler.getUserDetail(this,"username");
+        //firstUser =
         Log.v(TAG,FILENAME+firstUser.getUsername());
         secondUser = dbHandler.findMatchingID(firstUser);
         while(secondUser==firstUser){
