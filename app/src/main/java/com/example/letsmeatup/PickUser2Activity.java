@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -42,6 +43,7 @@ public class PickUser2Activity extends AppCompatActivity {
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "PickUser2Activity.java";
     LMUDBHandler dbHandler = new LMUDBHandler(this, null, null, 1);
+    final LoadingDialog loadingDialog = new LoadingDialog(PickUser2Activity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class PickUser2Activity extends AppCompatActivity {
         allergy = findViewById(R.id.allergyText);
         request = findViewById(R.id.requestButton);
         ignore = findViewById(R.id.ignoreButton);
+        loading();
         getSecondUser();
         request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +164,7 @@ public class PickUser2Activity extends AppCompatActivity {
         ign.setPositiveButton("Continue?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                quickloading();
                 getSecondUser();
             }
         });
@@ -172,5 +176,25 @@ public class PickUser2Activity extends AppCompatActivity {
         });
         AlertDialog alert = ign.create();
         alert.show();
+    }
+    public void loading(){
+        loadingDialog.startLoadingDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        },3000);
+    }
+    public void quickloading(){
+        loadingDialog.startLoadingDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        },1000);
     }
 }
