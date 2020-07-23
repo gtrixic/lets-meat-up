@@ -27,6 +27,24 @@ public class AccountData {
 
     public AccountData(){}
 
+    public AccountData(String i, String f, String u, String p, String e, String g, String d, String pf, String m,String a,String di,String pe,String c){
+        this.id = i;
+        this.fullName = f;
+        this.username = u;
+        this. password = p;
+        this.email = e;
+        this.gender = g;
+        this.dob = d;
+        this.pfp = pf;
+        this.matchid = m;
+        this.allergy = a;
+        this.diet = di;
+        this.pending = pe;
+        this.confirmed = c;
+    }
+
+
+
     public String getID(){return this.id;}
 
     public void setID(String id){this.id = id;}

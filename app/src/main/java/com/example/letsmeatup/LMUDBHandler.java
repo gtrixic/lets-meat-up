@@ -319,8 +319,29 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.putString("matchid",account.getMatchid());
         editor.putString("allergy",account.getAllergy());
         editor.putString("diet",account.getDiet());
+        editor.putString("pfp",account.getPfp());
+        editor.putString("pending",account.getPending());
+        editor.putString("confirmed",account.getConfirmed());
         editor.apply();
         Log.v(TAG,"Shared Preference set for user!");
+    }
+
+    public AccountData returnUser(Context ctx){
+        String id = getPrefs(ctx).getString("id","default_username");
+        String fullname = getPrefs(ctx).getString("name","default_name");
+        String username = getPrefs(ctx).getString("username","default_username");
+        String password = getPrefs(ctx).getString("password","def");
+        String email = getPrefs(ctx).getString("email","email");
+        String gender = getPrefs(ctx).getString("gender","gender");
+        String dob = getPrefs(ctx).getString("dob","dob");
+        String pfp = getPrefs(ctx).getString("pfp","default");
+        String matchid = getPrefs(ctx).getString("matchid","id");
+        String allergy = getPrefs(ctx).getString("allergy","allergy");
+        String diet = getPrefs(ctx).getString("diet","diet");
+        String pending = getPrefs(ctx).getString("pending","");
+        String confirmed = getPrefs(ctx).getString("confirmed","");
+        AccountData acc = new AccountData(id,fullname,username,password,email,gender,dob,pfp,matchid,allergy,diet,pending,confirmed);
+        return acc;
     }
 
 

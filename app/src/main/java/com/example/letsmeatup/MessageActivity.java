@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
@@ -101,6 +102,10 @@ public class MessageActivity extends AppCompatActivity {
         userMessage.setReceiver(receiver);
         userMessage.setCreatedAt(currentTime.getTime());
         userMessage.SetMessage(message);
+
+        //check if Chat ID created, else create it
+        Query chatQuery = fireRef.child("Chats").orderByChild("chatid").equalTo()
+        //Push Message info, and message metadata
         //push to Chats
         //fireRef.child("Chats").push().setValue(hashMap);
     }
