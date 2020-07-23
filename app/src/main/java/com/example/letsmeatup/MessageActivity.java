@@ -57,13 +57,11 @@ public class MessageActivity extends AppCompatActivity {
         chatItemRecycler = findViewById(R.id.chatitemrecycler);
         sendMessage = findViewById(R.id.sendmessagebutton);
         recyclerView = findViewById(R.id.chatitemrecycler);
-        mAdapter = new MessageAdapter(this, mChat);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(mAdapter);
+
 
 
         intent = getIntent();
+        final String chatid = intent.getStringExtra("chatid");
         final String userid = intent.getStringExtra("userid");
 
         sendMessage.setOnClickListener(new View.OnClickListener() {
@@ -71,10 +69,10 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String message = chatBoxText.getText().toString();
                 if (message.trim().length() > 0) {
-                    sendMessage(lmudbHandler.getUserDetail(MessageActivity.this, "username"), userid, message);
+                    sendMessage(lmudbHandler.getUserDetail(MessageActivity.this, "username"), userid, message,chatid);
                 } else {
                     Toast.makeText(MessageActivity.this, "Invalid message!", Toast.LENGTH_SHORT).show();
-                    ;
+
                 }
             }
         });
@@ -84,6 +82,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 AccountData user = snapshot.getChildren().iterator().next().getValue(AccountData.class);
                 Username.setText(user.getUsername());
+                readMessages(chatid);
             }
 
             @Override
@@ -94,7 +93,7 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    private void sendMessage(String sender, String receiver, String message) {
+    private void sendMessage(String sender, String receiver, String message,String chatid) {
         fireRef = FirebaseDatabase.getInstance().getReference();
         Date currentTime = Calendar.getInstance().getTime();
         Message userMessage = new Message();
@@ -102,16 +101,56 @@ public class MessageActivity extends AppCompatActivity {
         userMessage.setReceiver(receiver);
         userMessage.setCreatedAt(currentTime.getTime());
         userMessage.SetMessage(message);
+        String users = sender + "," + receiver;
+        Chat chat;
 
         //check if Chat ID created, else create it
-        Query chatQuery = fireRef.child("Chats").orderByChild("chatid").equalTo()
-        //Push Message info, and message metadata
-        //push to Chats
-        //fireRef.child("Chats").push().setValue(hashMap);
+        if (chatid == "None") {
+            chat = new Chat();
+            chat.setUsers(users);
+            //get id
+            chat.setId(fireRef.child("Chats").push().getKey());
+            //Create chat
+            fireRef.child("Chats").child(chat.id).setValue(chat);
+            chatid = chat.id;
+        }
+        //find chat,//Push Message info, and message metadata
+        //get id
+        userMessage.setId(fireRef.child("Chats").child(chatid).child("Messages").push().getKey());
+        //set message
+        fireRef.child("Chats").child(chatid).child("Messages").child(userMessage.getId()).setValue(userMessage);
+        //set metadata
+        fireRef.child("Chats").child(chatid).child("lastMessageID").setValue(userMessage.getId());
+
     }
 
-//    private readMessages(final String id, String userid){
-//        mChat = new ArrayList<>();
-//        fireRef = FirebaseDatabase.getInstance().getReference();
-//    }
+    private void readMessages(String chatid){
+        mChat = new ArrayList<>();
+        fireRef = FirebaseDatabase.getInstance().getReference();
+        //Query messages from chatid
+        if(!chatid.equals("default")) {
+            Query messagesQuery = fireRef.child("Chats").child(chatid).child("Messages");
+            messagesQuery.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    mChat.clear();
+                    for (DataSnapshot s : snapshot.getChildren()) {
+                        mChat.add(s.getValue(Message.class));
+                    }
+                    mAdapter.notifyDataSetChanged();
+
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+            mAdapter = new MessageAdapter(MessageActivity.this,mChat);
+            recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(mAdapter);
+    }
 }
