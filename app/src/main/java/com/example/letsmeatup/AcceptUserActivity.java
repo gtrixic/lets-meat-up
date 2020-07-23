@@ -1,13 +1,11 @@
 package com.example.letsmeatup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,14 +51,41 @@ public class AcceptUserActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         fireRef = database.getReference();
         currentUser = dbHandler.returnUser(this);
+        Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID());
         pending = currentUser.getPending();
+        Log.v(TAG, "pending string: " + currentUser.getPending());
         recyclerView =findViewById(R.id.AURecyclerView);
-        //populate pending users list
-        ids = pending.split(",");
-        for (int i = 0; i < ids.length; i++)
+        //check if got less than 2 requests
+        if (pending.contains(","))
         {
-            String userID = ids[i];
+            //populate pending users list
+            ids = pending.split(",");
+            Log.v(TAG, "Pending ID list: " + ids);
+            for (int i = 0; i < ids.length; i++)
+            {
+                String userID = ids[i];
+                Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+                idQuery.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
+                        pendingUsers.add(acc);
+                        Log.v(TAG, "Username: " + acc.getUsername());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                    }
+                });
+            }
+        }
+        else
+        {
+            String userID = pending;
+            Log.v(TAG, "Pending ID list: " + userID);
             Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+            Log.v(TAG, "query: " + idQuery);
             idQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -74,7 +99,9 @@ public class AcceptUserActivity extends AppCompatActivity {
                     Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
                 }
             });
+
         }
+
         adapter = new auAdapter(AcceptUserActivity.this,pendingUsers,currentUser);
         LinearLayoutManager manager =new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
