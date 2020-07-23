@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -76,32 +77,62 @@ public class PickUser2Activity extends AppCompatActivity {
 
     public void getSecondUser() {
         // gets user details for the current user
-        String username = dbHandler.getUserDetail(this,"username");
-        //firstUser =
-        Log.v(TAG,FILENAME+firstUser.getUsername());
-        secondUser = dbHandler.findMatchingID(firstUser);
-        while(secondUser==firstUser){
-            secondUser = dbHandler.findMatchingID(firstUser);
-        }
-        Log.v(TAG,FILENAME+secondUser.getUsername());
-        // setting user details into Textviews
-        name.setText(secondUser.getFullName());
-        String stDate = secondUser.getDob();
-        Date date = new Date();
-        Date c = Calendar.getInstance().getTime();
-        // getting age from dob
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date = format.parse(stDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long age = c.getTime() - date.getTime();
-        int ageinyears = (int) (Math.floor(TimeUnit.DAYS.convert(age, TimeUnit.MILLISECONDS) / 365));
-        String strAge = String.valueOf(ageinyears);
-        ageT.setText(strAge);
-        gender.setText(secondUser.getGender());
-        allergy.setText(secondUser.getAllergy());
+        firstUser = dbHandler.returnUser(this);
+        Log.v(TAG,FILENAME+": "+firstUser.getUsername());
+        final AccountData[] queryData = {new AccountData()};
+        final ArrayList<AccountData> accList = new ArrayList<>();
+        final boolean[] isUser = new boolean[1];
+        isUser[0] = false;
+        Log.v(TAG, "Finding matching ID...");
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        fireRef.orderByChild("matchid").equalTo(firstUser.getMatchid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.v(TAG, "Finding matching ID...");
+                for (DataSnapshot s : dataSnapshot.getChildren()) {
+                    accList.add(s.getValue(AccountData.class));
+                }
+                while (!isUser[0]) {
+                    int count = accList.size();
+                    Log.v(TAG, String.valueOf(count));
+                    Random ran = new Random();
+                    int randomMatchID = ran.nextInt(count);
+                    Log.v(TAG, String.valueOf(randomMatchID));
+                    queryData[0] = accList.get(randomMatchID);
+                    Log.v(TAG, queryData[0].getUsername());
+                    if (!queryData[0].getID().equals(firstUser.getID())) {
+                        Log.v(TAG, "Ended!");
+                        isUser[0] = true;
+                        secondUser = queryData[0];
+                        Log.v(TAG,FILENAME+secondUser.getUsername());
+                        // setting user details into Textviews
+                        name.setText(secondUser.getFullName());
+                        String stDate = secondUser.getDob();
+                        Date date = new Date();
+                        Date c = Calendar.getInstance().getTime();
+                        // getting age from dob
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            date = format.parse(stDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        long age = c.getTime() - date.getTime();
+                        int ageinyears = (int) (Math.floor(TimeUnit.DAYS.convert(age, TimeUnit.MILLISECONDS) / 365));
+                        String strAge = String.valueOf(ageinyears);
+                        ageT.setText(strAge);
+                        gender.setText(secondUser.getGender());
+                        allergy.setText(secondUser.getAllergy());
+
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("The read failed: ", error.getMessage());
+            }
+        });
     }
 
     public void requestAlert() { // tells user that request to pair is sent

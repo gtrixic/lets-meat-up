@@ -52,7 +52,7 @@ public class AcceptUserActivity extends AppCompatActivity {
         profilePic = findViewById(R.id.profilePic);
         database = FirebaseDatabase.getInstance();
         fireRef = database.getReference();
-        currentUser = dbHandler.findUser(dbHandler.getUserDetail(this, "username"));
+        currentUser = dbHandler.returnUser(this);
         pending = currentUser.getPending();
         recyclerView =findViewById(R.id.AURecyclerView);
         //populate pending users list
@@ -60,7 +60,7 @@ public class AcceptUserActivity extends AppCompatActivity {
         for (int i = 0; i < ids.length; i++)
         {
             String userID = ids[i];
-            Query idQuery = fireRef.orderByChild("id").equalTo(userID);
+            Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
             idQuery.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

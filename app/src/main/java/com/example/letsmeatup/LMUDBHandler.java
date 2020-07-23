@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class LMUDBHandler extends SQLiteOpenHelper {
@@ -148,30 +149,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.close();
         return rData;
     }
-    AccountData findUser(String username){ //to returned the selected user by its username
-        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+username +"\"";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor =db.rawQuery(query,null);
-        // temp account details holder
-        AccountData queryData = new AccountData();
-        if (cursor.moveToFirst()){
-            queryData.setID((cursor.getString(0)));
-            queryData.setFullName(cursor.getString(1));
-            queryData.setUsername(cursor.getString(2));
-            queryData.setPassword(cursor.getString(3));
-            queryData.setEmail(cursor.getString(4));
-            queryData.setGender(cursor.getString(5));
-            queryData.setDob(cursor.getString(6));
-            queryData.setMatchid(cursor.getString(8));
-            cursor.close();
-
-        }
-        else{
-            queryData = null;
-        }
-        db.close();
-        return queryData;
-    }
 
     public AccountData findEmail(String email){ //to return the selected user by the email
                 String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
@@ -194,54 +171,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return queryData;
-    }
-   public AccountData findMatchingID(String mID){ //return a random user with the stated match ID
-        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_MATCHID +"=\""+mID +"\"";
-            SQLiteDatabase  db =this.getWritableDatabase();
-            Cursor cursor =db.rawQuery(query,null);
-            // temp account details holder
-            AccountData queryData = new AccountData();
-            Log.v(TAG, FILENAME+mID);
-            // get random number to choose paired user
-            Random ran = new Random();
-            Log.v(TAG,FILENAME+String.valueOf(cursor.getCount()));
-            int randomMatchID = ran.nextInt(cursor.getCount());
-            Log.v(TAG,String.valueOf(randomMatchID));
-            if (cursor.moveToPosition(randomMatchID)){ //enter account information into queryData
-                queryData.setFullName(cursor.getString(1));
-                queryData.setUsername(cursor.getString(2));
-                queryData.setPassword(cursor.getString(3));
-                queryData.setEmail(cursor.getString(4));
-                queryData.setGender(cursor.getString(5));
-                queryData.setDob(cursor.getString(6));
-                queryData.setMatchid(cursor.getString(7));
-                cursor.close();
-            }
-        else{
-            queryData = null;
-        }
-
-        db.close();
-        return queryData;
-    }
-
-    public String findMatchID(String id){ //return the match ID of the user by the username
-        String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_USERNAME +"=\""+id +"\"";
-        SQLiteDatabase  db =this.getWritableDatabase();
-        Cursor cursor =db.rawQuery(query,null);
-        // temp account details holder
-        AccountData queryData = new AccountData();
-        if (cursor.moveToFirst()) {
-            queryData.setMatchid(cursor.getString(8));
-            cursor.close();
-        }
-        else{
-            Log.v(TAG,"No user found!");
-            queryData = null;
-        }
-        db.close();
-
-        return queryData.getMatchid();
     }
 
     //Used with yelp api, only for admin use
@@ -268,11 +197,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private static SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
-
-
-
-
-
     public void updatePassword(String email, final String password, final Context ctx){
         //change in fireauth
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -302,9 +226,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                         }
                     }
                 });
-
-
-
     }
 
     public void saveUser(Context context, AccountData account){
@@ -340,10 +261,8 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String diet = getPrefs(ctx).getString("diet","diet");
         String pending = getPrefs(ctx).getString("pending","");
         String confirmed = getPrefs(ctx).getString("confirmed","");
-        AccountData acc = new AccountData(id,fullname,username,password,email,gender,dob,pfp,matchid,allergy,diet,pending,confirmed);
-        return acc;
+        return new AccountData(id,fullname,username,password,email,gender,dob,pfp,matchid,allergy,diet,pending,confirmed);
     }
-
 
     public void stayLogin(Context ctx,boolean val){
         SharedPreferences.Editor editor = getPrefs(ctx).edit();
@@ -368,8 +287,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Log.v(TAG,"Shared Preference set for email!");
     }
 
-
-   public String getUserDetail(Context ctx,String inputype){//return the current user's AccountData
+   public String getUserDetail(Context ctx,String inputype){//return the current user's Account information
         switch(inputype){
             case "username":
                 return getPrefs(ctx).getString("username","default_username");
@@ -395,7 +313,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 return dob;
         }
         return null;
-
     }
 
     public void addAllergies(String[] allergystringarray,Context ctx){
@@ -423,7 +340,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         fireRef.child(stringid).child("diet").setValue(dietString);
         //Log
         Log.v(TAG,"Allergy field added!");
-
     }
 
     public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
@@ -472,37 +388,5 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
     }
     //PickUsr2Activity - to return the second user
-    public AccountData findMatchingID(final AccountData firstUser){
-        final boolean[] isUser = new boolean[1];
-        final AccountData[] queryData = new AccountData[1];
-        AccountData newAcc = new AccountData();
-        newAcc = firstUser;
-        isUser[0] = false;
-        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                while (!isUser[0]) {
-                    Log.v(TAG, FILENAME + firstUser.getUsername());
-                    // gets matching id from user details
-                    String firstmID = firstUser.getMatchid();
-                    Log.v(TAG, FILENAME + firstmID);
-                    int count = (int) dataSnapshot.getChildrenCount();
-                    Log.e(dataSnapshot.getKey(), count + "");
-                    queryData[0] = dataSnapshot.getValue(AccountData.class);
-                    Random ran = new Random();
-                    int randomMatchID = ran.nextInt(count);
-                    String randomID = String.valueOf(randomMatchID).format("%04d", randomMatchID);
-                    String queryID = String.valueOf(queryData[0].getID()).format("$04d", queryData[0].getID());
-                    if (!queryID.equals(randomID)){isUser[0] = true;}
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("The read failed: " ,error.getMessage());
-            }
-        });
-        if (isUser[0]){newAcc = queryData[0];}
-        return newAcc;
-    }
+
 }
