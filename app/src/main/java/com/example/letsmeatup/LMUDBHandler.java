@@ -241,9 +241,10 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.putString("allergy",account.getAllergy());
         editor.putString("diet",account.getDiet());
         editor.putString("pfp",account.getPfp());
-        editor.putString("pending",account.getPending());
-        editor.putString("confirmed",account.getConfirmed());
+        editor.putString("pending",account.getpendinguserlist());
+        editor.putString("confirmed",account.getconfirmeduserlist());
         editor.apply();
+        Log.v(TAG,account.getpendinguserlist());
         Log.v(TAG,"Shared Preference set for user!");
     }
 
@@ -259,8 +260,8 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String matchid = getPrefs(ctx).getString("matchid","id");
         String allergy = getPrefs(ctx).getString("allergy","allergy");
         String diet = getPrefs(ctx).getString("diet","diet");
-        String pending = getPrefs(ctx).getString("pending","");
-        String confirmed = getPrefs(ctx).getString("confirmed","");
+        String pending = getPrefs(ctx).getString("pending",null);
+        String confirmed = getPrefs(ctx).getString("confirmed",null);
         return new AccountData(id,fullname,username,password,email,gender,dob,pfp,matchid,allergy,diet,pending,confirmed);
     }
 

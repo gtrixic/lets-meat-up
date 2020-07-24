@@ -61,27 +61,16 @@ public class PickUser2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestAlert();
-                if (secondUser.getPending()==null){
-                    secondUser.setPending(firstUser.getID());
-                    Log.v(TAG, "pending list: " + secondUser.getPending());
-                    //Post to firebase
-                    //Query id
-                    String stringID = secondUser.getID();
-                    fireRef.child(stringID).child("pending").setValue(secondUser.getPending());
-                    //Log
-                    Log.v(TAG,"Pending list updated!");
+                if (secondUser.getpendinguserlist()==null){
+                    secondUser.setpendinguserlist(firstUser.getID());
+                    Log.v(TAG, "pending list: " + secondUser.getpendinguserlist());
                 }
                 else{
-                    String pend = secondUser.getPending()+","+firstUser.getID();
-                    secondUser.setPending(pend);
-                    Log.v(TAG, "pending list: " + secondUser.getPending());
-                    //Post to firebase
-                    //Query id
-                    String stringID = secondUser.getID();
-                    fireRef.child(stringID).child("pending").setValue(secondUser.getPending());
-                    //Log
-                    Log.v(TAG,"Pending list updated!");
+                    String pend = secondUser.getpendinguserlist()+","+firstUser.getID();
+                    secondUser.setpendinguserlist(pend);
+                    Log.v(TAG, "pending list: " + secondUser.getpendinguserlist());
                 }
+                fireRef.child(secondUser.getID()).child("pendinguserlist").setValue(secondUser.getpendinguserlist());
             }
         });
         ignore.setOnClickListener(new View.OnClickListener() {

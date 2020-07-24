@@ -66,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginUser = findViewById(R.id.loginUsernameEmail);
                 loginPass = findViewById(R.id.loginPassword);
-
                 //first check if the credentials are valid
                 mAuth.signInWithEmailAndPassword(loginUser.getText().toString(), loginPass.getText().toString())
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -90,8 +89,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     Log.v(TAG,"Account Name"+account.getFullName());
                                                     accountDataList.add(account);
                                                     }
-
-
                                                     if(dataSnapshot.exists()){
                                                         //add shared preference setting to save auto login
                                                         if(logincheckbox.isChecked() == true){

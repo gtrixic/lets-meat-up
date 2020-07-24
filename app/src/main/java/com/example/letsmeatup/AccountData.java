@@ -22,8 +22,8 @@ public class AccountData {
     private String matchid;
     private String allergy;
     private String diet;
-    private String pending;
-    private String confirmed;
+    private String pendinguserlist;
+    private String confirmeduserlist;
 
     public AccountData(){}
 
@@ -39,8 +39,8 @@ public class AccountData {
         this.matchid = m;
         this.allergy = a;
         this.diet = di;
-        this.pending = pe;
-        this.confirmed = c;
+        this.pendinguserlist = pe;
+        this.confirmeduserlist = c;
     }
 
 
@@ -102,28 +102,28 @@ public class AccountData {
     public void setPfp(String pfp){this.pfp = pfp;}
 
     public String getMatchid() {
-        return matchid;
+        return this.matchid;
     }
 
     public void setMatchid(String matchid) {
         this.matchid = matchid;
     }
 
-    public String getAllergy(){return allergy;}
+    public String getAllergy(){return this.allergy;}
 
     public void setAllergy(String allergy){this.allergy = allergy;}
 
-    public String getDiet(){return diet;}
+    public String getDiet(){return this.diet;}
 
     public void setDiet(String diet){this.diet = diet;}
 
-    public String getPending(){return pending;}
+    public String getpendinguserlist(){return this.pendinguserlist;}
 
-    public void setPending(String pending){this.pending = pending;}
+    public void setpendinguserlist(String pending){this.pendinguserlist = pending;}
 
-    public String getConfirmed(){return confirmed;}
+    public String getconfirmeduserlist(){return this.confirmeduserlist;}
 
-    public void setConfirmed(String confirmed){this.confirmed = confirmed;}
+    public void setconfirmeduserlist(String confirmed){this.confirmeduserlist = confirmed;}
 
     //Method for checking if email is valid or empty
     public static boolean isValidEmail(CharSequence target){

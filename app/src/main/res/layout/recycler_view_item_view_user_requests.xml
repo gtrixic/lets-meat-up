@@ -11,12 +11,12 @@
 
   <ImageView
       android:id="@+id/profilePic"
-      android:layout_width="88dp"
-      android:layout_height="95dp"
+      android:layout_width="86dp"
+      android:layout_height="90dp"
       android:padding="15dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.077"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:src="@tools:sample/avatars" />
@@ -30,8 +30,10 @@
       android:textSize="27sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.325"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.493"
       tools:text="anonymous 1" />
 
   <ImageButton
@@ -42,9 +44,10 @@
       android:src="@drawable/tick"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.811"
+      app:layout_constraintHorizontal_bias="0.819"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.506" />
 
   <ImageButton
       android:id="@+id/deleteButton"
