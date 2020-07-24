@@ -51,20 +51,48 @@ public class AcceptUserActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         fireRef = database.getReference();
         currentUser = dbHandler.returnUser(this);
-        Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID());
+        Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID() + currentUser.getUsername());
         pending = currentUser.getPending();
         Log.v(TAG, "pending string: " + currentUser.getPending());
         recyclerView =findViewById(R.id.AURecyclerView);
         //check if got less than 2 requests
-        if (pending.contains(","))
+        if (pending.isEmpty())
         {
-            //populate pending users list
-            ids = pending.split(",");
-            Log.v(TAG, "Pending ID list: " + ids);
-            for (int i = 0; i < ids.length; i++)
+            noUserRequests();
+            Log.v(TAG, "There are no pending requests!");
+        }
+        else
+        {
+            if (pending.contains(","))
             {
-                String userID = ids[i];
+                //populate pending users list
+                ids = pending.split(",");
+                Log.v(TAG, "Pending ID list: " + ids);
+                for (int i = 0; i < ids.length; i++)
+                {
+                    String userID = ids[i];
+                    Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+                    idQuery.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
+                            pendingUsers.add(acc);
+                            Log.v(TAG, "Username: " + acc.getUsername());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                        }
+                    });
+                }
+            }
+            else
+            {
+                String userID = pending;
+                Log.v(TAG, "Pending ID list: " + userID);
                 Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+                Log.v(TAG, "query: " + idQuery);
                 idQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,45 +106,31 @@ public class AcceptUserActivity extends AppCompatActivity {
                         Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
                     }
                 });
-            }
-        }
-        else
-        {
-            String userID = pending;
-            Log.v(TAG, "Pending ID list: " + userID);
-            Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
-            Log.v(TAG, "query: " + idQuery);
-            idQuery.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
-                    pendingUsers.add(acc);
-                    Log.v(TAG, "Username: " + acc.getUsername());
-                }
 
+            }
+
+            adapter = new auAdapter(AcceptUserActivity.this,pendingUsers,currentUser);
+            LinearLayoutManager manager =new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(manager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener(new auAdapter.OnItemClickListener() {
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                public void ItemClick(int position) {
+                    viewUserProfile(position);
                 }
             });
-
         }
 
-        adapter = new auAdapter(AcceptUserActivity.this,pendingUsers,currentUser);
-        LinearLayoutManager manager =new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new auAdapter.OnItemClickListener() {
-            @Override
-            public void ItemClick(int position) {
-                viewUserProfile(position);
-            }
-        });
 
 
+    }
 
+    public void noUserRequests(){
+        Intent noRequests = new Intent(AcceptUserActivity.this, AcceptUser2Activity.class);
+        Log.v(TAG, FILENAME+": There are no requests pending confirmation.");
+        startActivity(noRequests);
     }
 
     public void viewUserProfile(final int position)

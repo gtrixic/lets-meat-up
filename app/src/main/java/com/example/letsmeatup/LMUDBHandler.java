@@ -249,7 +249,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
 
     public AccountData returnUser(Context ctx){
         String id = getPrefs(ctx).getString("id","default_username");
-        String fullname = getPrefs(ctx).getString("name","default_name");
+        String fullname = getPrefs(ctx).getString("fullname","default_name");
         String username = getPrefs(ctx).getString("username","default_username");
         String password = getPrefs(ctx).getString("password","def");
         String email = getPrefs(ctx).getString("email","email");
