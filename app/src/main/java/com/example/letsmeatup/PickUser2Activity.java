@@ -64,11 +64,23 @@ public class PickUser2Activity extends AppCompatActivity {
                 if (secondUser.getPending()==null){
                     secondUser.setPending(firstUser.getID());
                     Log.v(TAG, "pending list: " + secondUser.getPending());
+                    //Post to firebase
+                    //Query id
+                    String stringID = secondUser.getID();
+                    fireRef.child(stringID).child("pending").setValue(secondUser.getPending());
+                    //Log
+                    Log.v(TAG,"Pending list updated!");
                 }
                 else{
                     String pend = secondUser.getPending()+","+firstUser.getID();
                     secondUser.setPending(pend);
                     Log.v(TAG, "pending list: " + secondUser.getPending());
+                    //Post to firebase
+                    //Query id
+                    String stringID = secondUser.getID();
+                    fireRef.child(stringID).child("pending").setValue(secondUser.getPending());
+                    //Log
+                    Log.v(TAG,"Pending list updated!");
                 }
             }
         });
