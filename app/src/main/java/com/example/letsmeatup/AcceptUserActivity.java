@@ -51,15 +51,14 @@ public class AcceptUserActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         fireRef = database.getReference();
         currentUser = dbHandler.returnUser(this);
-        Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID() + currentUser.getUsername());
+        Log.v(TAG, FILENAME+"acc details: " + currentUser.getFullName() + currentUser.getID() + currentUser.getUsername());
         pending = currentUser.getPending();
-        Log.v(TAG, "pending string: " + currentUser.getPending());
+        Log.v(TAG, FILENAME+"pending string: " + currentUser.getPending());
         recyclerView =findViewById(R.id.AURecyclerView);
         //check if got less than 2 requests
         if (pending.isEmpty())
         {
             noUserRequests();
-            Log.v(TAG, "There are no pending requests!");
         }
         else
         {
@@ -67,7 +66,7 @@ public class AcceptUserActivity extends AppCompatActivity {
             {
                 //populate pending users list
                 ids = pending.split(",");
-                Log.v(TAG, "Pending ID list: " + ids);
+                Log.v(TAG, FILENAME+"Pending ID list: " + ids);
                 for (int i = 0; i < ids.length; i++)
                 {
                     String userID = ids[i];
@@ -77,12 +76,12 @@ public class AcceptUserActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
                             pendingUsers.add(acc);
-                            Log.v(TAG, "Username: " + acc.getUsername());
+                            Log.v(TAG, FILENAME+"Username: " + acc.getUsername());
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                            Log.v(TAG, FILENAME+"loadPost:onCancelled", databaseError.toException());
                         }
                     });
                 }
@@ -90,20 +89,20 @@ public class AcceptUserActivity extends AppCompatActivity {
             else
             {
                 String userID = pending;
-                Log.v(TAG, "Pending ID list: " + userID);
+                Log.v(TAG, FILENAME+"Pending ID list: " + userID);
                 Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
-                Log.v(TAG, "query: " + idQuery);
+                Log.v(TAG, FILENAME+"query: " + idQuery);
                 idQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
                         pendingUsers.add(acc);
-                        Log.v(TAG, "Username: " + acc.getUsername());
+                        Log.v(TAG, FILENAME+"Username: " + acc.getUsername());
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                        Log.v(TAG, FILENAME+"loadPost:onCancelled", databaseError.toException());
                     }
                 });
 
@@ -137,7 +136,7 @@ public class AcceptUserActivity extends AppCompatActivity {
     {
         Intent viewUser = new Intent(AcceptUserActivity.this, UserRequestProfileActivity.class);
         AccountData move = pendingUsers.get(position);
-        Log.v(TAG, "Sending Info: " + move.getID());
+        Log.v(TAG, FILENAME+"Sending Info: " + move.getID());
         viewUser.putExtra("id", move.getID());
         startActivity(viewUser);
     }
