@@ -84,7 +84,6 @@ public class PickUser2Activity extends AppCompatActivity {
     public void getSecondUser() {
         // gets user details for the current user
         firstUser = dbHandler.returnUser(this);
-        final boolean[] availableBool = {true};
         Log.v(TAG,FILENAME+": "+firstUser.getUsername());
         final AccountData[] queryData = {new AccountData()};
         final ArrayList<AccountData> accList = new ArrayList<>();
@@ -147,12 +146,8 @@ public class PickUser2Activity extends AppCompatActivity {
                             ageT.setText(strAge);
                             gender.setText(secondUser.getGender());
                             allergy.setText(secondUser.getAllergy());
-                            availableBool[0] = false;
                         }
                     }
-                }
-                if(availableBool[0]){
-                    noAvailableAlert();
                 }
             }
             @Override
