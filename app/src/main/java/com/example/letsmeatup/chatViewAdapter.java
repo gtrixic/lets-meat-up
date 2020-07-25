@@ -1,6 +1,8 @@
 package com.example.letsmeatup;
 
 import android.content.Context;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -26,8 +29,9 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
     private Context ctx;
     private ArrayList<AccountData> acceptedUsers;
     private OnItemClickListener onItemClickListener;
-    private HashMap<AccountData,String>chathash;
+    private HashMap<AccountData,Chat>chathash;
     private DatabaseReference fireRef;
+
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
@@ -37,10 +41,10 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
         void ItemClick(int position);
     }
 
-    public chatViewAdapter(Context ctx,ArrayList<AccountData>acceptedUsers){
+    public chatViewAdapter(Context ctx,ArrayList<AccountData>acceptedUsers,HashMap<AccountData,Chat>chathash){
         this.ctx = ctx;
         this.acceptedUsers = acceptedUsers;
-        bindHash();
+        this.chathash = chathash;
     }
 
     public chatViewHolder onCreateViewHolder(ViewGroup parent,int ViewType){
@@ -50,16 +54,26 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
     }
 
 
-    public void onBindViewHolder(final chatViewHolder holder, final int position){
+    public void onBindViewHolder(final chatViewHolder holder, final int position) {
         AccountData acc = acceptedUsers.get(position);
         holder.Username.setText(acc.getUsername());
-        if(acc.getPfp() == "default"){
+        Log.v("ChatViewAdapter",acc.getPfp());
+        if (acc.getPfp().equals("default")) {
+            Log.v("ChatViewAdapter","Setting default image" );
             holder.ProfilePicture.setImageResource(R.mipmap.ic_launcher);
-        }
-        else{
+        } else {
+            Log.v("ChatViewAdapter","Setting profile picture" );
             Glide.with(ctx).load(acc.getPfp()).into(holder.ProfilePicture);
         }
-        //TODO:add last message and last time
+        //add last message and last time
+        if (chathash.get(acc) != null) {
+            //get last message
+            holder.lastMessage.setText(chathash.get(acc).lastMessage.getMessage());
+            //get last time
+            holder.lastTime.setText(DateUtils.formatDateTime(ctx,chathash.get(acc).getLastMessage().getCreatedAt(),DateUtils.FORMAT_SHOW_TIME));
+
+        }
+
     }
 
     @Override
@@ -67,37 +81,9 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
         return acceptedUsers.size();
     }
 
-    private void bindHash(){
-        fireRef = FirebaseDatabase.getInstance().getReference().child("Chats");
-        fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            ArrayList<Chat>chats = new ArrayList<>();
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot s : snapshot.getChildren()){
-                    chats.add(s.getValue(Chat.class));
-                }
-                for(Chat c : chats){
-                    List<String> users = Arrays.asList(c.getUsers().split(","));
-                    for (AccountData user : acceptedUsers){
-                        if(users.contains(user.getID())){
-                            chathash.put(user,c.id);
-                            break;
-                        }
-                    }
-                }
-                //check if any user not in chathash
-                for(AccountData user: acceptedUsers){
-                    if(!chathash.containsKey(user)){
-                        chathash.put(user,"None");
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
-}
+
+
+

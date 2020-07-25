@@ -244,7 +244,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.putString("pending",account.getpendinguserlist());
         editor.putString("confirmed",account.getconfirmeduserlist());
         editor.apply();
-        Log.v(TAG, ""+account.getpendinguserlist());
         Log.v(TAG,"Shared Preference set for user!");
     }
 
@@ -388,6 +387,26 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             Toast.makeText(ctx, "No File Chosen!", Toast.LENGTH_SHORT).show();
         }
     }
-    //PickUsr2Activity - to return the second user
+    public void readData(DatabaseReference ref, final OnGetDataListener listener) {
+        listener.onStart();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                listener.onFailure();
+            }
+        });
+    }
+    public interface OnGetDataListener {
+        //this is for callbacks
+        void onSuccess(DataSnapshot dataSnapshot);
+        void onStart();
+        void onFailure();
+    }
+
 
 }

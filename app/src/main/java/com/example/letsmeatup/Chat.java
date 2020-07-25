@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Chat {
     String users;
     String id;
-    String lastMessageID;
+    Message lastMessage;
 
     public Chat(){}
 
@@ -13,4 +13,6 @@ public class Chat {
     public void setUsers(String users){this.users = users;}
     public String getId(){return this.id;}
     public void setId(String id){this.id = id;}
+    public Message getLastMessage(){return this.lastMessage;}
+    public void setLastMessage(Message lastMessage){this.lastMessage= lastMessage;}
 }

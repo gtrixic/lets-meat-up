@@ -2,6 +2,7 @@ package com.example.letsmeatup;
 
 import android.content.Context;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         createdAt = view.findViewById(R.id.text_message_time);
     }
     void bind(Message userMessage){
+        Log.v("MessageHolder","Binding");
+
         message.setText(userMessage.getMessage());
 
         //format timestamp
