@@ -71,7 +71,7 @@
         app:srcCompat="@drawable/profile" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/chatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="350dp"

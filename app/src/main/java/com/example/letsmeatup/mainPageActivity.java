@@ -14,6 +14,7 @@ public class mainPageActivity extends AppCompatActivity {
     ImageButton pickUser;
     ImageButton userProfile;
     ImageButton viewUsers;
+    ImageButton chatButton;
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "mainPageActivity.java";
     private LMUDBHandler db;
@@ -25,6 +26,14 @@ public class mainPageActivity extends AppCompatActivity {
         pickUser = findViewById(R.id.pickUserButton);
         userProfile = findViewById(R.id.profileButton);
         viewUsers = findViewById(R.id.acceptUserButton);
+        chatButton = findViewById(R.id.chatButton);
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mainPageActivity.this,ViewChats.class);
+                startActivity(intent);
+            }
+        });
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
