@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,6 +57,8 @@ public class MessageActivity extends AppCompatActivity {
         chatBoxText = findViewById(R.id.chatboxtext);
         sendMessage = findViewById(R.id.sendmessagebutton);
         recyclerView = findViewById(R.id.chatitemrecycler);
+        MessageActivity.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
 
 
 
@@ -89,6 +92,20 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+        if(!chatid.equals("default")) {
+            fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid);
+            fireRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    readMessages(chatid);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
 
     }
