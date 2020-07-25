@@ -65,7 +65,6 @@ public class MessageActivity extends AppCompatActivity {
         intent = getIntent();
         final String chatid = intent.getStringExtra("chatid");
         final String userid = intent.getStringExtra("userid");
-
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +90,15 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(MessageActivity.this,ChatProfileActivity.class);
+                next.putExtra("userid",userid);
+                next.putExtra("chatid",chatid);
+                startActivity(next);
             }
         });
         if(!chatid.equals("default")) {

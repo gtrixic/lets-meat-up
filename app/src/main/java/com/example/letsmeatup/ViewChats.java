@@ -122,24 +122,13 @@ public class ViewChats extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
-
             }
-
             @Override
             public void onStart() {
-
             }
-
             @Override
             public void onFailure() {
-
             }
         });
-
     }
-
-
-
-
-    }
+}

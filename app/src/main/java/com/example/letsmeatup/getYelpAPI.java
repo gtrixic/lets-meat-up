@@ -1,9 +1,16 @@
 package com.example.letsmeatup;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +28,7 @@ import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /*Simple GET Request from YELP API to get restaurant data from yelp website, convert to restaurantdata and posting into database as an asynctask*/
 
@@ -29,9 +37,10 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
     @SuppressLint("StaticFieldLeak")
     //specifiying static information to call the api
     private Context context;
+    private String chatID;
     private static final String API_HOST = "https://api.yelp.com/v3/businesses/search?";
     private static final String APIKEY = "w0hqahBgHMnJVITtl7KmT78HaYTrC9FZrfEu153HfurXH9HI_p2kWxn31_ml-JoP1Rx3Th9qlSPiM968MlOCFEuyOgDhtrFFFbCWV2BVkufDSr27N_InYw63P0HbXnYx";
-    public getYelpAPI(Context context){this.context = context;}
+    public getYelpAPI(Context context,String chatID){this.context = context;this.chatID=chatID;}
     @SafeVarargs
     @Override
     //function is called when a category is provided eg.japanese to get info from yelp api
@@ -124,18 +133,43 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
     }
 
     @Override
-    protected void onPostExecute(ArrayList<RestaurantData> rData){
-        LMUDBHandler handler = new LMUDBHandler(context,null,null,1);
-            try {
-                //getting rData from doInBackground and calling add restaurants function from handler
-                handler.addRestaurants(rData);
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
+    protected void onPostExecute(final ArrayList<RestaurantData> rData){
+        final LMUDBHandler handler = new LMUDBHandler(context,null,null,1);
+        //getting rData from doInBackground and calling add restaurants function from handler
+        TextView rName;
+        TextView rAddr;
+        TextView rType;
+        ImageView rPfp;
+        Random ran = new Random();
+        int randomVar = ran.nextInt(rData.size());
+        final RestaurantData chosen = rData.get(randomVar);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        builder.setView(inflater.inflate(R.layout.restaurant_dialog,null));
+        builder.setCancelable(false);
+        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.addRestaurant(chosen,chatID);
             }
+        });
+        builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        AlertDialog dialog = builder.create();
+        rName = dialog.findViewById(R.id.restName);
+        rAddr = dialog.findViewById(R.id.restAddress);
+        rType = dialog.findViewById(R.id.restType);
+        rPfp = dialog.findViewById(R.id.restPfp);
+
+        rName.setText(chosen.getRestaurantName());
+        rAddr.setText(chosen.getAddress());
+        rType.setText(chosen.getCategory());
+        Glide.with(context).load(chosen.getPfpLink()).into(rPfp);
+        dialog.show();
         }
-
-
-
 }
 

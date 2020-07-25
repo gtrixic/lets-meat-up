@@ -13,14 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AcceptUser2Activity"></activity>
+        <activity android:name=".ChatRestaurantActivity"></activity>
+        <activity android:name=".ChatProfileActivity" />
+        <activity android:name=".AcceptUser2Activity" />
         <activity android:name=".ViewChats" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".UserRequestProfileActivity" />
         <activity android:name=".AcceptUserActivity" />
         <activity android:name=".PickUser2Activity" />
         <activity android:name=".PickUserActivity" />
-        <activity android:name=".AddRestaurants" />
         <activity android:name=".ForgetPassword1Activity" />
         <activity android:name=".PersonalityQuestionsActivity" />
         <activity android:name=".mainPageActivity" />
