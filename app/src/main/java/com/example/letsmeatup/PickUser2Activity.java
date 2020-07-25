@@ -84,6 +84,7 @@ public class PickUser2Activity extends AppCompatActivity {
     public void getSecondUser() {
         // gets user details for the current user
         firstUser = dbHandler.returnUser(this);
+        final boolean[] availableBool = {true};
         Log.v(TAG,FILENAME+": "+firstUser.getUsername());
         final AccountData[] queryData = {new AccountData()};
         final ArrayList<AccountData> accList = new ArrayList<>();
@@ -106,33 +107,53 @@ public class PickUser2Activity extends AppCompatActivity {
                     Log.v(TAG, String.valueOf(randomMatchID));
                     queryData[0] = accList.get(randomMatchID);
                     Log.v(TAG, queryData[0].getUsername());
-                    if (!queryData[0].getID().equals(firstUser.getID())) {
-                        Log.v(TAG, "Ended!");
-                        isUser[0] = true;
-                        secondUser = queryData[0];
-                        Log.v(TAG,FILENAME+secondUser.getUsername());
-                        // setting user details into Textviews
-                        name.setText(secondUser.getFullName());
-                        String stDate = secondUser.getDob();
-                        Date date = new Date();
-                        Date c = Calendar.getInstance().getTime();
-                        // getting age from dob
-                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                        try {
-                            date = format.parse(stDate);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        long age = c.getTime() - date.getTime();
-                        int ageinyears = (int) (Math.floor(TimeUnit.DAYS.convert(age, TimeUnit.MILLISECONDS) / 365));
-                        String strAge = String.valueOf(ageinyears);
-                        ageT.setText(strAge);
-                        gender.setText(secondUser.getGender());
-                        allergy.setText(secondUser.getAllergy());
+                    Boolean queryPending = null;
+                    Boolean queryConfirmed = null;
+                    boolean queryAppear = true;
 
+                    if(queryData[0].getpendinguserlist()!= null){
+                        queryPending = queryData[0].getpendinguserlist().contains(firstUser.getID());
+                    }
+                    if(queryData[0].getconfirmeduserlist()!= null){
+                        queryConfirmed = queryData[0].getconfirmeduserlist().contains(firstUser.getID());
+                    }
+                    if(queryPending!=null){
+                        queryAppear = !queryPending;
+                    }
+                    if(queryConfirmed!=null){
+                        queryAppear= !queryConfirmed;
+                    }
+                    if (!queryData[0].getID().equals(firstUser.getID())) {
+                        if(queryAppear) {
+                            Log.v(TAG, "Ended!");
+                            isUser[0] = true;
+                            secondUser = queryData[0];
+                            Log.v(TAG, FILENAME + secondUser.getUsername());
+                            // setting user details into Textviews
+                            name.setText(secondUser.getFullName());
+                            String stDate = secondUser.getDob();
+                            Date date = new Date();
+                            Date c = Calendar.getInstance().getTime();
+                            // getting age from dob
+                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                date = format.parse(stDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            long age = c.getTime() - date.getTime();
+                            int ageinyears = (int) (Math.floor(TimeUnit.DAYS.convert(age, TimeUnit.MILLISECONDS) / 365));
+                            String strAge = String.valueOf(ageinyears);
+                            ageT.setText(strAge);
+                            gender.setText(secondUser.getGender());
+                            allergy.setText(secondUser.getAllergy());
+                            availableBool[0] = false;
+                        }
                     }
                 }
-
+                if(availableBool[0]){
+                    noAvailableAlert();
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -154,7 +175,19 @@ public class PickUser2Activity extends AppCompatActivity {
         AlertDialog alert = req.create();
         alert.show();
     }
-
+    public void noAvailableAlert() { // tells user that request to pair is sent
+        AlertDialog.Builder req = new AlertDialog.Builder(this);
+        req.setMessage("No user with matching ID!");
+        req.setCancelable(false);
+        req.setPositiveButton("Back To Home Screen", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mainPage();
+            }
+        });
+        AlertDialog alert = req.create();
+        alert.show();
+    }
     public void mainPage() { //from this page to mainpageactivity
         Intent go = new Intent(PickUser2Activity.this, mainPageActivity.class);
         startActivity(go);
