@@ -2,6 +2,7 @@ package com.example.letsmeatup;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
@@ -92,13 +94,13 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 String currentUserList;
                 String secondUserList;
                 if(currentUserConfirmed.size() > 1) {
-                    currentUserList = String.join(",", currentUserConfirmed);
+                    currentUserList = TextUtils.join(",", currentUserConfirmed);
                 }
                 else{
                     currentUserList = currentUserConfirmed.get(0);
                 }
                 if(secondUserConfirmed.size() > 1) {
-                    secondUserList = String.join(",",secondUserConfirmed);
+                    secondUserList = TextUtils.join(",", secondUserConfirmed);
                 }
                 else{
                     secondUserList = secondUserConfirmed.get(0);
@@ -136,14 +138,14 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
         notifyDataSetChanged();
         String pending = currentUser.getpendinguserlist();
         if(pending.contains(",")){
-            currentUserPending = Arrays.asList(pending.split(","));
+            currentUserPending = new LinkedList<String>(Arrays.asList(pending.split(",")));
         }
         else{
             currentUserPending = new ArrayList<>();
         }
         currentUserPending.remove(user.getID());
         //Convert to string
-        String currentUserList = String.join(",",currentUserPending);
+        String currentUserList = TextUtils.join(",",currentUserPending);
         fireRef.child(currentUser.getID()).child("pendinguserlist").setValue(currentUserList);
     }
 

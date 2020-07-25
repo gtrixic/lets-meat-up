@@ -244,7 +244,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         editor.putString("pending",account.getpendinguserlist());
         editor.putString("confirmed",account.getconfirmeduserlist());
         editor.apply();
-        Log.v(TAG,account.getpendinguserlist());
+        Log.v(TAG, ""+account.getpendinguserlist());
         Log.v(TAG,"Shared Preference set for user!");
     }
 
