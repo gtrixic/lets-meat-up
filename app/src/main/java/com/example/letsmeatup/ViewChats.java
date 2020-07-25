@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +37,7 @@ public class ViewChats extends AppCompatActivity {
         lmudbHandler = new LMUDBHandler(this,null,null,1);
         currentUser = lmudbHandler.returnUser(this);
         recyclerView = findViewById(R.id.viewChatRecyclerView);
-        backButton = findViewById(R.id.backbutton);
+        backButton = findViewById(R.id.backArrow5);
         final ArrayList<AccountData>confirmedUsers = new ArrayList<>();
         for(String id: currentUser.getconfirmeduserlist().split(",")) {
             fireRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
@@ -59,6 +60,13 @@ public class ViewChats extends AppCompatActivity {
             });
         }
 
+    backButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(ViewChats.this,mainPageActivity.class);
+            startActivity(intent);
+        }
+    });
     }
 
     private void bindHash(final ArrayList<AccountData>acceptedUsers) {

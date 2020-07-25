@@ -72,6 +72,7 @@ public class MessageActivity extends AppCompatActivity {
                 String message = chatBoxText.getText().toString();
                 if (message.trim().length() > 0) {
                     sendMessage(lmudbHandler.getUserDetail(MessageActivity.this, "id"), userid, message,chatid);
+                    chatBoxText.getText().clear();
                 } else {
                     Toast.makeText(MessageActivity.this, "Invalid message!", Toast.LENGTH_SHORT).show();
 
@@ -106,6 +107,14 @@ public class MessageActivity extends AppCompatActivity {
                 }
             });
         }
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MessageActivity.this,ViewChats.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -178,5 +187,10 @@ public class MessageActivity extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MessageActivity.this,ViewChats.class);
+        startActivity(intent);
     }
 }

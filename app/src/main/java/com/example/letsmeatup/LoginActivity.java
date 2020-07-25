@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     EditText loginUser;
@@ -61,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         //get firebase instance
         mAuth = FirebaseAuth.getInstance();
+
         login.setOnClickListener(new View.OnClickListener() { // when user clicks login
             @Override
             public void onClick(View v) {
