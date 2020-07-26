@@ -34,6 +34,7 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="23sp"
+        android:onClick="OnClickButton"
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
