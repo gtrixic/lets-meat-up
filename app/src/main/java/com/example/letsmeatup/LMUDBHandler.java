@@ -302,7 +302,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                 String password = getPrefs(ctx).getString("password","def");
                 return password;
             case "name":
-                String name = getPrefs(ctx).getString("name","def");
+                String name = getPrefs(ctx).getString("fullname","def");
                 return name;
             case "age":
                 String age = getPrefs(ctx).getString("age", "def");

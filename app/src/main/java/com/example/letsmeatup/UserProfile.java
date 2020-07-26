@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,21 +23,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class UserProfile extends AppCompatActivity {
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "UserProfile.java";
 
-    DatabaseReference databaseReference;
-    StorageReference storageReference;
-    SharedPreferences sharedPreferences;
+
     ImageView pfp;
     TextView username;
     TextView name;
     TextView gender;
     TextView dob;
+    TextView age;
     TextView allergies;
     Button edit;
     Button SignOut;
+    ImageButton back;
     private FirebaseAuth mAuth;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
@@ -48,28 +55,52 @@ public class UserProfile extends AppCompatActivity {
         username = findViewById(R.id.usernameView);
         name = findViewById(R.id.nameView);
         gender = findViewById(R.id.genderView);
+        age = findViewById(R.id.ageView);
         dob = findViewById(R.id.dobView);
         allergies = findViewById(R.id.allergiesView);
         SignOut = findViewById(R.id.SignOutButton);
-        mAuth = FirebaseAuth.getInstance();
+        back = findViewById(R.id.backArrow);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfile.this,mainPageActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //profile picture
         if(dbHandler.returnUser(this).getPfp().equals("default")){
             pfp.setImageResource(R.mipmap.ic_launcher);
         }
         else{
-            Glide.with(this).load(dbHandler.getUserDetail(this,"pfp")).dontAnimate().into(pfp);
+            Glide.with(this).load(dbHandler.returnUser(this).getPfp()).into(pfp);
         }
         //username
         username.setText(dbHandler.getUserDetail(this, "username"));
         //name
-        name.setText(dbHandler.getUserDetail(this, "fullname"));
+        name.setText(dbHandler.getUserDetail(this, "name"));
+        //age
+        String stDate = dbHandler.getUserDetail(this,"dob");
+        Date date = new Date();
+        Date c = Calendar.getInstance().getTime();
+        // getting age from dob
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date = format.parse(stDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long agelong = c.getTime() - date.getTime();
+        int ageinyears = (int) (Math.floor(TimeUnit.DAYS.convert(agelong, TimeUnit.MILLISECONDS) / 365));
+        String strAge = String.valueOf(ageinyears);
+        age.setText(strAge);
         //gender
         gender.setText(dbHandler.getUserDetail(this, "gender"));
         //dob
         dob.setText(dbHandler.getUserDetail(this, "dob"));
         //allergies
-        allergies.setText(dbHandler.getUserDetail(this, "allergies"));
+        allergies.setText(dbHandler.returnUser(this).getAllergy());
 
         //edit profile
         edit = findViewById(R.id.buttonEdit);

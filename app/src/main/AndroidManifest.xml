@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatRestaurantActivity"></activity>
+        <activity android:name=".ChatRestaurantActivity" />
+        <activity android:name=".EditProfile" />
         <activity android:name=".ChatProfileActivity" />
         <activity android:name=".AcceptUser2Activity" />
         <activity android:name=".ViewChats" />
