@@ -15,8 +15,20 @@
 
 **App Description:**
 
-Make new friends or potential partners with this application with someone random and get recommendations on restaurants to have your first meal together.
+Make new friends or potential partners with Let's Meat Up! and get recommendations on restaurants to have your first meal together.
 
+An assignment for partial fulfilment of the coursework of Mobile Applications Development AY2020/21 in Ngee Ann Polytechnic.
+
+Let's Meat Up! is a social/food app to help you find food buddies or potential partners. 
+Love food? Let's Meat Up! helps you match with others that
+
+What Let's Meat Up Has
+- Personality Questions Test
+- Chat
+- Suggested Restaurants
+
+The Personality Questions Test is to help you find a partner with similar personalities.
+  
   
 
 **Roles & Contributions of Members:**
@@ -66,6 +78,7 @@ Jia Wen:
 
 *Font used in Application: Josefin Sans*
 
+
 **Start Up (Main Page & Sign-up/Login Page)**
 
 ![](https://lh3.googleusercontent.com/BoI1UfoVfktp-dAJEZJS0W8QxyxJBsJ4PZgNQXKBfrxIZ4wZIRVr9yIRyDBP_-NcMzznDwY3GNCsnDeTLGQkimaRcQLOiEt9n0QqEVKW)
@@ -76,6 +89,7 @@ The app first opens the main page with a display of the logo for 5 seconds, befo
 In the Sign-up or Login Selection page, users are able to choose if they wish to create an account or log in to their already made account using Intent.
 
 “Let’s Get Started” is an ImageButton while “I Have An Account” is a Button.
+
 
 
 **Sign-Up (Create User Page 1)**
@@ -99,6 +113,7 @@ The user will then be asked to add a profile picture for their account. After ad
 
 The profile picture will be added to the UserAccount database using Firebase and SQLite.The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
+
 **Sign-Up (Create User Page 3)**
 
 ![](https://lh3.googleusercontent.com/kO5mUdsMna1S_0Vm5InDnWpuj0Db7sstq0340aW7F9MEgzN7n3lxCT2yhP0jygl32zj9K0VW-p6roj7PzqshRpS0clbkoRgpp10V5ozL)
@@ -106,6 +121,8 @@ The profile picture will be added to the UserAccount database using Firebase and
 The user will then be asked to state their allergies/preferences and their diet (e.g. Halal, Vegetarian, etc.) After stating any information needed to be stated, they can confirm their profile and be redirected to the Personality Questions Page.
 
 The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
+
+
 
 **Sign-Up (Personality Questions RecyclerView page)**
 
@@ -151,7 +168,7 @@ The small “Let’s Meat Up” icon is an ImageView, “Username/Email” is an
 
 **Forget Password (Page 2)**
 
-The user will then be asked to enter and re-enter their new password. If the 2 passwords entered are identical, the change will be updated in the database and they will be directed to the next page using Intent.
+The user will then be asked to enter and re-enter their new password. If the 2 passwords entered are identical, the change will be updated in the database and they will be directed to the next page using Intent. The account must have been logged in to at least once for the change to happen.
 
 “Enter Password” and “Re-enter Password” are EditText (Password”, the “Let’s Meat Up” icon is an ImageView, and the “Next Page Button” is an ImageButton.
 
@@ -167,13 +184,13 @@ This page will show up in the case of a successful change of password in the dat
 ![](https://lh5.googleusercontent.com/ZpUddna-i1fgJNHNGG7IViZbk6zkE8ZNZDyzWF89U8V81X388lXnJ3-AnZ4DbuB9vslOhsj9Op1g9WIlUkYZA3BRCRAUnhaXl3l_vADB)
 
 
-**Home (Find new matches/Accept match requests Page)**
+**Home (Find new matches/Accept match requests/Profile/Chat/Help Page)**
 
 After the user holding a user account successfully logs in to their account, they will be directed to this page where they can either find new people to match with or accept incoming match requests.
 
 Depending on which option they select, the user will be sent to either the Random User page or the View User Requests page through the use of Intent.
 
-“Pick User”, “Accept User”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
+“Pick User”, “Accept User”, “Profile Button” at the top left corner, “Help Button” at the top right corner and "Chat Button" at the bottom right corner are all ImageButtons.
 
 ![](https://lh3.googleusercontent.com/hE1ClkLa6VIvGM-hI-ZED_I-uBikSdYXbREVDYFVfDApb51sDd1Ff1QZ5_Coonn53QRVWA6tkJ6YCG9ehCQ15XnwbjtZ759UshN6svBD)
 
@@ -206,6 +223,7 @@ Both “Edit” and “Sign Out” are Buttons.
 
 
 **Edit Profile**
+
 If the user selects the "Edit" button, they will be directed to this page.
 
 On this page, the user can edit all their profile details except for email dietary requirements. 
@@ -214,7 +232,15 @@ The Username, Name and Allergy fields are EditText(Plain Text) while the Date Of
 
 
 **Sign Out**
+
 If the user selects the "Sign Out" button, they will be directed to the Login Page.
+
+
+**Chat**
+
+If the user selects the "Chat" button, they will be directed to this page.
+
+
 
 
 **View Reservations (User Account)**
