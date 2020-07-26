@@ -60,10 +60,12 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        finish();
-                        System.exit(0);
+                        Intent intent = new Intent(ForgetPasswordActivity.this,LoginActivity.class);
+                        startActivity(intent);
                     }
                 }).create().show();
+
+
     }
 
     public void findUser(String email){

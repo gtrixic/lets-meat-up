@@ -70,20 +70,25 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 List<String> currentUserConfirmed;
                 List<String> secondUserConfirmed;
 
-                if (currentUser.getconfirmeduserlist() == ""){
-
+                if (currentUser.getconfirmeduserlist().equals("")){
+                    Log.v("yes","equals null");
                     currentUserConfirmed = new ArrayList<>();
                 }
                 else{
+                    Log.v("yes","not equals null");
+
                     currentUserConfirmed = Arrays.asList(currentUser.getconfirmeduserlist().split(","));
                     currentUserConfirmed = new ArrayList<>(currentUserConfirmed);
 
                 }
-                if (secondUser.getconfirmeduserlist() == ""){
+                if (secondUser.getconfirmeduserlist().equals("")){
+                    Log.v("yes","equals null");
 
                     secondUserConfirmed = new ArrayList<>();
                 }
                 else{
+                    Log.v("yes","not equals null");
+
                     secondUserConfirmed = Arrays.asList(secondUser.getconfirmeduserlist().split(","));
                     secondUserConfirmed = new ArrayList<>(secondUserConfirmed);
                 }
@@ -106,14 +111,13 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                     secondUserList = secondUserConfirmed.get(0);
                 }
 
-                for(String i: currentUserConfirmed){
-                }
-                for(String i: secondUserConfirmed){
-                }
 
                 fireRef.child(currentUser.getID()).child("confirmeduserlist").setValue(currentUserList);
                 fireRef.child(secondUser.getID()).child("confirmeduserlist").setValue(secondUserList);
                 deletePending(position, secondUser);
+                LMUDBHandler lmudbHandler = new LMUDBHandler(ctx,null,null,1);
+                currentUser.setconfirmeduserlist(currentUserList);
+                lmudbHandler.saveUser(ctx,currentUser);
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +125,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
             @Override
             public void onClick(View v) {
                 deletePending(position, secondUser);
+
             }
         });
 
@@ -138,15 +143,22 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
         notifyDataSetChanged();
         String pending = currentUser.getpendinguserlist();
         if(pending.contains(",")){
-            currentUserPending = Arrays.asList(pending.split(","));
+            Log.v("yes","Pending contains comma");
+            currentUserPending = new ArrayList(Arrays.asList(pending.split(",")));
         }
         else{
+            Log.v("yes","Pending doesnt contain  comma");
             currentUserPending = new ArrayList<>();
+            currentUserPending.add(pending);
         }
         currentUserPending.remove(user.getID());
         //Convert to string
         String currentUserList = String.join(",",currentUserPending);
         fireRef.child(currentUser.getID()).child("pendinguserlist").setValue(currentUserList);
+        LMUDBHandler lmudbHandler = new LMUDBHandler(ctx,null,null,1);
+        currentUser.setpendinguserlist(currentUserList);
+        lmudbHandler.saveUser(ctx,currentUser);
+
     }
 
 }

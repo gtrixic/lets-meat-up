@@ -226,6 +226,9 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                                 }
                             });
                         }
+                        else{
+                            Log.v(TAG,"Error updating password!");
+                        }
                     }
                 });
     }

@@ -44,6 +44,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class EditProfile extends AppCompatActivity {
     private static final String TAG = "Let's-Meat-Up";
@@ -131,52 +132,59 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText[] editedInfo = {etUsername, etName, etDob, etAllergies};
-                for (EditText line : editedInfo){
-                    if(line.getText().toString().length() == 0) {
+                for (EditText line : editedInfo) {
+                    if (line.getText().toString().length() == 0) {
                         allInputFilled = false;
                     }
                 }
-                if (allInputFilled && genderSelected != null){
-                    //TODO:Loading screen
-                    //do upload image
-                    Log.v(TAG,"Uploading image!");
-                    dbhandler.uploadImage(EditProfile.this,FilePath,storageReference,null);
-                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(dbhandler.returnUser(EditProfile.this).getID());
-                    final AccountData accountData = dbhandler.returnUser(EditProfile.this);
-                    accountData.setUsername(etUsername.getText().toString());
-                    accountData.setFullName(etName.getText().toString());
-                    accountData.setEmail(etEmail.getText().toString());
-                    accountData.setGender(genderSelected);
-                    accountData.setDob(etDob.getText().toString());
-                    accountData.setAllergy(etAllergies.getText().toString());
-                    //push data to dbreference
-                    Log.v(TAG,"Updating account data!");
-                    dbhandler.readData(databaseReference, new LMUDBHandler.OnGetDataListener() {
-                        @Override
-                        public void onSuccess(DataSnapshot dataSnapshot) {
-                            //save into shared pref
-                            databaseReference.setValue(accountData);
-                            dbhandler.saveUser(EditProfile.this,accountData);
-                            //make toast
-                            Toast.makeText(EditProfile.this,"Successfully updated user!",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(EditProfile.this,UserProfile.class);
-                            startActivity(intent);
-                        }
+                if (allInputFilled && genderSelected != null) {
+                    final Pattern regex =
+                            Pattern.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
+                    if (regex.matcher(etDob.getText().toString()).matches()){
+                            //TODO:Loading screen
+                            //do upload image
+                            Log.v(TAG, "Uploading image!");
+                        dbhandler.uploadImage(EditProfile.this, FilePath, storageReference, null);
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(dbhandler.returnUser(EditProfile.this).getID());
+                        final AccountData accountData = dbhandler.returnUser(EditProfile.this);
+                        accountData.setUsername(etUsername.getText().toString());
+                        accountData.setFullName(etName.getText().toString());
+                        accountData.setEmail(etEmail.getText().toString());
+                        accountData.setGender(genderSelected);
+                        accountData.setDob(etDob.getText().toString());
+                        accountData.setAllergy(etAllergies.getText().toString());
+                        //push data to dbreference
+                        Log.v(TAG, "Updating account data!");
+                        dbhandler.readData(databaseReference, new LMUDBHandler.OnGetDataListener() {
+                            @Override
+                            public void onSuccess(DataSnapshot dataSnapshot) {
+                                //save into shared pref
+                                databaseReference.setValue(accountData);
+                                dbhandler.saveUser(EditProfile.this, accountData);
+                                //make toast
+                                Toast.makeText(EditProfile.this, "Successfully updated user!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(EditProfile.this, UserProfile.class);
+                                startActivity(intent);
+                            }
 
-                        @Override
-                        public void onStart() {
+                            @Override
+                            public void onStart() {
 
-                        }
+                            }
 
-                        @Override
-                        public void onFailure() {
+                            @Override
+                            public void onFailure() {
 
-                        }
-                    });
-
+                            }
+                        });
 
 
                 }
+                    else{
+                        Toast.makeText(EditProfile.this,"Invalid date!",Toast.LENGTH_SHORT).show();
+
+                    }
+            }
                 else if(allInputFilled == false){
                     Toast.makeText(EditProfile.this,"Not all inputs filled!",Toast.LENGTH_SHORT).show();
                 }

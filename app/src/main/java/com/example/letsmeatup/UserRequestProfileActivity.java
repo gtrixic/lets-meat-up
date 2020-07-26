@@ -145,4 +145,10 @@ public class UserRequestProfileActivity extends AppCompatActivity {
         Log.v(TAG, FILENAME+": User pressed the back button.");
         startActivity(back);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(UserRequestProfileActivity.this,AcceptUserActivity.class);
+        startActivity(intent);
+    }
 }

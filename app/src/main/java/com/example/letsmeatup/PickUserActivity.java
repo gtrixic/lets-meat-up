@@ -28,4 +28,9 @@ public class PickUserActivity extends AppCompatActivity {
         Intent next = new Intent(PickUserActivity.this,PickUser2Activity.class);
         startActivity(next);
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PickUserActivity.this, mainPageActivity.class);
+        startActivity(intent);
+    }
 }

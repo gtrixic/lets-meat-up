@@ -1,11 +1,13 @@
 package com.example.letsmeatup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +41,7 @@ public class AcceptUserActivity extends AppCompatActivity {
     ImageView LINE;
     String pending;
     String[] ids;
+    ImageButton back;
     ArrayList<AccountData> pendingUsers;
 
     private static final String TAG = "Let's-Meat-Up";
@@ -58,6 +61,16 @@ public class AcceptUserActivity extends AppCompatActivity {
         LINE = findViewById(R.id.line);
         database = FirebaseDatabase.getInstance();
         fireRef = database.getReference();
+        back = findViewById(R.id.backArrow);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AcceptUserActivity.this,mainPageActivity.class);
+                startActivity(intent);
+                startActivity(intent);
+            }
+        });
 
         currentUser = dbHandler.returnUser(this);
         Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID());
@@ -150,5 +163,10 @@ public class AcceptUserActivity extends AppCompatActivity {
         void onSuccess(DataSnapshot dataSnapshot);
         void onStart();
         void onFailure();
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AcceptUserActivity.this, mainPageActivity.class);
+        startActivity(intent);
     }
 }

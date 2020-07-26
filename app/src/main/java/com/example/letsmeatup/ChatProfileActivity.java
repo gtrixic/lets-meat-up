@@ -46,8 +46,10 @@ public class ChatProfileActivity extends AppCompatActivity {
     RecyclerView suggestRV;
     ImageView profilePic;
     ImageButton addButton;
+    ImageButton back;
     suggestAdapter sAdapter;
     ArrayList<RestaurantData> restDataList;
+    String newChatID;
     boolean checkSuggestions;
     String IchatID;
     LMUDBHandler lmudbHandler = new LMUDBHandler(this, null, null, 1);
@@ -68,10 +70,31 @@ public class ChatProfileActivity extends AppCompatActivity {
         suggestRV = findViewById(R.id.suggestedRV);
         profilePic = findViewById(R.id.chatPic);
         addButton = findViewById(R.id.suggestButton);
+        back = findViewById(R.id.backArrow3);
+        final String IuserID = getIntent().getStringExtra("userid");
+        IchatID = getIntent().getStringExtra("chatid");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("yes","IchatID : "+IchatID);
+                Intent intent = new Intent(ChatProfileActivity.this,MessageActivity.class);
+                intent.putExtra("userid",IuserID);
+                if(IchatID.equals("default")) {
+                    intent.putExtra("chatid", newChatID);
+                    Log.v("yes","CASE 1");
+                }
+
+                else{
+                    intent.putExtra("chatid",IchatID);
+                    Log.v("yes","CASE 3");
+
+                }
+                startActivity(intent);
+            }
+        });
         checkSuggestions = false;
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        String IuserID = getIntent().getStringExtra("userid");
-        IchatID = getIntent().getStringExtra("chatid");
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -119,7 +142,34 @@ public class ChatProfileActivity extends AppCompatActivity {
                     Log.v("ChatViewAdapter","Setting profile picture" );
                     Glide.with(ChatProfileActivity.this).load(acc.getPfp()).into(profilePic);
                 }
-                displaySuggestions(IchatID);
+                if(!IchatID.equals("default")) {
+                    Log.v("yes","IchatID : "+IchatID);
+                    displaySuggestions(IchatID);
+                }
+                else{
+                    //create chat class and post
+                    Chat chat = new Chat();
+                    chat.setUsers(lmudbHandler.getUserDetail(ChatProfileActivity.this,"id")+","+acc.getID());
+                    String key = FirebaseDatabase.getInstance().getReference().child("Chats").push().getKey();
+                    chat.setId(key);
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Chats");
+                    ref.child(key).setValue(chat);
+                    IchatID = key;
+                    newChatID = key;
+                    //send a message
+                    Date currentTime = Calendar.getInstance().getTime();
+                    Message userMessage = new Message();
+                    userMessage.setSender("System");
+                    userMessage.setReceiver(acc.getID());
+                    userMessage.setCreatedAt(currentTime.getTime());
+                    userMessage.SetMessage("Chat created.");
+                    userMessage.setId(ref.child(key).child("Messages").push().getKey());
+                    //set message
+                    ref.child(key).child("Messages").child(userMessage.getId()).setValue(userMessage);
+                    //set metadata
+                    ref.child(key).child("lastMessage").setValue(userMessage);
+                    displaySuggestions(key);
+                }
             }
 
             @Override
@@ -167,4 +217,5 @@ public class ChatProfileActivity extends AppCompatActivity {
             }
         });
     }
+
 }

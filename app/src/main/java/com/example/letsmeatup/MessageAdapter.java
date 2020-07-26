@@ -40,6 +40,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
                     .inflate(R.layout.item_message_received,parent,false);
             return new MessageViewHolder(view,ctx);
         }
+        else if(viewType == -1){
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_message_system,parent,false);
+            return new MessageViewHolder(view,ctx);
+        }
+
         return null;
     }
 
@@ -63,6 +69,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
             Log.v("MessageAdapter","MSG_TYPE_RIGHT!");
             return MSG_TYPE_RIGHT;
 
+        }
+        else if(message.getSender().equals("System")){
+            return -1;
         }
         else{
             Log.v("MessageAdapter","MSG_TYPE_LEFT!");

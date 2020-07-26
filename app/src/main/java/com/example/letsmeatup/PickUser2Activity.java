@@ -61,7 +61,7 @@ public class PickUser2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestAlert();
-                if (secondUser.getpendinguserlist()==null){
+                if (secondUser.getpendinguserlist().equals("")){
                     secondUser.setpendinguserlist(firstUser.getID());
                     Log.v(TAG, "pending list: " + secondUser.getpendinguserlist());
                 }
@@ -227,5 +227,10 @@ public class PickUser2Activity extends AppCompatActivity {
                 loadingDialog.dismissDialog();
             }
         },1000);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PickUser2Activity.this, mainPageActivity.class);
+        startActivity(intent);
     }
 }

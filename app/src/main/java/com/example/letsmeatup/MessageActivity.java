@@ -36,6 +36,7 @@ public class MessageActivity extends AppCompatActivity {
     ImageButton backButton;
     EditText chatBoxText;
     ImageButton sendMessage;
+    String newChatID;
     AccountData currentUser;
     LMUDBHandler lmudbHandler = new LMUDBHandler(this, null, null, 1);
     Intent intent;
@@ -97,7 +98,27 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent next = new Intent(MessageActivity.this,ChatProfileActivity.class);
                 next.putExtra("userid",userid);
-                next.putExtra("chatid",chatid);
+                //if chat id = default and new chat id hasnt been created
+                if(chatid.equals("default") && newChatID == null) {
+                    next.putExtra("chatid", "default");
+                    Log.v("yes","CASE 1");
+                }
+
+                else{
+
+                        //chat id != default
+                        if (newChatID == null){
+                            next.putExtra("chatid",chatid);
+                            Log.v("yes","CASE 2");
+
+                        }
+                        else{
+                            next.putExtra("chatid",newChatID);
+                            Log.v("yes","CASE 3");
+
+                        }
+                    }
+
                 startActivity(next);
             }
         });
@@ -147,6 +168,7 @@ public class MessageActivity extends AppCompatActivity {
             //Create chat
             fireRef.child("Chats").child(chat.id).setValue(chat);
             chatid = chat.getId();
+            newChatID = chat.getId();
 
         }
         //find chat,//Push Message info, and message metadata
@@ -156,6 +178,7 @@ public class MessageActivity extends AppCompatActivity {
         fireRef.child("Chats").child(chatid).child("Messages").child(userMessage.getId()).setValue(userMessage);
         //set metadata
         fireRef.child("Chats").child(chatid).child("lastMessage").setValue(userMessage);
+        readMessages(chatid);
 
     }
 
@@ -196,9 +219,5 @@ public class MessageActivity extends AppCompatActivity {
         }
 
     }
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(MessageActivity.this,ViewChats.class);
-        startActivity(intent);
-    }
+
 }

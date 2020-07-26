@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,36 +29,47 @@ public class ViewChats extends AppCompatActivity {
     RecyclerView recyclerView;
     chatViewAdapter cAdapter;
     ImageButton backButton;
+    TextView text1;
+    TextView text2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_1);
-        lmudbHandler = new LMUDBHandler(this,null,null,1);
+        lmudbHandler = new LMUDBHandler(this, null, null, 1);
         currentUser = lmudbHandler.returnUser(this);
         recyclerView = findViewById(R.id.viewChatRecyclerView);
         backButton = findViewById(R.id.backArrow5);
-        final ArrayList<AccountData>confirmedUsers = new ArrayList<>();
-        for(String id: currentUser.getconfirmeduserlist().split(",")) {
-            fireRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-            lmudbHandler.readData(fireRef, new LMUDBHandler.OnGetDataListener() {
-                @Override
-                public void onSuccess(DataSnapshot dataSnapshot) {
-                    confirmedUsers.add(dataSnapshot.getValue(AccountData.class));
-                    bindHash(confirmedUsers);
-                }
+        text1 = findViewById(R.id.textView4);
+        text2 = findViewById(R.id.textView5);
+        final ArrayList<AccountData> confirmedUsers = new ArrayList<>();
+        if (!currentUser.getconfirmeduserlist().equals("")){
+            text1.setVisibility(View.GONE);
+            text2.setVisibility(View.GONE);
+            for (String id : currentUser.getconfirmeduserlist().split(",")) {
+                fireRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
+                lmudbHandler.readData(fireRef, new LMUDBHandler.OnGetDataListener() {
+                    @Override
+                    public void onSuccess(DataSnapshot dataSnapshot) {
+                        confirmedUsers.add(dataSnapshot.getValue(AccountData.class));
+                        bindHash(confirmedUsers);
+                    }
 
-                @Override
-                public void onStart() {
+                    @Override
+                    public void onStart() {
 
-                }
+                    }
 
-                @Override
-                public void onFailure() {
+                    @Override
+                    public void onFailure() {
 
-                }
-            });
+                    }
+                });
+            }
+    }
+        else{
+            recyclerView.setVisibility(View.GONE);
         }
 
     backButton.setOnClickListener(new View.OnClickListener() {
