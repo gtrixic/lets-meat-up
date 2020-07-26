@@ -100,6 +100,9 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
             StringBuilder finallocation = new StringBuilder();
             for(int index = 0; index < displayLocation.length(); index ++){
                 finallocation.append(displayLocation.get(index).toString());
+                if(index<(displayLocation.length()-1)){
+                    finallocation.append(", ");
+                }
             }
             Log.v(TAG,finallocation.toString());
             rData.setAddress(finallocation.toString());

@@ -8,22 +8,21 @@
     android:background="#353552"
     android:orientation="vertical"
     android:paddingLeft="5dp"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp">
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
   <TextView
       android:id="@+id/suggestedName"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="@font/josefinsansregular"
-      android:text="@pluseightytwo"
+      android:text="text"
       android:textColor="#FFFFFF"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.055"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.126"
       tools:textSize="20sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

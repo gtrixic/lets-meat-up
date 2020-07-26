@@ -74,8 +74,8 @@
         android:text="Reject"
         android:textAllCaps="false"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/addRestButton"
-        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restType" />
 
@@ -83,13 +83,13 @@
         android:id="@+id/addRestButton"
         android:layout_width="116dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/josefinsansregular"
         android:text="Add"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rejectRestButton"
         app:layout_constraintTop_toBottomOf="@+id/restType" />
 
     <TextView

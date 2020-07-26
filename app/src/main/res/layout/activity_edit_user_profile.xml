@@ -4,118 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#353552">
+    android:background="#353552"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <Spinner
         android:id="@+id/editGender"
-        android:layout_width="131dp"
-        android:layout_height="51dp"
+        android:layout_width="136dp"
+        android:layout_height="53dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="456dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_spinner"
         android:entries="@array/gender_array"
         android:fontFamily="@font/josefinsanslight"
         android:spinnerMode="dropdown"
+        android:theme="@style/spinner_style"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmail" />
 
     <EditText
         android:id="@+id/editAllergies"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
         android:fontFamily="@font/josefinsanslight"
+        android:paddingTop="30dp"
         android:text="Allergies:"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.861" />
+        app:layout_constraintTop_toBottomOf="@+id/editDob" />
 
     <ImageButton
         android:id="@+id/backArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019"
         app:srcCompat="@drawable/backarrow1" />
 
     <EditText
         android:id="@+id/editUsername"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
         android:fontFamily="@font/josefinsanslight"
+        android:paddingTop="30dp"
         android:text="anonymous"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.413" />
+        app:layout_constraintTop_toBottomOf="@+id/editProfilePic" />
 
     <EditText
         android:id="@+id/editDob"
         android:layout_width="144dp"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
         android:fontFamily="@font/josefinsanslight"
+        android:paddingTop="30dp"
         android:text="13/04/2002"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.805"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.755" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmail" />
 
     <EditText
         android:id="@+id/editName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
         android:fontFamily="@font/josefinsanslight"
+        android:paddingTop="30dp"
         android:text="anonymous"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.525" />
+        app:layout_constraintTop_toBottomOf="@+id/editUsername" />
 
     <TextView
         android:id="@+id/editEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
         android:fontFamily="@font/josefinsanslight"
+        android:paddingTop="30dp"
         android:text="anonymous@gmail.com"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.638" />
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
 
     <ImageButton
         android:id="@+id/editProfilePic"
-        android:layout_width="136dp"
-        android:layout_height="146dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165"
+        app:layout_constraintTop_toBottomOf="@+id/line"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -132,33 +134,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.973" />
+        app:layout_constraintTop_toBottomOf="@+id/editAllergies" />
 
     <TextView
         android:id="@+id/viewProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsanslight"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Profile"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/line"
         android:layout_width="464dp"
         android:layout_height="13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfile"
         app:srcCompat="@drawable/line" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

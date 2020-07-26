@@ -7,40 +7,20 @@
     android:background="#353552"
     tools:context=".PickUser2Activity">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tutorial" />
     <TextView
         android:id="@+id/userTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:fontFamily="@font/josefinsansregular"
         android:text="Random User"
         android:textColor="#FFE9F9"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -57,39 +37,43 @@
         android:id="@+id/imageView5"
         android:layout_width="160dp"
         android:layout_height="155dp"
-        android:layout_marginTop="128dp"
+        app:layout_constraintBottom_toTopOf="@+id/nameTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userTextView"
+        app:layout_constraintVertical_bias="0.642"
         app:srcCompat="@drawable/blankpfp" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
         android:fontFamily="@font/josefinsansregular"
         android:text="Name:"
         android:textColor="#353552"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintVertical_bias="0.526" />
 
     <TextView
         android:id="@+id/ageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/josefinsansregular"
         android:text="Age:"
         android:textColor="#353552"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.288"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintVertical_bias="0.06" />
 
     <TextView
         android:id="@+id/genderTextView"
@@ -108,27 +92,28 @@
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
         android:fontFamily="@font/josefinsanslight"
         android:text="Lorem"
         android:textAlignment="center"
         android:textColor="#353552"
-        android:textSize="17sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toEndOf="@+id/nameTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.118" />
 
     <TextView
         android:id="@+id/ageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="26dp"
         android:fontFamily="@font/josefinsanslight"
         android:text="Lorem"
         android:textColor="#353552"
-        android:textSize="17sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/ageTextView"
         app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
@@ -136,36 +121,15 @@
         android:id="@+id/genderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="26dp"
         android:fontFamily="@font/josefinsanslight"
         android:text="Lorem"
         android:textColor="#353552"
-        android:textSize="17sp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toEndOf="@+id/genderTextView"
         app:layout_constraintTop_toBottomOf="@+id/ageText" />
-
-    <ImageButton
-        android:id="@+id/requestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="44dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/request" />
-
-    <ImageButton
-        android:id="@+id/ignoreButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="44dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ignore" />
 
     <TextView
         android:id="@+id/allergyTextView"
@@ -184,13 +148,46 @@
         android:id="@+id/allergyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="26dp"
         android:fontFamily="@font/josefinsanslight"
         android:text="Lorem"
         android:textColor="#353552"
-        android:textSize="17sp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toEndOf="@+id/allergyTextView"
         app:layout_constraintTop_toBottomOf="@+id/genderText" />
+
+    <Button
+        android:id="@+id/requestButton"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:background="@drawable/pickuserbutton"
+        android:fontFamily="@font/josefinsansregular"
+        android:text="Request"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ignoreButton"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allergyText" />
+
+    <Button
+        android:id="@+id/ignoreButton"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:background="@drawable/pickuserbutton"
+        android:fontFamily="@font/josefinsansregular"
+        android:text="Ignore"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allergyText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="spinner_style"  parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/my_spinner_text_color</item>
+        <item name="android:fontFamily">@font/josefinsanslight</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
 
 </resources>

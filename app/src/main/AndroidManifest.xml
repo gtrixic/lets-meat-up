@@ -13,7 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatRestaurantActivity" />
         <activity android:name=".EditProfile" />
         <activity android:name=".ChatProfileActivity" />
         <activity android:name=".AcceptUser2Activity" />
@@ -27,9 +26,7 @@
         <activity android:name=".PersonalityQuestionsActivity" />
         <activity android:name=".mainPageActivity" />
         <activity android:name=".UserSignUp3Activity" />
-        <activity android:name=".RestaurantSignUp2Activity" />
         <activity android:name=".UserSignUp2Activity" />
-        <activity android:name=".RestaurantSignUpActivity" />
         <activity android:name=".UserSignUpActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignupOrLoginActivity" />

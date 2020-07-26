@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class SignupOrLoginActivity extends AppCompatActivity {
-    public ImageButton createButton;
+    public Button createButton;
     public Button loginButton;
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "SignupOrLoginActivity.java";

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -32,8 +33,8 @@ public class PickUser2Activity extends AppCompatActivity {
     TextView ageT;
     TextView gender;
     TextView allergy;
-    ImageButton request;
-    ImageButton ignore;
+    Button request;
+    Button ignore;
     AccountData firstUser;
     AccountData secondUser;
     String secondID;

@@ -42,8 +42,8 @@ public class UserProfile extends AppCompatActivity {
     TextView age;
     TextView allergies;
     Button edit;
-    Button SignOut;
     ImageButton back;
+    ImageButton SignOut;
     private FirebaseAuth mAuth;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 

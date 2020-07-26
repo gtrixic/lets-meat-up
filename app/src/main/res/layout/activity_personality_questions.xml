@@ -10,8 +10,8 @@
         android:id="@+id/textview_title"
         android:layout_width="282dp"
         android:layout_height="68dp"
-        android:fontFamily="@font/josefinsansthin"
-        android:text="Let us help you find a friend."
+        android:fontFamily="@font/josefinsanslight"
+        android:text="Let Us Help You Find A Friend Better."
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/CIPfp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="304dp"
+        android:layout_height="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -38,6 +38,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="409dp"
         android:layout_height="430dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +61,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.973" />
+        app:layout_constraintVertical_bias="0.95" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
