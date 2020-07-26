@@ -80,12 +80,12 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                 //put edit texts into an array to loop through to check if any values return null
                 EditText[] Info = {FullName,Username,Password,checkPassword,Email};
                 for(EditText line : Info){
-                    if (line.getText().toString() == null){
+                    if (line.getText().toString().length() == 0){
                         allInputFilled = false;
                         break;
                     }
                 }
-                if (allInputFilled == true && GenderSelected != null) {
+                if (allInputFilled && GenderSelected != null) {
                     //check if user is already in database
                     fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
                     //Query if data exists
@@ -110,6 +110,8 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                 dbAccountData.setDob(Date.getText().toString());
                                 dbAccountData.setMatchid("0");
                                 dbAccountData.setPfp("default");
+                                dbAccountData.setconfirmeduserlist("");
+                                dbAccountData.setpendinguserlist("");
                                 if (dbAccountData.isPasswordMatch(checkPassword.getText().toString())) {
                                     Log.v(TAG,"Passwords Match!");
                                     if (dbAccountData.isValidEmail(dbAccountData.getEmail())){

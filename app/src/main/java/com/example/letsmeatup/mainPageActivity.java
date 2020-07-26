@@ -37,10 +37,8 @@ public class mainPageActivity extends AppCompatActivity {
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db = new LMUDBHandler(mainPageActivity.this,null,null,1);
-                db.signOut(mainPageActivity.this);
-                Intent signout = new Intent(mainPageActivity.this,LoginActivity.class);
-                startActivity(signout);
+                Intent intent = new Intent(mainPageActivity.this,UserProfile.class);
+                startActivity(intent);
             }
         });
         //when pick user button is clicked

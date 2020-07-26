@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -35,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -342,7 +344,8 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         Log.v(TAG,"Allergy field added!");
     }
 
-    public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference){
+    public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference, final Intent intent){
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
         if(FilePath != null){
             Log.v(TAG,"Creating Progress Dialog.");
             final ProgressDialog progressDialog = new ProgressDialog(ctx);
@@ -356,16 +359,25 @@ public class LMUDBHandler extends SQLiteOpenHelper {
             final StorageReference ref = storageReference.child("User_Pictures/"+stringid);
             Log.v(TAG,"Checking if file exists");
             //check if file already exists in database
-            if(ref.getDownloadUrl() != null){
-                Log.v(TAG,"File exists!");
+            Log.v(TAG,"RETURNUSERPFP:"+returnUser(ctx).getPfp());
+            if(!returnUser(ctx).getPfp().equals("default")){
                 ref.delete();
+                Log.v("TAG","File Found! deleting...");
             }
             ref.putFile(FilePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    fireRef.child(returnUser(ctx).getID()).child("pfp").setValue(uri.toString());
+                                    Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
+                                    ctx.startActivity(intent);
+                                }
+                            });
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

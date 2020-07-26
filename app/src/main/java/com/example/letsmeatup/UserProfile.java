@@ -7,11 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,37 +32,38 @@ public class UserProfile extends AppCompatActivity {
     ImageView pfp;
     TextView username;
     TextView name;
-    TextView age;
     TextView gender;
     TextView dob;
     TextView allergies;
     Button edit;
+    Button SignOut;
     private FirebaseAuth mAuth;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_view_user_profile);
         pfp = findViewById(R.id.profilePic);
         username = findViewById(R.id.usernameView);
         name = findViewById(R.id.nameView);
-        age = findViewById(R.id.ageView);
         gender = findViewById(R.id.genderView);
         dob = findViewById(R.id.dobView);
         allergies = findViewById(R.id.allergiesView);
+        SignOut = findViewById(R.id.SignOutButton);
         mAuth = FirebaseAuth.getInstance();
 
         //profile picture
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference("Users").child(dbHandler.getUserDetail(this, "pfp"));
+        if(dbHandler.returnUser(this).getPfp().equals("default")){
+            pfp.setImageResource(R.mipmap.ic_launcher);
+        }
+        else{
+            Glide.with(this).load(dbHandler.getUserDetail(this,"pfp")).dontAnimate().into(pfp);
+        }
         //username
         username.setText(dbHandler.getUserDetail(this, "username"));
         //name
-        name.setText(dbHandler.getUserDetail(this, "name"));
-        //age
-        age.setText(dbHandler.getUserDetail(this, "age"));
+        name.setText(dbHandler.getUserDetail(this, "fullname"));
         //gender
         gender.setText(dbHandler.getUserDetail(this, "gender"));
         //dob
@@ -76,6 +79,16 @@ public class UserProfile extends AppCompatActivity {
                 //go to EditProfile.java
                 Intent intent = new Intent(UserProfile.this, EditProfile.class);
                 startActivity(intent);
+            }
+        });
+
+        SignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHandler = new LMUDBHandler(UserProfile.this,null,null,1);
+                dbHandler.signOut(UserProfile.this);
+                Intent signout = new Intent(UserProfile.this,LoginActivity.class);
+                startActivity(signout);
             }
         });
 

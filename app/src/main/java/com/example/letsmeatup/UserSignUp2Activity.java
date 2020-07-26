@@ -72,9 +72,10 @@ public class UserSignUp2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) { // when user clicks the next arrow button
                 // moves from this page to next page of sign up
-                lmudbHandler.uploadImage(UserSignUp2Activity.this,FilePath,storageReference);
                 Intent intent = new Intent(UserSignUp2Activity.this,UserSignUp3Activity.class);
-                startActivity(intent);
+                lmudbHandler.uploadImage(UserSignUp2Activity.this,FilePath,storageReference,intent);
+
+
             }
         });
         // alert for users that this goes to the login page
