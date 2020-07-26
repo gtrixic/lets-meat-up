@@ -158,7 +158,7 @@ The user will be asked to enter either their username or email. If the username 
 
 The small “Let’s Meat Up” icon is an ImageView, “Username/Email” is an EditText (Plain Text), the “Next Page Button” and "Back Arrow Button" is an ImageButton.
 
-![](https://lh5.googleusercontent.com/VYy32A42Wr6WWLRqJULJmKxtHiwXLd7rR2yslHJOgyBd4USNhuXu0XQVdAHnU0Tw0QqOoBIngqrvO4dzMftqj474V1pmDcWXA0eryvOC)
+![](https://lh3.googleusercontent.com/NoBrs3iitg6hdTFRwyG3_O9tnhS8RX4jRhJyvDzi2vKl1g3FZ2fV1LMZ0dYNch6oMhZMQtRSO0PsM510I8ZeGHtNwRDTd0OasGGLjrs)
 
 
 **Forget Password (Page 2)**
@@ -167,7 +167,7 @@ The user will then be asked to enter and re-enter their new password. If the 2 p
 
 “Enter Password” and “Re-enter Password” are EditText (Password”, the “Let’s Meat Up” icon is an ImageView, and the “Next Page Button” is an ImageButton.
 
-![](https://lh6.googleusercontent.com/7ffxRbTzFn0XNmPbFb0asKKcCc8-NWusSQzGjSKy3tQTaLt3DJxuybHL0SaRK5QG5zM_9GcKoUPyAThpr2sQBkeDHdv225YzBfzKiUhp)
+![](https://lh3.googleusercontent.com/yXOa33oB2EhMfzlN-uVLXR60GtOwsMmdRdNck9SmUuzcN01kXfui45Hz5o4FQEiOzhO4EL93DSA1636IypU04S-fytD65tWtO-6C_tqN)
 
 
 **Forget Password (Page 3)**
