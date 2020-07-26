@@ -70,7 +70,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 List<String> currentUserConfirmed;
                 List<String> secondUserConfirmed;
 
-                if (currentUser.getconfirmeduserlist() == null){
+                if (currentUser.getconfirmeduserlist() == ""){
 
                     currentUserConfirmed = new ArrayList<>();
                 }
@@ -79,7 +79,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                     currentUserConfirmed = new ArrayList<>(currentUserConfirmed);
 
                 }
-                if (secondUser.getconfirmeduserlist() == null){
+                if (secondUser.getconfirmeduserlist() == ""){
 
                     secondUserConfirmed = new ArrayList<>();
                 }

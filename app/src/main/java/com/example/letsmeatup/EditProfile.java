@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,14 +15,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,43 +43,41 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+
 public class EditProfile extends AppCompatActivity {
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "EditProfile.java";
-
+    AccountData currentUser;
     DatabaseReference databaseReference;
     StorageReference storageReference;
     FirebaseAuth mAuth;
-    SharedPreferences sharedPreferences;
-
+    LMUDBHandler dbhandler;
+    private final int PICK_IMAGE_REQUEST = 71;
+    FirebaseStorage storage;
+    private Uri FilePath;
     EditText etUsername;
     EditText etName;
-    EditText etEmail;
+    TextView etEmail;
     Spinner etGender;
     EditText etDob;
     EditText etAllergies;
-    ImageView etPfp;
+    ImageButton etPfp;
     Button confirm;
     ImageView backArrow;
-    Boolean allInputFilled = false;
+    Boolean allInputFilled = true;
     String[] gender = {"M", "F"};
     String genderSelected;
     private static final int IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        dbhandler = new LMUDBHandler(this,null,null,1   );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
 
-        mAuth = FirebaseAuth.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference profileRef = storageReference.child("users/"+mAuth.getCurrentUser().getUid()+"pfp.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(etPfp);
-            }
-        });
 
         etUsername = findViewById(R.id.editUsername);
         etName = findViewById(R.id.editName);
@@ -84,6 +87,19 @@ public class EditProfile extends AppCompatActivity {
         etAllergies = findViewById(R.id.editAllergies);
         etPfp = findViewById(R.id.editProfilePic);
 
+        currentUser = dbhandler.returnUser(this);
+        etUsername.setText(currentUser.getUsername());
+        etName.setText(currentUser.getFullName());
+        etEmail.setText(currentUser.getEmail());
+        etDob.setText(currentUser.getDob());
+        etAllergies.setText(currentUser.getAllergy());
+        //set etpfp to pfp if available
+        if(dbhandler.returnUser(this).getPfp().equals("default")){
+            etPfp.setImageResource(R.drawable.image_box);
+        }
+        else{
+            Glide.with(this).load(dbhandler.returnUser(this).getPfp()).into(etPfp);
+        }
         //gender spinner
         etGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -105,11 +121,7 @@ public class EditProfile extends AppCompatActivity {
         etPfp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open gallery
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        /*changePfpIntent.setType("image/*");
-                        changePfpIntent.setAction(Intent.ACTION_GET_CONTENT);*/
-                startActivityForResult(openGalleryIntent, 1000);
+                chooseImage();
             }
         });
 
@@ -118,52 +130,60 @@ public class EditProfile extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText[] editedInfo = {etUsername, etName, etEmail, etDob, etAllergies};
+                EditText[] editedInfo = {etUsername, etName, etDob, etAllergies};
                 for (EditText line : editedInfo){
-                    if (line.getText().toString() == null){
+                    if(line.getText().toString().length() == 0) {
                         allInputFilled = false;
-                        break;
                     }
                 }
-                if (allInputFilled == true && genderSelected != null){
-                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-                    //Query if data exists
-                    Query emailQuery = databaseReference.orderByChild("email").equalTo(etEmail.getText().toString());
-                    emailQuery.addValueEventListener(new ValueEventListener() {
+                if (allInputFilled && genderSelected != null){
+                    //TODO:Loading screen
+                    //do upload image
+                    Log.v(TAG,"Uploading image!");
+                    dbhandler.uploadImage(EditProfile.this,FilePath,storageReference,null);
+                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(dbhandler.returnUser(EditProfile.this).getID());
+                    final AccountData accountData = dbhandler.returnUser(EditProfile.this);
+                    accountData.setUsername(etUsername.getText().toString());
+                    accountData.setFullName(etName.getText().toString());
+                    accountData.setEmail(etEmail.getText().toString());
+                    accountData.setGender(genderSelected);
+                    accountData.setDob(etDob.getText().toString());
+                    accountData.setAllergy(etAllergies.getText().toString());
+                    //push data to dbreference
+                    Log.v(TAG,"Updating account data!");
+                    dbhandler.readData(databaseReference, new LMUDBHandler.OnGetDataListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-                            int runtime = 0;
-                            if(dataSnapshot.exists() && runtime > 0) {
-                                Toast.makeText(EditProfile.this, "Email already exists!", Toast.LENGTH_SHORT).show();
-                                Log.v(TAG, "Email: " + etEmail.getText().toString());
-                            }
-                            else {
-                                AccountData accountData = new AccountData();
-                                accountData.setUsername(etUsername.getText().toString());
-                                accountData.setFullName(etName.getText().toString());
-                                accountData.setEmail(etEmail.getText().toString());
-                                accountData.setGender(genderSelected);
-                                accountData.setDob(etDob.getText().toString());
-                                accountData.setAllergy(etAllergies.getText().toString());
-                            }
+                        public void onSuccess(DataSnapshot dataSnapshot) {
+                            //save into shared pref
+                            databaseReference.setValue(accountData);
+                            dbhandler.saveUser(EditProfile.this,accountData);
+                            //make toast
+                            Toast.makeText(EditProfile.this,"Successfully updated user!",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EditProfile.this,UserProfile.class);
+                            startActivity(intent);
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        public void onStart() {
+
+                        }
+
+                        @Override
+                        public void onFailure() {
 
                         }
                     });
+
+
+
+                }
+                else if(allInputFilled == false){
+                    Toast.makeText(EditProfile.this,"Not all inputs filled!",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(EditProfile.this,"An error has occurred.",Toast.LENGTH_SHORT).show();
                 }
 
-
-
-
-                //UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName();
-
-                //confirmChanges();
-                //go back to UserProfile.java
-                Intent intent = new Intent(EditProfile.this, UserProfile.class);
-                startActivity(intent);
             }
         });
 
@@ -181,38 +201,31 @@ public class EditProfile extends AppCompatActivity {
 
     //for change pfp
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000){
-            if (resultCode == Activity.RESULT_OK){
-                Uri imageUri = data.getData();
-                //etPfp.setImageURI(imageUri);
-                uploadImageToFirebase(imageUri);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
+            FilePath = data.getData();
+            try{
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),FilePath);
+                int height = etPfp.getHeight();
+                int width = etPfp.getWidth();
+                etPfp.setImageBitmap(bitmap);
+                etPfp.getLayoutParams().height = height;
+                etPfp.getLayoutParams().width = width;
+            }
+            catch (IOException e){
+                e.printStackTrace();
             }
         }
     }
 
-    private void uploadImageToFirebase(Uri imageUri){
-        final StorageReference fileRef = storageReference.child("users/"+mAuth.getCurrentUser().getUid()+"pfp.jpg"); //to allow each user to upload their own pfp
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //Toast.makeText(EditProfile.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        //to display pfp
-                        Picasso.get().load(uri).into(etPfp);
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProfile.this, "Image failed to upload", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void chooseImage(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST);
     }
+
 
     /*//confirm changes popup
     private void confirmChanges(){

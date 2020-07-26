@@ -37,7 +37,6 @@ public class UserSignUp2Activity extends AppCompatActivity {
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "UserSignUp2Activity.java";
     private ImageButton chooseImageButton;
-    //TODO:ADD PROFILE PICTURE WITH FIREBASE STORAGE SDK
     private Uri FilePath;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;

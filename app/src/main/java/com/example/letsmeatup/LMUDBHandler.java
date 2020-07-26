@@ -374,7 +374,13 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                                 public void onSuccess(Uri uri) {
                                     fireRef.child(returnUser(ctx).getID()).child("pfp").setValue(uri.toString());
                                     Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
-                                    ctx.startActivity(intent);
+                                    //save into shared pref
+                                    SharedPreferences.Editor editor = getPrefs(ctx).edit();
+                                    editor.putString("pfp",uri.toString());
+                                    editor.apply();
+                                    if(intent != null) {
+                                        ctx.startActivity(intent);
+                                    }
                                 }
                             });
 
@@ -396,8 +402,9 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                     });
         }
         else {
-            Toast.makeText(ctx, "No File Chosen!", Toast.LENGTH_SHORT).show();
-            ctx.startActivity(intent);
+            if(intent!= null) {
+                ctx.startActivity(intent);
+            }
         }
     }
     public void readData(DatabaseReference ref, final OnGetDataListener listener) {
