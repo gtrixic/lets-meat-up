@@ -68,87 +68,44 @@ Jia Wen:
 
 **Start Up (Main Page & Sign-up/Login Page)**
 
-The app first opens the main page with a display of the logo for 5 seconds, before transitioning to the Sign-up or Login Selection page with the use Intent and Handler.postDelayed.
+![](https://lh3.googleusercontent.com/BoI1UfoVfktp-dAJEZJS0W8QxyxJBsJ4PZgNQXKBfrxIZ4wZIRVr9yIRyDBP_-NcMzznDwY3GNCsnDeTLGQkimaRcQLOiEt9n0QqEVKW)
+![](https://lh6.googleusercontent.com/ppLCzODoyTrK08Q728HKbgu2EMgmxQlWnOY5aH5WUUp2Cs_okbpEGH2cTcuVc5iEuijEUCT136KZALwW4LVebDDvVvMSgXaq84q4-vHt)
 
-  
+The app first opens the main page with a display of the logo for 5 seconds, before transitioning to the Sign-up or Login Selection page with the use Intent and Handler.postDelayed.
 
 In the Sign-up or Login Selection page, users are able to choose if they wish to create an account or log in to their already made account using Intent.
 
-  
-
 “Let’s Get Started” is an ImageButton while “I Have An Account” is a Button.
 
-  
-
-![](https://lh4.googleusercontent.com/M-YpQ6pQZpOXVlani3n2mvWKStG2wolOi36Y6qPvfaxywcX0VsAJf-xq34tlBrnE_DCRnc8bzMX2dVIsD_ysqJEorKn5-ouXyZyum0uC)
-![](https://lh4.googleusercontent.com/x8mlm101elDoF3-7JRdZ3rJJMmJ9a13g1SFcIQ4R7dKTCWBWaDMnTRO8s7W13hHjI_NDCFF_dwPTTsd-XSntXT9bOZb0LepZSA7amyQt)
-  
-
-**Sign-Up (Declare Account Type Page)**
-
-If the user chooses the sign-up, they will be directed to this page where users are to declare whether they are signing up as a user or a restaurant account.
-
-  
-
-Both “Create User Account” and “Create Business Account” are ImageButtons.
-
-  
-
-Depending on which account they are signing up as, they will be sent to either the User Sign Up page or theBusiness Sign Up Page using Intent.
-
-![](https://lh5.googleusercontent.com/Db6e8Qu1p9uNKhYu_z14OdytSp1io-hh27CFKB1kFO7krDvVwwIiVWHf0OBOCExSbl-chdz8wazKYxDAMxCfZtCFKoEvvUOlLgG523ph)
-
-  
 
 **Sign-Up (Create User Page 1)**
 
-If the user declares their account to be a user account, they will be sent to this Create User Page 1. Users are to enter their Full Name, Username, Password, Re-enter Password, Email, Gender, DOB, Sexual Preference.
+![](https://lh4.googleusercontent.com/Mx4rtIs3ZXF_jYzdMb4MzwCJ5767cbD6pMEE_PDrNRNulD8f4uun6nkQBEGJl8J84uhqAnae9oIs0iRxjKHmv0pH_pG74F7Z9n2ws3Bh)
 
-  
+If the user declares their account to be a user account, they will be sent to this Create User Page 1. Users are to enter their Full Name, Username, Password, Re-enter Password, Email, Gender, DOB, Sexual Preference.
 
 After confirming their user information, users will be directed to the Create User Page 2 using Intent. If the user goes to the next page without entering all the necessary information, a Toast will appear to alert them.
 
-  
-
 “Full Name”, “Username” and “Sexual Preference” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), “Email” uses EditText (Email), “Gender” uses spinner, “DOB” uses EditText (Date). The “Previous Page Button” and the “Next Page Button” are ImageButtons.
-
-  
 
 All the information entered is recorded into the UserAccounts database using SQLite.
 
-  
-
-![](https://lh3.googleusercontent.com/82Pf03xGYF2U7BbN26Yl7EGuyxusFNkHOcmRYZIJlR6RdKPkBSeD8-_zybXofK5HXPpLNefYCUkTZ6cbHbVTlNHAv_fOm_WZ4pcBC4jb)
-
-  
 
 **Sign-Up (Create User Page 2)**
 
-The user will then be asked to add a profile picture for their account. After adding a profile picture, they can press the Next Page Button to go to Create User Page 3.
+![](https://lh6.googleusercontent.com/3boCj5cSXS6ma3zR0e5BROdROIbr4-p_cnfamH29Z7XBV7t-DrwWyn2zdjkxMjvML0ynJ1cHLzkncSxO9KViz8WDbs4dH4Jy9O70QYPU)
 
-  
+The user will then be asked to add a profile picture for their account. After adding a profile picture, they can press the Next Page Button to go to Create User Page 3.
 
 The profile picture will be added to the UserAccount database using Firebase and SQLite.The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
-  
-
-![](https://lh5.googleusercontent.com/xrysfV-tMqdsybkU-cGU71D0qasSHZlLjCrVmrOOoxvAWTMa2MPDdm0mV8K91GzJSsWoYSkFovlmSfsng141T3vzGQrEI2no-jzLS4ec)
-
-  
-
 **Sign-Up (Create User Page 3)**
 
-  
+![](https://lh3.googleusercontent.com/kO5mUdsMna1S_0Vm5InDnWpuj0Db7sstq0340aW7F9MEgzN7n3lxCT2yhP0jygl32zj9K0VW-p6roj7PzqshRpS0clbkoRgpp10V5ozL)
 
 The user will then be asked to state their allergies/preferences and their diet (e.g. Halal, Vegetarian, etc.) After stating any information needed to be stated, they can confirm their profile and be redirected to the Personality Questions Page.
 
-  
-
 The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
-
-![](https://lh3.googleusercontent.com/C6-Oc4mLqfRSM9GsVR4DaZpTAV34BXFUybYeCMjLOwPQvBQiDXWDo66iza2aoD2l-yPmOp8Fb6juu2IsiSQFs6ZMEbHn2kdx47xmc7ah)
-
-  
 
 **Sign-Up (Personality Questions RecyclerView page)**
 
@@ -296,3 +253,5 @@ If the user holds a restaurant account and chooses to view reservations, they wi
 Reservations will be displayed as a numbered list. Each reservation will show the matched users&#39; usernames, contact numbers, meeting time and date. Under each reservation is an option for the restaurant account holder to reject the reservation.
 
 “Reject Reservation” is a Button.
+
+**
