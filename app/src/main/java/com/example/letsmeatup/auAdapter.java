@@ -94,13 +94,13 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 String currentUserList;
                 String secondUserList;
                 if(currentUserConfirmed.size() > 1) {
-                    currentUserList = TextUtils.join(",", currentUserConfirmed);
+                    currentUserList = String.join(",", currentUserConfirmed);
                 }
                 else{
                     currentUserList = currentUserConfirmed.get(0);
                 }
                 if(secondUserConfirmed.size() > 1) {
-                    secondUserList = TextUtils.join(",", secondUserConfirmed);
+                    secondUserList = String.join(",", secondUserConfirmed);
                 }
                 else{
                     secondUserList = secondUserConfirmed.get(0);
@@ -138,14 +138,14 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
         notifyDataSetChanged();
         String pending = currentUser.getpendinguserlist();
         if(pending.contains(",")){
-            currentUserPending = new LinkedList<String>(Arrays.asList(pending.split(",")));
+            currentUserPending = Arrays.asList(pending.split(","));
         }
         else{
             currentUserPending = new ArrayList<>();
         }
         currentUserPending.remove(user.getID());
         //Convert to string
-        String currentUserList = TextUtils.join(",",currentUserPending);
+        String currentUserList = String.join(",",currentUserPending);
         fireRef.child(currentUser.getID()).child("pendinguserlist").setValue(currentUserList);
     }
 
