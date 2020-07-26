@@ -94,8 +94,6 @@ In the Sign-up or Login Selection page, users are able to choose if they wish to
 
 **Sign-Up (Create User Page 1)**
 
-![](https://lh6.googleusercontent.com/lohr8Cvh6WkXekMqEed_UIBfmaPyKfBTKpRNEZa3Lmd2ermr49q7sLLwAOBSyRsfDTlLlgdJzQ39u3rAsusVygei1syfEuAW2iICdAaR)
-
 If the user declares their account to be a user account, they will be sent to this Create User Page 1. Users are to enter their Full Name, Username, Password, Re-enter Password, Email, Gender, DOB.
 
 After confirming their user information, users will be directed to the Create User Page 2 using Intent. If the user goes to the next page without entering all the necessary information, a Toast will appear to alert them.
@@ -104,24 +102,25 @@ After confirming their user information, users will be directed to the Create Us
 
 All the information entered is recorded into the UserAccounts database using Firebase.
 
+![](https://lh6.googleusercontent.com/lohr8Cvh6WkXekMqEed_UIBfmaPyKfBTKpRNEZa3Lmd2ermr49q7sLLwAOBSyRsfDTlLlgdJzQ39u3rAsusVygei1syfEuAW2iICdAaR)
+
 
 **Sign-Up (Create User Page 2)**
-
-![](https://lh6.googleusercontent.com/3boCj5cSXS6ma3zR0e5BROdROIbr4-p_cnfamH29Z7XBV7t-DrwWyn2zdjkxMjvML0ynJ1cHLzkncSxO9KViz8WDbs4dH4Jy9O70QYPU)
 
 The user will then be asked to add a profile picture for their account. After adding a profile picture, they can press the Next Page Button to go to Create User Page 3.
 
 The profile picture will be added to the UserAccount database using Firebase and SQLite.The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
+![](https://lh6.googleusercontent.com/3boCj5cSXS6ma3zR0e5BROdROIbr4-p_cnfamH29Z7XBV7t-DrwWyn2zdjkxMjvML0ynJ1cHLzkncSxO9KViz8WDbs4dH4Jy9O70QYPU)
+
 
 **Sign-Up (Create User Page 3)**
-
-![](https://lh4.googleusercontent.com/JcduxD01c7j-4e1jymRHJ4LdBJe_FD1p27oEH3QNwyXYdIBw_4yQn7C5OCYG06jKA3o0YIy_yTVB_sd0cRYvOdRSpOgTEGLZLWLu65kd)
 
 The user will then be asked to state their allergies/preferences and their diet (e.g. Halal, Vegetarian, etc.) After stating any information needed to be stated, they can confirm their profile and be redirected to the Personality Questions Page.
 
 The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
 
+![](https://lh4.googleusercontent.com/JcduxD01c7j-4e1jymRHJ4LdBJe_FD1p27oEH3QNwyXYdIBw_4yQn7C5OCYG06jKA3o0YIy_yTVB_sd0cRYvOdRSpOgTEGLZLWLu65kd)
 
 
 **Sign-Up (Personality Questions RecyclerView page)**
@@ -140,10 +139,8 @@ An error message toast will be shown if there are questions not answered.
 ![](https://lh5.googleusercontent.com/dwXPBrGWUQYyv27Wxnzkf5CVGXHD27f62IuiD8HM9gJMEN72Tv4CpxBOF3iIxD4kM6dXLAFRA8zB1S_cPzfi7l1jVXrQ9vHTg2uMfBLn)
 ![](https://lh5.googleusercontent.com/yM8o6ANfHchQCduoFJTb-QpiZtxFD7t0n83N92uyQHJqjV9GFH3q0jyEUDYqOte_ZuktMSse3-p9__fZe3wEV6M4G4TIJ70BXgyQaDrL)
   
-  
 
 **Login Page**
-
 
 If the user clicks the “I HAVE AN ACCOUNT” Button, they will be directed to this page. They are requested to enter either their username or email, and their password corresponding to the account.
 
@@ -154,7 +151,6 @@ All information is checked against the database that was created using Firebase.
 If the email or password entered is incorrect, a toast error message is shown.
 
 ![](https://lh3.googleusercontent.com/UQWtpp-IxtEpFSDNFdAeRg15A4J4e8fO5sS06XJIj2eiERI0nJtiJp8p9SIlzu2upMEBXnsirWYSE5TqdiuNmxLvki7zQnZiTOJ4fuOR)
-
 
 
 **Forget Password (Page 1)**
