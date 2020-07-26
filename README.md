@@ -82,13 +82,13 @@ In the Sign-up or Login Selection page, users are able to choose if they wish to
 
 ![](https://lh4.googleusercontent.com/Mx4rtIs3ZXF_jYzdMb4MzwCJ5767cbD6pMEE_PDrNRNulD8f4uun6nkQBEGJl8J84uhqAnae9oIs0iRxjKHmv0pH_pG74F7Z9n2ws3Bh)
 
-If the user declares their account to be a user account, they will be sent to this Create User Page 1. Users are to enter their Full Name, Username, Password, Re-enter Password, Email, Gender, DOB, Sexual Preference.
+If the user declares their account to be a user account, they will be sent to this Create User Page 1. Users are to enter their Full Name, Username, Password, Re-enter Password, Email, Gender, DOB.
 
 After confirming their user information, users will be directed to the Create User Page 2 using Intent. If the user goes to the next page without entering all the necessary information, a Toast will appear to alert them.
 
-“Full Name”, “Username” and “Sexual Preference” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), “Email” uses EditText (Email), “Gender” uses spinner, “DOB” uses EditText (Date). The “Previous Page Button” and the “Next Page Button” are ImageButtons.
+“Full Name” and “Username” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), “Email” uses EditText (Email), “Gender” uses spinner, “DOB” uses EditText (Date). The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
-All the information entered is recorded into the UserAccounts database using SQLite.
+All the information entered is recorded into the UserAccounts database using Firebase.
 
 
 **Sign-Up (Create User Page 2)**
@@ -109,15 +109,13 @@ The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If A
 
 **Sign-Up (Personality Questions RecyclerView page)**
 
-Users will be asked to answer some simple questions on their personality type. This will be used to match users with more like-minded people. After picking an answer for each question, the user can proceed to submit the simple questionnaire and be redirected to the main page of the app.
+Users will be asked to answer some simple questions on their personality type. This will be used to match users with more like-minded people. After picking an answer for each question, the user can proceed to submit the simple questionnaire and be redirected to the main page of the app.  
 
-  
+The options they choose will be translated into a code(matchID) which will be tagged to each user and it will be used to compare with other users’ code tags(matchID). The more similar the code tags, the higher the chance of being matched.
 
-The options they choose will be translated into a code which will be tagged to each user and it will be used to compare with other users’ code tags. The more similar the code tags, the higher the chance of being matched.
+The page is created using RecyclerView where each question has a TextView of the questions and the selected answer, and 2 answer Buttons to choose from. “Submit” is a Button.
 
-  
-
-The page is created using RecyclerView where each question has a TextView of the question and 2 Buttons to choose. “Submit” is a Button.
+An error message toast will be shown if there are questions not answered.
 
 ![](https://lh4.googleusercontent.com/SxMGOVulATYLpIIULr_Ibcx1ryio1TpSvmEu5B-gCFN_WIngooaOuEiLoP65pdEPyqbYnK-pf0gyRsd6Qzd8RkNCh9mruydx-tzAmnMU)
 ![](https://lh4.googleusercontent.com/ELVg7a1zCllFatlFxzmUtvbMwjEO2tSS8qv8Ti5cF0A2a69e3YbALPrB9reHy-x3JRENw3DE88r2fmzzrtmxs82ciHF3c8MFdvlRbUDp)
@@ -130,16 +128,12 @@ The page is created using RecyclerView where each question has a TextView of the
 
 **Login Page**
 
-  
-  
 
 If the user clicks the “I HAVE AN ACCOUNT” Button, they will be directed to this page. They are requested to enter either their username or email, and their password corresponding to the account.
 
 “Username/Email” is an EditText while “Password” uses EditText(Password). The arrow is an ImageButton.
 
-All information is checked against the database that was created using SQLite.
-
-  
+All information is checked against the database that was created using Firebase.
 
 ![](https://lh4.googleusercontent.com/Nie7kOj66vjMzD8OBSuOhECfDfuOiIrRTE6XAxO9vVZmg3pJ5Eez9Ikg2Si4vTH9oUqV3BXjc7-8zBg1eXlq-RMX39GCaccQbnJhnN_u)
 
@@ -149,29 +143,22 @@ All information is checked against the database that was created using SQLite.
 
 The user will be asked to enter either their username or email. If the username or email is valid in the database, they will be directed to the next page using Intent.
 
-  
-
-The small “Let’s Meat Up” icon is an ImageView, “Username/Email” is an EditText (Plain Text), the “Next Page Button” is an ImageButton.
+The small “Let’s Meat Up” icon is an ImageView, “Username/Email” is an EditText (Plain Text), the “Next Page Button” and "Back Arrow Button" is an ImageButton.
 
 ![](https://lh4.googleusercontent.com/heFRL07Oj6Fnbwv6T7IIGlEkESVl6RmLhM8NUEAz9PzF7GDXk_U29b2p9jOPwu9qFSsLBwtV1uVp5uxe1ZTAEBNmNPhX8tqQSNdHHpVG)
 
 **Forget Password (Page 2)**
 
-The user will then be asked to enter and re-enter their password. If the 2 passwords entered are identical, the change will be updated in the database and they will be directed to the next page using Intent.
-
+The user will then be asked to enter and re-enter their new password. If the 2 passwords entered are identical, the change will be updated in the database and they will be directed to the next page using Intent.
   
 
 “Enter Password” and “Re-enter Password” are EditText (Password”, the “Let’s Meat Up” icon is an ImageView, and the “Next Page Button” is an ImageButton.
-
-  
 
 ![](https://lh3.googleusercontent.com/kURxZ8fZ-w2XNOYtkbEoHxF_sJEM3w9Bs616vQhYLUL99LwZN6sab87sh5NJe_W1FSf4HC-jlXt_w5nTtljsi7n1GH_5CVYgC_5hFrl3)
 
 **Forget Password (Page 3)**
 
 This page will show up in the case of a successful change of password in the database. Users will then be allowed to redirect themselves to the Login Page where they are able to login to their account with their new password using Intent.
-
-  
 
 “Let’s Meat Up” icon is an ImageView, “Change of password successful!” is a TextView, and the “Next Page Button” is an ImageButton.
 
@@ -217,5 +204,3 @@ If the user holds a user account and chooses to view reservations, they will be 
 Reservations will be displayed as a numbered list. Each reservation will show the matched user&#39;s username, restaurant name, meeting time and date.
 
 
-
-**

@@ -34,6 +34,8 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ChatProfileActivity extends AppCompatActivity {
+    private String TAG = "ChatProfileActivity";
+
     TextView userID;
     TextView userName;
     TextView userGender;
@@ -47,6 +49,7 @@ public class ChatProfileActivity extends AppCompatActivity {
     suggestAdapter sAdapter;
     ArrayList<RestaurantData> restDataList;
     boolean checkSuggestions;
+    String IchatID;
     LMUDBHandler lmudbHandler = new LMUDBHandler(this, null, null, 1);
     DatabaseReference fireRef;
 
@@ -68,7 +71,7 @@ public class ChatProfileActivity extends AppCompatActivity {
         checkSuggestions = false;
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
         String IuserID = getIntent().getStringExtra("userid");
-        final String IchatID = getIntent().getStringExtra("chatid");
+        IchatID = getIntent().getStringExtra("chatid");
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -84,6 +87,7 @@ public class ChatProfileActivity extends AppCompatActivity {
                 params.put("limit","50");
                 params.put("sort_by","rating");
                 api.execute(params);
+
             }
         });
         fireRef.child(IuserID).addValueEventListener(new ValueEventListener() {
@@ -124,31 +128,35 @@ public class ChatProfileActivity extends AppCompatActivity {
             }
         });
     }
-    private void displaySuggestions(String chatID){
+    private void displaySuggestions(final String chatid){
+        Log.v(TAG,"Displaying Suggestions");
         restDataList = new ArrayList<>();
-        fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child("Suggestions");
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions");
         suggestRV.setLayoutManager(new LinearLayoutManager(ChatProfileActivity.this));
         suggestRV.setHasFixedSize(true);
-
         lmudbHandler.readData(fireRef, new LMUDBHandler.OnGetDataListener() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
-                restDataList.clear();
-                if(dataSnapshot.exists()){
-                    for(DataSnapshot s : dataSnapshot.getChildren()){
-                        restDataList.add(s.getValue(RestaurantData.class));
-
-                    }
+                for(final DataSnapshot s : dataSnapshot.getChildren()){
+                    final RestaurantData rd = s.getValue(RestaurantData.class);
+                    restDataList.add(rd);
+                    Log.v(TAG, String.valueOf(s.getValue(RestaurantData.class).getRestaurantName()));
+                    Log.v(TAG, String.valueOf(restDataList.size()));
                     sAdapter = new suggestAdapter(restDataList);
-                    suggestRV.setAdapter(sAdapter);
                     sAdapter.setOnItemClickListener(new suggestAdapter.OnItemClickListener() {
                         @Override
                         public void ItemClick(int position) {
-                            Intent intent = new Intent(ChatProfileActivity.this,ChatRestaurantActivity.class);
-                            intent.putExtra("restID",restDataList.get(position).getRestaurantName());
-                            startActivity(intent);
+                            RestaurantData Ritem = restDataList.get(position);
+                            RestaurantProfileDialog rpDialog = new RestaurantProfileDialog(ChatProfileActivity.this,Ritem,chatid);
+                            rpDialog.setRestName(Ritem.getRestaurantName());
+                            rpDialog.setRestAddr(Ritem.getAddress());
+                            rpDialog.setRestType(Ritem.getCategory());
+                            rpDialog.setImage(Ritem.getPfpLink());
+                            rpDialog.show();
                         }
                     });
+                    suggestRV.setAdapter(sAdapter);
+                    sAdapter.notifyDataSetChanged();
                 }
             }
             @Override
