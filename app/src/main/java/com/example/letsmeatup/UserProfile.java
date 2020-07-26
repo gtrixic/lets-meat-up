@@ -35,7 +35,9 @@ public class UserProfile extends AppCompatActivity {
     TextView dob;
     TextView allergies;
     Button edit;
+    ImageView logout;
     private FirebaseAuth mAuth;
+    private LMUDBHandler db;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
     @Override
@@ -76,6 +78,19 @@ public class UserProfile extends AppCompatActivity {
                 //go to EditProfile.java
                 Intent intent = new Intent(UserProfile.this, EditProfile.class);
                 startActivity(intent);
+            }
+        });
+
+        //logout
+        logout = findViewById(R.id.logoutButton);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //go to login page
+                db = new LMUDBHandler(UserProfile.this,null,null,1);
+                db.signOut(UserProfile.this);
+                Intent signout = new Intent(UserProfile.this,LoginActivity.class);
+                startActivity(signout);
             }
         });
 
