@@ -123,7 +123,6 @@ An error message toast will be shown if there are questions not answered.
 ![](https://lh3.googleusercontent.com/v3R6WbQr8mE0zbXGTDV8JIl2kiJQ_-ANlNVdcArUhueNrgzaZbHJHVF3w-ziEB8EYlgkB6D1Ya5s--LiyJRtahu0ZWNYV2BuhROBcJQg)
 ![](https://lh5.googleusercontent.com/O18aoldOXTk3TRsNjf5bCIRgfayBw4gcCR8AzQfpoI_CurhGXrPj3fMY9RDMD1IJA11_i1GyzP3LrIf3-xTR_lzob-4M5usgz8Ox6SoR)
   
-
   
 
 **Login Page**
@@ -131,9 +130,11 @@ An error message toast will be shown if there are questions not answered.
 
 If the user clicks the “I HAVE AN ACCOUNT” Button, they will be directed to this page. They are requested to enter either their username or email, and their password corresponding to the account.
 
-“Username/Email” is an EditText while “Password” uses EditText(Password). The arrow is an ImageButton.
+“Username/Email” is an EditText while “Password” uses EditText(Password). The login arrow is an ImageButton.
 
 All information is checked against the database that was created using Firebase.
+
+If the email or password entered is incorrect, a toast error message is shown.
 
 ![](https://lh4.googleusercontent.com/Nie7kOj66vjMzD8OBSuOhECfDfuOiIrRTE6XAxO9vVZmg3pJ5Eez9Ikg2Si4vTH9oUqV3BXjc7-8zBg1eXlq-RMX39GCaccQbnJhnN_u)
 
@@ -147,14 +148,15 @@ The small “Let’s Meat Up” icon is an ImageView, “Username/Email” is an
 
 ![](https://lh4.googleusercontent.com/heFRL07Oj6Fnbwv6T7IIGlEkESVl6RmLhM8NUEAz9PzF7GDXk_U29b2p9jOPwu9qFSsLBwtV1uVp5uxe1ZTAEBNmNPhX8tqQSNdHHpVG)
 
+
 **Forget Password (Page 2)**
 
 The user will then be asked to enter and re-enter their new password. If the 2 passwords entered are identical, the change will be updated in the database and they will be directed to the next page using Intent.
-  
 
 “Enter Password” and “Re-enter Password” are EditText (Password”, the “Let’s Meat Up” icon is an ImageView, and the “Next Page Button” is an ImageButton.
 
 ![](https://lh3.googleusercontent.com/kURxZ8fZ-w2XNOYtkbEoHxF_sJEM3w9Bs616vQhYLUL99LwZN6sab87sh5NJe_W1FSf4HC-jlXt_w5nTtljsi7n1GH_5CVYgC_5hFrl3)
+
 
 **Forget Password (Page 3)**
 
@@ -164,21 +166,23 @@ This page will show up in the case of a successful change of password in the dat
 
 ![](https://lh5.googleusercontent.com/ZpUddna-i1fgJNHNGG7IViZbk6zkE8ZNZDyzWF89U8V81X388lXnJ3-AnZ4DbuB9vslOhsj9Op1g9WIlUkYZA3BRCRAUnhaXl3l_vADB)
 
+
 **Home (Find new matches/Accept match requests Page)**
 
 After the user holding a user account successfully logs in to their account, they will be directed to this page where they can either find new people to match with or accept incoming match requests.
 
-Depending on which option they select, the user will be sent to either the Random User page or the Incoming Requests page through the use of Intent.
+Depending on which option they select, the user will be sent to either the Random User page or the View User Requests page through the use of Intent.
 
 “Pick User”, “Accept User”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
 
 ![](https://lh3.googleusercontent.com/hE1ClkLa6VIvGM-hI-ZED_I-uBikSdYXbREVDYFVfDApb51sDd1Ff1QZ5_Coonn53QRVWA6tkJ6YCG9ehCQ15XnwbjtZ759UshN6svBD)
 
-**Random User (Find New Matches)**
+
+**Pick User (Find New Matches)**
 
 If the user holding a user account selects the &quot;Pick User&quot; Button, they will be directed to this page.
 
-Upon pressing &quot;Start&quot;, a match for the user will be generated based on the users&#39; code tags. When a match is found, the name, age, gender and sexual preference of the matched user will be displayed. The user is then given the option to send a request or ignore the matched user.
+Upon pressing &quot;Start&quot;, a match for the user will be generated based on the users&#39; code tags. When a match is found, the profile picture, name, age, gender and allergies of the matched user will be displayed. The user is then given the option to send a request or ignore the matched user.
 
 If the user selects &quot;Request&quot;, a pop-up will appear to alert the user that the request has been sent. The pop-up also allows the user to choose if they want to return to the home screen or continue searching for more matches.
 
@@ -189,13 +193,29 @@ If the user selects &quot;Request&quot;, a pop-up will appear to alert the user 
 ![](https://lh6.googleusercontent.com/_ynAiVoasp62q2vPa9-YHPESzNxxW_t6OIUqzga9DjkKgKrzCcwGPentdTzdx0jWuV1c75Z2F7HkWISZ-_CEKMUVPcnrytAA2UWbQex2)
 ![](https://lh6.googleusercontent.com/1mGV8JHra3zGUzyMuaNyDBUCEEMMRk3CwDJyZXWiML92hqyTl6eYB0oPRcnSveLbPnU9K4vOvYSoL2MiPUQlI88DIuY2If8p-vRp56NP)
 
-**Profile**
+
+**View Profile**
 
 If the user selects the &quot;Profile&quot; button, they will be directed to this page.
 
-On this page, the user can either view all their reservations or go to settings.
+On this page, the user can view their profile, where their Profile Picture, Username, Name, Age, Gender, Date of Birth, Allergies are shown.
 
-Both “View Reservations” and “Settings” are Buttons.
+The user can also edit their profile or log out of their account here. By pressing the buttons, they will be taken to the respective pages through the use of Intent.
+
+Both “Edit” and “Sign Out” are Buttons.
+
+
+**Edit Profile**
+If the user selects the "Edit" button, they will be directed to this page.
+
+On this page, the user can edit all their profile details except for email dietary requirements. 
+
+The Username, Name and Allergy fields are EditText(Plain Text) while the Date Of Birth field is EditText(Date). The gender selection is a spinner and the Email field is a Text View. The Profile Picture is an ImageView while "Confirm" and back arrow are Buttons.
+
+
+**Sign Out**
+If the user selects the "Sign Out" button, they will be directed to the Login Page.
+
 
 **View Reservations (User Account)**
 
