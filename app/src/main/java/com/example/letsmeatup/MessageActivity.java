@@ -65,13 +65,13 @@ public class MessageActivity extends AppCompatActivity {
         intent = getIntent();
         final String chatid = intent.getStringExtra("chatid");
         final String userid = intent.getStringExtra("userid");
-
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = chatBoxText.getText().toString();
                 if (message.trim().length() > 0) {
                     sendMessage(lmudbHandler.getUserDetail(MessageActivity.this, "id"), userid, message,chatid);
+                    chatBoxText.getText().clear();
                 } else {
                     Toast.makeText(MessageActivity.this, "Invalid message!", Toast.LENGTH_SHORT).show();
 
@@ -92,6 +92,15 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(MessageActivity.this,ChatProfileActivity.class);
+                next.putExtra("userid",userid);
+                next.putExtra("chatid",chatid);
+                startActivity(next);
+            }
+        });
         if(!chatid.equals("default")) {
             fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid);
             fireRef.addValueEventListener(new ValueEventListener() {
@@ -106,6 +115,14 @@ public class MessageActivity extends AppCompatActivity {
                 }
             });
         }
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MessageActivity.this,ViewChats.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -178,5 +195,10 @@ public class MessageActivity extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MessageActivity.this,ViewChats.class);
+        startActivity(intent);
     }
 }

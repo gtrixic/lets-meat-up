@@ -23,11 +23,10 @@
         android:layout_width="464dp"
         android:layout_height="13dp"
         android:layout_marginTop="76dp"
-        app:layout_constraintBottom_toTopOf="@+id/AURecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
         app:srcCompat="@drawable/line" />
 
     <TextView
@@ -62,4 +61,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/recycler_view_item_view_user_requests" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Users!"
+        android:fontFamily="@font/josefinsansregular"
+        android:textSize="40dp"
+        android:textColor="#FFD7E9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text=" try requesting a user instead."
+        android:fontFamily="@font/josefinsansregular"
+        android:textSize="20dp"
+        android:textColor="#FFD7E9"
+        app:layout_constraintEnd_toEndOf="@+id/AURecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/AURecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -407,6 +407,11 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         void onStart();
         void onFailure();
     }
+    public void addRestaurant(RestaurantData rData,String chatid){
+        String key = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").push().getKey();
+        fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").child(key);
+        fireRef.setValue(rData);
+    }
 
 
 }

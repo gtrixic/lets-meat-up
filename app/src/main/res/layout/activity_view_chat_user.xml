@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/name7"
+        android:id="@+id/allergyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -45,7 +45,7 @@
         app:srcCompat="@drawable/backarrow1" />
 
     <TextView
-        android:id="@+id/userName"
+        android:id="@+id/userID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name3"
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name5"
+        android:id="@+id/userGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsansregular"
@@ -82,10 +82,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.277"
         app:layout_constraintStart_toEndOf="@+id/chatPic"
-        app:layout_constraintTop_toBottomOf="@+id/name4" />
+        app:layout_constraintTop_toBottomOf="@+id/userAge" />
 
     <TextView
-        android:id="@+id/name4"
+        android:id="@+id/userAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsansregular"
@@ -95,10 +95,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.247"
         app:layout_constraintStart_toEndOf="@+id/chatPic"
-        app:layout_constraintTop_toBottomOf="@+id/name3" />
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <TextView
-        android:id="@+id/name6"
+        android:id="@+id/userDOB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsansregular"
@@ -109,7 +109,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.381"
         app:layout_constraintStart_toEndOf="@+id/chatPic"
-        app:layout_constraintTop_toBottomOf="@+id/name5" />
+        app:layout_constraintTop_toBottomOf="@+id/userGender" />
 
     <ImageView
         android:id="@+id/chatPic"
@@ -121,41 +121,35 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/suggested"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="317dp" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="304dp"
-        android:layout_height="186dp"
-        android:layout_marginBottom="104dp"
+        android:id="@+id/suggestedRV"
+        android:layout_width="0dp"
+        android:layout_height="275dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reviews2"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/recycler_view_restaurant_item" />
 
     <TextView
         android:id="@+id/reviews2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/josefinsanssemibold"
         android:text="Suggested Restaurants"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.244"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.511" />
+        app:layout_constraintTop_toBottomOf="@+id/line7" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/userAllergies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -166,10 +160,10 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name6" />
+        app:layout_constraintTop_toBottomOf="@+id/userDOB" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/dietText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -179,10 +173,10 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name7" />
+        app:layout_constraintTop_toBottomOf="@+id/userAllergies" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/userDiet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -193,17 +187,30 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/userAllergies" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:id="@+id/suggestButton"
+        android:layout_width="74dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/reviews2"
+        app:layout_constraintTop_toBottomOf="@+id/line7"
+        app:srcCompat="@drawable/add_button" />
+
+    <ImageView
+        android:id="@+id/line7"
+        android:layout_width="464dp"
+        android:layout_height="13dp"
+        android:layout_marginTop="23dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.905"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/meetupbutton" />
+        app:layout_constraintTop_toBottomOf="@+id/dietText"
+        app:srcCompat="@drawable/line" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

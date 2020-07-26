@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,9 @@ public class AcceptUserActivity extends AppCompatActivity {
     ImageButton delete;
     TextView username;
     ImageView profilePic;
+    TextView noUsers;
+    TextView Desc;
+    ImageView LINE;
     String pending;
     String[] ids;
     ArrayList<AccountData> pendingUsers;
@@ -49,8 +53,12 @@ public class AcceptUserActivity extends AppCompatActivity {
         delete = findViewById(R.id.deleteButton);
         username = findViewById(R.id.username);
         profilePic = findViewById(R.id.profilePic);
+        noUsers = findViewById(R.id.textView4);
+        Desc = findViewById(R.id.textView5);
+        LINE = findViewById(R.id.line);
         database = FirebaseDatabase.getInstance();
         fireRef = database.getReference();
+
         currentUser = dbHandler.returnUser(this);
         Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID());
         pending = currentUser.getpendinguserlist();
@@ -59,50 +67,58 @@ public class AcceptUserActivity extends AppCompatActivity {
         //check if got less than 2 requests
         //populate pending users list
         pendingUsers = new ArrayList<>();
-        if (pending.contains(",")){
-            ids = pending.split(",");
+        if (!pending.equals("")) {
+            noUsers.setVisibility(View.GONE);
+            Desc.setVisibility(View.GONE);
+            if (pending.contains(",")) {
+                ids = pending.split(",");
+            } else {
+                ids = new String[1];
+                ids[0] = pending;
+            }
+            Log.v(TAG, "Pending ID list: " + ids.length);
+            for (int i = 0; i < ids.length; i++) {
+                String userID = ids[i];
+                Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+                readData(idQuery, new OnGetDataListener() {
+                    @Override
+                    public void onSuccess(DataSnapshot dataSnapshot) {
+
+                        AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
+                        Log.v(TAG, acc.getUsername());
+                        pendingUsers.add(acc);
+                        Log.v(TAG, "Username: " + acc.getUsername());
+                        adapter = new auAdapter(AcceptUserActivity.this, pendingUsers, currentUser);
+                        recyclerView.setAdapter(adapter);
+                        LinearLayoutManager manager =new LinearLayoutManager(AcceptUserActivity.this);
+                        recyclerView.setLayoutManager(manager);
+                        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                        adapter.setOnItemClickListener(new auAdapter.OnItemClickListener() {
+                            @Override
+                            public void ItemClick(int position) {
+                                viewUserProfile(position);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+
+                });
+            }
         }
         else{
-            ids = new String[1];
-            ids[0] = pending;
+            recyclerView.setVisibility(View.GONE);
         }
-        Log.v(TAG, "Pending ID list: " + ids.length);
-        for (int i = 0; i < ids.length; i++)
-        {
-            String userID = ids[i];
-            Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
-            readData(idQuery, new OnGetDataListener() {
-                @Override
-                public void onSuccess(DataSnapshot dataSnapshot) {
 
-                    AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
-                    Log.v(TAG, acc.getUsername());
-                    pendingUsers.add(acc);
-                    Log.v(TAG, "Username: " + acc.getUsername());
-                    adapter = new auAdapter(AcceptUserActivity.this,pendingUsers,currentUser);
-                    recyclerView.setAdapter(adapter);
-
-                    adapter.setOnItemClickListener(new auAdapter.OnItemClickListener() {
-                        @Override
-                        public void ItemClick(int position) {
-                            viewUserProfile(position);
-                        }
-                    });
-                }
-                @Override
-                public void onStart() {
-
-                }
-
-                @Override
-                public void onFailure() {
-
-                }
-            });
-        }
-        LinearLayoutManager manager =new LinearLayoutManager(AcceptUserActivity.this);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
     public void readData(Query ref, final OnGetDataListener listener) {
         listener.onStart();
