@@ -134,42 +134,19 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
 
     @Override
     protected void onPostExecute(final ArrayList<RestaurantData> rData){
-        final LMUDBHandler handler = new LMUDBHandler(context,null,null,1);
-        //getting rData from doInBackground and calling add restaurants function from handler
-        TextView rName;
-        TextView rAddr;
-        TextView rType;
-        ImageView rPfp;
         Random ran = new Random();
+        Log.v(TAG, String.valueOf(rData.size()));
         int randomVar = ran.nextInt(rData.size());
         final RestaurantData chosen = rData.get(randomVar);
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        builder.setView(inflater.inflate(R.layout.restaurant_dialog,null));
-        builder.setCancelable(false);
-        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                handler.addRestaurant(chosen,chatID);
-            }
-        });
-        builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        AlertDialog dialog = builder.create();
-        rName = dialog.findViewById(R.id.restName);
-        rAddr = dialog.findViewById(R.id.restAddress);
-        rType = dialog.findViewById(R.id.restType);
-        rPfp = dialog.findViewById(R.id.restPfp);
-
-        rName.setText(chosen.getRestaurantName());
-        rAddr.setText(chosen.getAddress());
-        rType.setText(chosen.getCategory());
-        Glide.with(context).load(chosen.getPfpLink()).into(rPfp);
-        dialog.show();
+        Log.v(TAG, String.valueOf(chosen.getRestaurantName()));
+        Log.v(TAG, chosen.getPfpLink());
+        RestaurantDialog rDialog = new RestaurantDialog(context,chosen,chatID);
+        Log.v(TAG, String.valueOf(context));
+        rDialog.setImage(chosen.getPfpLink());
+        rDialog.setRestName(chosen.getRestaurantName());
+        rDialog.setRestAddr(chosen.getAddress());
+        rDialog.setRestType(chosen.getCategory());
+        rDialog.show();
         }
 }
 

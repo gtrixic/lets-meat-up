@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class suggestViewHolder extends RecyclerView.ViewHolder {
     TextView suggestedRest;
 
-    public suggestViewHolder(View view, final suggestAdapter.OnItemClickListener onItemClickListener){
+    public suggestViewHolder(View view,final suggestAdapter.OnItemClickListener onItemClickListener){
         super(view);
         suggestedRest = view.findViewById(R.id.suggestedName);
-        view.setOnClickListener(new View.OnClickListener(){
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(onItemClickListener != null){

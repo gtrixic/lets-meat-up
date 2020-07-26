@@ -8,96 +8,83 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
+
     <TextView
-        android:id="@+id/restName"
+        android:id="@+id/rProfileName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsansregular"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Lorem"
+        android:text="restaurantName"
         android:textAlignment="center"
-        android:textColor="#FFD7E9"
-        android:textSize="25sp"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/restPfp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/restName"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
+        android:id="@+id/rProfilePicture"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restName"
+        app:layout_constraintTop_toBottomOf="@+id/rProfileName"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/restAddress"
+        android:id="@+id/rProfileAddr"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsansthin"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Lorem"
+        android:text="Restaurant Address"
         android:textAlignment="center"
-        android:textColor="#FFD7E9"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restPfp" />
+        app:layout_constraintTop_toBottomOf="@+id/rProfilePicture" />
 
     <TextView
-        android:id="@+id/restType"
+        android:id="@+id/rProfileType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefinsansthin"
         android:paddingTop="10dp"
-        android:paddingBottom="10sp"
-        android:text="Lorem"
+        android:paddingBottom="10dp"
+        android:text="Restaurant Type"
         android:textAlignment="center"
-        android:textColor="#FFD7E9"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rProfileAddr" />
+
+    <Button
+        android:id="@+id/directionButton"
+        android:layout_width="195dp"
+        android:layout_height="46dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/josefinsansregular"
+        android:text="Get Directions"
+        android:textAllCaps="false"
+        android:textColor="#333333"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restAddress" />
-
-    <Button
-        android:id="@+id/rejectRestButton"
-        android:layout_width="116dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners"
-        android:fontFamily="@font/josefinsansregular"
-        android:text="Reject"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/addRestButton"
-        app:layout_constraintHorizontal_bias="0.594"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restType" />
-
-    <Button
-        android:id="@+id/addRestButton"
-        android:layout_width="116dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:background="@drawable/rounded_corners"
-        android:fontFamily="@font/josefinsansregular"
-        android:text="Add"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restType" />
+        app:layout_constraintTop_toBottomOf="@+id/rProfileType" />
 
     <TextView
         android:id="@+id/empty"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rejectRestButton" />
+        app:layout_constraintTop_toBottomOf="@+id/directionButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,15 +76,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Paddress" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/PmapView"
-        android:layout_width="295dp"
-        android:layout_height="364dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PrestaurantType" />
     <ImageView
         android:id="@+id/border"
         android:layout_width="wrap_content"
