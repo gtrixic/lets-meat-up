@@ -67,6 +67,7 @@ Jia Wen:
 *Font used in Application: Josefin Sans*
 
 **Start Up (Main Page & Sign-up/Login Page)**
+
 ![](https://lh6.googleusercontent.com/ppLCzODoyTrK08Q728HKbgu2EMgmxQlWnOY5aH5WUUp2Cs_okbpEGH2cTcuVc5iEuijEUCT136KZALwW4LVebDDvVvMSgXaq84q4-vHt)
 
 The app first opens the main page with a display of the logo for 5 seconds, before transitioning to the Sign-up or Login Selection page with the use Intent and Handler.postDelayed.
