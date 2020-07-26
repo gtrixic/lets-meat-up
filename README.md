@@ -68,6 +68,7 @@ Jia Wen:
 
 **Start Up (Main Page & Sign-up/Login Page)**
 ![](https://lh6.googleusercontent.com/ppLCzODoyTrK08Q728HKbgu2EMgmxQlWnOY5aH5WUUp2Cs_okbpEGH2cTcuVc5iEuijEUCT136KZALwW4LVebDDvVvMSgXaq84q4-vHt)
+
 The app first opens the main page with a display of the logo for 5 seconds, before transitioning to the Sign-up or Login Selection page with the use Intent and Handler.postDelayed.
 In the Sign-up or Login Selection page, users are able to choose if they wish to create an account or log in to their already made account using Intent.
 “Let’s Get Started” is an ImageButton while “I Have An Account” is a Button.
