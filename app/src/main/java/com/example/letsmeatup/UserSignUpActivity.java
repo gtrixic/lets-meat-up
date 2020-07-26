@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Pattern;
+
 public class UserSignUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG ="Let's-Meat-Up";
     private String FILENAME = "UserSignUpActivity.java";
@@ -78,7 +80,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                 final EditText Email = findViewById(R.id.email);
                 final EditText Date = findViewById(R.id.DOB);
                 //put edit texts into an array to loop through to check if any values return null
-                EditText[] Info = {FullName,Username,Password,checkPassword,Email};
+                EditText[] Info = {FullName,Username,Password,checkPassword,Email,Date};
                 for(EditText line : Info){
                     if (line.getText().toString().length() == 0){
                         allInputFilled = false;
@@ -86,8 +88,12 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                     }
                 }
                 if (allInputFilled && GenderSelected != null) {
-                    //check if user is already in database
-                    fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+                    //validate if date is correct
+                    final Pattern regex =
+                            Pattern.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
+                    if (regex.matcher(Date.getText().toString()).matches()){
+                        //check if user is already in database
+                        fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
                     //Query if data exists
                     Query emailQuery = fireRef.orderByChild("email").equalTo(Email.getText().toString());
                     emailQuery.addValueEventListener(new ValueEventListener() {
@@ -95,8 +101,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             //prevent the toast from showing if the data gets updated
                             int runtime = 0;
-                            if(dataSnapshot.exists() && runtime > 0)
-                             {
+                            if (dataSnapshot.exists() && runtime > 0) {
                                 Toast.makeText(UserSignUpActivity.this, "User is already registered in the database!", Toast.LENGTH_SHORT).show();
                                 Log.v(TAG, "Email: " + Email.getText().toString());
                             } else {
@@ -113,65 +118,66 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
                                 dbAccountData.setconfirmeduserlist("");
                                 dbAccountData.setpendinguserlist("");
                                 if (dbAccountData.isPasswordMatch(checkPassword.getText().toString())) {
-                                    Log.v(TAG,"Passwords Match!");
-                                    if (dbAccountData.isValidEmail(dbAccountData.getEmail())){
-                                        Log.v(TAG,"Valid Email!");
+                                    Log.v(TAG, "Passwords Match!");
+                                    if (dbAccountData.isValidEmail(dbAccountData.getEmail())) {
+                                        Log.v(TAG, "Valid Email!");
                                         //Create account in mAuth
                                         mAuth = FirebaseAuth.getInstance();
                                         mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
-                                            .addOnCompleteListener(UserSignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Log.v(TAG, "createUserWithEmail:success");
-                                                        Log.v(TAG,"mAuth creation complete!");
-                                                        //Generate ID
-                                                        //count number of entries in db
-                                                        fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                                //get total num
-                                                                int ID = (int) dataSnapshot.getChildrenCount();
-                                                                //convert to ID
-                                                                String stringID = String.valueOf(ID).format("%04d", ID);
-                                                                dbAccountData.setID(stringID);
-                                                                fireRef.child(stringID).setValue(dbAccountData);
+                                                .addOnCompleteListener(UserSignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Log.v(TAG, "createUserWithEmail:success");
+                                                            Log.v(TAG, "mAuth creation complete!");
+                                                            //Generate ID
+                                                            //count number of entries in db
+                                                            fireRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                    //get total num
+                                                                    int ID = (int) dataSnapshot.getChildrenCount();
+                                                                    //convert to ID
+                                                                    String stringID = String.valueOf(ID).format("%04d", ID);
+                                                                    dbAccountData.setID(stringID);
+                                                                    fireRef.child(stringID).setValue(dbAccountData);
 
-                                                                Toast.makeText(UserSignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
-                                                                Log.v(TAG, "User Created :" + Username.getText().toString());
-                                                                //save email to continue sign up
-                                                                lmudbHandler.saveUser(UserSignUpActivity.this,dbAccountData);
-                                                                Intent intent = new Intent(UserSignUpActivity.this, UserSignUp2Activity.class);
-                                                                startActivity(intent);
-                                                                finish();
-                                                            }
+                                                                    Toast.makeText(UserSignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
+                                                                    Log.v(TAG, "User Created :" + Username.getText().toString());
+                                                                    //save email to continue sign up
+                                                                    lmudbHandler.saveUser(UserSignUpActivity.this, dbAccountData);
+                                                                    Intent intent = new Intent(UserSignUpActivity.this, UserSignUp2Activity.class);
+                                                                    startActivity(intent);
+                                                                    finish();
+                                                                }
 
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                                Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
-                                                            }
-                                                        });
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                    Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
+                                                                }
+                                                            });
+                                                        }
                                                     }
-                                                }
-                                            });
+                                                });
+                                    } else {
+                                        Log.v(TAG, "Email invalid!");
+                                        Toast.makeText(UserSignUpActivity.this, "Email is invalid!", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    else{
-                                        Log.v(TAG,"Email invalid!");
-                                        Toast.makeText(UserSignUpActivity.this,"Email is invalid!",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(UserSignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
 
-                           @Override
+                        @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
                         }
                     });
+                }
+                    else{
+                        Toast.makeText(UserSignUpActivity.this,"Date is invalid!",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if(allInputFilled == false || GenderSelected == null){
                     Toast.makeText(UserSignUpActivity.this,"Not all inputs have been filled in.",Toast.LENGTH_SHORT).show();

@@ -397,6 +397,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         }
         else {
             Toast.makeText(ctx, "No File Chosen!", Toast.LENGTH_SHORT).show();
+            ctx.startActivity(intent);
         }
     }
     public void readData(DatabaseReference ref, final OnGetDataListener listener) {

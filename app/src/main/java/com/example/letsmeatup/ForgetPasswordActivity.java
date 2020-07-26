@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ForgetPasswordActivity extends AppCompatActivity {
     TextView enterInfo;
     ImageButton next;
+    ImageButton back;
     private DatabaseReference fireRef;
     public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "ForgetPasswordActivity.java";
@@ -33,6 +34,14 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         next = findViewById(R.id.nextArrow);
+        back = findViewById(R.id.backArrow7);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ForgetPasswordActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
         //when clicking the enter/next button
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +65,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     }
                 }).create().show();
     }
+
     public void findUser(String email){
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
         //Query email

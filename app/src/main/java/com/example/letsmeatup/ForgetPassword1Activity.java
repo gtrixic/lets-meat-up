@@ -19,6 +19,7 @@ public class ForgetPassword1Activity extends AppCompatActivity {
     EditText enterOnce;
     EditText enterTwice;
     ImageButton goNext;
+    ImageButton back;
     LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
 
     @Override
@@ -28,6 +29,14 @@ public class ForgetPassword1Activity extends AppCompatActivity {
         Intent recData = getIntent(); //get the user input from 1st forget password page
         final String input = recData.getStringExtra("input");
         goNext = findViewById(R.id.goNext);
+        back = findViewById(R.id.backArrow6);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ForgetPassword1Activity.this,ForgetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
         //after entering password twice and clicking next
         goNext.setOnClickListener(new View.OnClickListener() {
             @Override
