@@ -126,36 +126,6 @@ The page is created using RecyclerView where each question has a TextView of the
 ![](https://lh5.googleusercontent.com/O18aoldOXTk3TRsNjf5bCIRgfayBw4gcCR8AzQfpoI_CurhGXrPj3fMY9RDMD1IJA11_i1GyzP3LrIf3-xTR_lzob-4M5usgz8Ox6SoR)
   
 
-**Sign-Up (Create Restaurant Page 1)**
-
-If the user declares their account to be a restaurant account, they will be sent to this Create Restaurant Page 1. Users are to enter their Restaurant Name, Address, Password, Re-enter Password and Email.
-
-  
-
-After confirming their restaurant information, users will be directed to the Create Restaurant Page 2 using Intent. If the user goes to the next page without entering all the necessary information, a Toast will appear to alert them.
-
-  
-
-“Restaurant Name” and “Address” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), and “Email” uses EditText (Email). The “Previous Page Button” and the “Next Page Button” are ImageButtons.
-
-  
-
-All the information entered is recorded into the RestaurantAccounts database using SQLite.
-
-![](https://lh3.googleusercontent.com/Z9zFPLbmhTqsNeHRnU20qI9fI710726dLiAOGiwlTDT_LeQUPXQmCUrUUDSKtH5OTIyUREmT4V-H05E1L8sZdN0OlmNFN2lDHqUMYOtt)
-
-  
-
-**Sign-Up (Create Restaurant Page 2)**
-
-The user will then be asked to add a profile picture for their account. After adding a profile picture, they can press the Next Page Button to go to Create User Page 3.
-
-  
-
-The profile picture will be added to the RestaurantAccount database using Firebase and SQLite. “Confirm Profile” is a Button.
-
-![](https://lh6.googleusercontent.com/fmHJvM0O8n4RLbl-ByRXjlDUnP5S9paae5WkoyAbg1GW-jzjH0AOml9h_LMrrtklA3FO_1nIjZKL4ou_cfWJPL5pC8dkvtUgP_NIAJEp)
-
   
 
 **Login Page**
@@ -246,12 +216,6 @@ If the user holds a user account and chooses to view reservations, they will be 
 
 Reservations will be displayed as a numbered list. Each reservation will show the matched user&#39;s username, restaurant name, meeting time and date.
 
-**View Reservations (Restaurant Account)**
 
-If the user holds a restaurant account and chooses to view reservations, they will be directed to this page.
-
-Reservations will be displayed as a numbered list. Each reservation will show the matched users&#39; usernames, contact numbers, meeting time and date. Under each reservation is an option for the restaurant account holder to reject the reservation.
-
-“Reject Reservation” is a Button.
 
 **
