@@ -167,13 +167,13 @@ This page will show up in the case of a successful change of password in the dat
 ![](https://lh5.googleusercontent.com/ZpUddna-i1fgJNHNGG7IViZbk6zkE8ZNZDyzWF89U8V81X388lXnJ3-AnZ4DbuB9vslOhsj9Op1g9WIlUkYZA3BRCRAUnhaXl3l_vADB)
 
 
-**Home (Find new matches/Accept match requests Page)**
+**Home (Find new matches/Accept match requests/Profile/Chat/Help Page)**
 
 After the user holding a user account successfully logs in to their account, they will be directed to this page where they can either find new people to match with or accept incoming match requests.
 
 Depending on which option they select, the user will be sent to either the Random User page or the View User Requests page through the use of Intent.
 
-“Pick User”, “Accept User”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
+“Pick User”, “Accept User”, “Profile Button” at the top left corner, “Help Button” at the top right corner and "Chat Button" at the bottom right corner are all ImageButtons.
 
 ![](https://lh3.googleusercontent.com/hE1ClkLa6VIvGM-hI-ZED_I-uBikSdYXbREVDYFVfDApb51sDd1Ff1QZ5_Coonn53QRVWA6tkJ6YCG9ehCQ15XnwbjtZ759UshN6svBD)
 
@@ -206,6 +206,7 @@ Both “Edit” and “Sign Out” are Buttons.
 
 
 **Edit Profile**
+
 If the user selects the "Edit" button, they will be directed to this page.
 
 On this page, the user can edit all their profile details except for email dietary requirements. 
@@ -214,7 +215,15 @@ The Username, Name and Allergy fields are EditText(Plain Text) while the Date Of
 
 
 **Sign Out**
+
 If the user selects the "Sign Out" button, they will be directed to the Login Page.
+
+
+**Chat**
+
+If the user selects the "Chat" button, they will be directed to this page.
+
+
 
 
 **View Reservations (User Account)**
