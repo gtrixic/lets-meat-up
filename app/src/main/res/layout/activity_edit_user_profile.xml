@@ -12,15 +12,17 @@
         android:id="@+id/editGender"
         android:layout_width="136dp"
         android:layout_height="53dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/custom_spinner"
+        android:background="@drawable/edit_text_border"
         android:entries="@array/gender_array"
         android:fontFamily="@font/josefinsanslight"
         android:spinnerMode="dropdown"
         android:theme="@style/spinner_style"
+        app:layout_constraintBottom_toTopOf="@+id/editAllergies"
+        app:layout_constraintEnd_toStartOf="@+id/editDob"
+        app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmail"
+        app:layout_constraintVertical_bias="0.7" />
 
     <EditText
         android:id="@+id/editAllergies"
@@ -111,8 +113,9 @@
 
     <ImageButton
         android:id="@+id/editProfilePic"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@android:color/transparent"
         android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/pickuserbutton"
+    android:background="#353552"
     android:fontFamily="@font/josefinsanslight"
     android:padding="10dp"
     android:text="text"
@@ -10,4 +10,4 @@
     android:textColorHint="#FFFFFF"
     android:textSize="20sp">
 
-</CheckedTextView>
+</TextView>
