@@ -26,6 +26,14 @@ Personality Questions Quiz:
 
 Through your responses, we highlight your preferences and show you the profiles of like-minded individuals. This ensures that you will match with people that you can connect with.
 
+Pick User:
+
+Click Start, and be introduced with a new friend with only the basics of their profile!
+
+Accept User:
+
+Like Pick User, other users can pick you & send a request too! 
+
 Chat Function:
 
 Get to know each other and plan to meet up through our chat function! This enables you to focus only on the connections you’re interested in without unnecessary distractions.
