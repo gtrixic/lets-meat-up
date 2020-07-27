@@ -220,4 +220,9 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MessageActivity.this,ViewChats.class);
+        startActivity(intent);
+    }
 }

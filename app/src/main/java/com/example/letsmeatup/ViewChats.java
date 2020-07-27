@@ -45,6 +45,8 @@ public class ViewChats extends AppCompatActivity {
         text2 = findViewById(R.id.textView5);
         final ArrayList<AccountData> confirmedUsers = new ArrayList<>();
         if (!currentUser.getconfirmeduserlist().equals("")){
+            final LoadingDialog loadingDialog = new LoadingDialog(this);
+            loadingDialog.startLoadingDialog();
             text1.setVisibility(View.GONE);
             text2.setVisibility(View.GONE);
             for (String id : currentUser.getconfirmeduserlist().split(",")) {
@@ -54,6 +56,7 @@ public class ViewChats extends AppCompatActivity {
                     public void onSuccess(DataSnapshot dataSnapshot) {
                         confirmedUsers.add(dataSnapshot.getValue(AccountData.class));
                         bindHash(confirmedUsers);
+                        loadingDialog.dismissDialog();
                     }
 
                     @Override
@@ -142,5 +145,11 @@ public class ViewChats extends AppCompatActivity {
             public void onFailure() {
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ViewChats.this,mainPageActivity.class    );
+        startActivity(intent);
     }
 }

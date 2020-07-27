@@ -30,7 +30,7 @@ public class RestaurantDialog extends Dialog implements android.view.View.OnClic
     private String rAddr;
     private String rType;
     private String rUrl;
-    public RestaurantDialog(Context a, RestaurantData rData, String chatID){
+    public RestaurantDialog(Context a, RestaurantData rData, String chatID ){
         super(a);
         this.c = a;
         this.RestData = rData;

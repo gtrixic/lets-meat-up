@@ -77,17 +77,15 @@ public class ChatProfileActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("yes","IchatID : "+IchatID);
-                Intent intent = new Intent(ChatProfileActivity.this,MessageActivity.class);
-                intent.putExtra("userid",IuserID);
-                if(IchatID.equals("default")) {
+                Log.v("yes", "IchatID : " + IchatID);
+                Intent intent = new Intent(ChatProfileActivity.this, MessageActivity.class);
+                intent.putExtra("userid", IuserID);
+                if (IchatID.equals("default")) {
                     intent.putExtra("chatid", newChatID);
-                    Log.v("yes","CASE 1");
-                }
-
-                else{
-                    intent.putExtra("chatid",IchatID);
-                    Log.v("yes","CASE 3");
+                    Log.v("yes", "CASE 1");
+                } else {
+                    intent.putExtra("chatid", IchatID);
+                    Log.v("yes", "CASE 3");
 
                 }
                 startActivity(intent);
@@ -95,20 +93,20 @@ public class ChatProfileActivity extends AppCompatActivity {
         });
         checkSuggestions = false;
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        addButton.setOnClickListener(new View.OnClickListener(){
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getYelpAPI api = new getYelpAPI(ChatProfileActivity.this,IchatID);
+                getYelpAPI api = new getYelpAPI(ChatProfileActivity.this, IchatID);
                 Random ran = new Random();
-                String[] terms = new String[]{"Bento","Desserts","Nasi Lemak","Patisserie",
-                        "Smokehouse","Gelato","Japanese","Korean","Chinese","Malay","Indian","Western"};
+                String[] terms = new String[]{"Bento", "Desserts", "Nasi Lemak", "Patisserie",
+                        "Smokehouse", "Gelato", "Japanese", "Korean", "Chinese", "Malay", "Indian", "Western"};
                 int randomNo = ran.nextInt(terms.length);
-                HashMap<String,String> params = new HashMap<>();
+                HashMap<String, String> params = new HashMap<>();
                 params.put("term", terms[randomNo]);
-                params.put("location","Singapore");
-                params.put("categories","restaurants");
-                params.put("limit","50");
-                params.put("sort_by","rating");
+                params.put("location", "Singapore");
+                params.put("categories", "restaurants");
+                params.put("limit", "50");
+                params.put("sort_by", "rating");
                 api.execute(params);
 
             }
@@ -136,21 +134,20 @@ public class ChatProfileActivity extends AppCompatActivity {
                 userGender.setText(acc.getGender());
                 userDOB.setText(acc.getDob());
                 if (acc.getPfp().equals("default")) {
-                    Log.v("ChatViewAdapter","Setting default image" );
+                    Log.v("ChatViewAdapter", "Setting default image");
                     profilePic.setImageResource(R.mipmap.ic_launcher);
                 } else {
-                    Log.v("ChatViewAdapter","Setting profile picture" );
+                    Log.v("ChatViewAdapter", "Setting profile picture");
                     Glide.with(ChatProfileActivity.this).load(acc.getPfp()).into(profilePic);
                 }
-                if(!IchatID.equals("default")) {
-                    Log.v("yes","IchatID : "+IchatID);
+                if (!IchatID.equals("default")) {
+                    Log.v("yes", "IchatID : " + IchatID);
                     displaySuggestions(IchatID);
-                }
-                else{
+                } else {
                     //create chat class and post
                     Chat chat = new Chat();
-                    chat.setUsers(lmudbHandler.getUserDetail(ChatProfileActivity.this,"id")+","+acc.getID());
-                    String key = FirebaseDatabase.getInstance().getReference().child("Chats").push().getKey();
+                    chat.setUsers(lmudbHandler.getUserDetail(ChatProfileActivity.this, "id") + "," + acc.getID());
+                    final String key = FirebaseDatabase.getInstance().getReference().child("Chats").push().getKey();
                     chat.setId(key);
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Chats");
                     ref.child(key).setValue(chat);
@@ -169,6 +166,17 @@ public class ChatProfileActivity extends AppCompatActivity {
                     //set metadata
                     ref.child(key).child("lastMessage").setValue(userMessage);
                     displaySuggestions(key);
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            displaySuggestions(key);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
@@ -177,6 +185,29 @@ public class ChatProfileActivity extends AppCompatActivity {
 
             }
         });
+        if (!IchatID.equals("default") || newChatID != null){
+            if (IchatID.equals("default")) {
+                fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(newChatID);
+
+            } else {
+                fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(IchatID);
+            }
+        fireRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (IchatID.equals("default")) {
+                    displaySuggestions(newChatID);
+                } else {
+                    displaySuggestions(IchatID);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     }
     private void displaySuggestions(final String chatid){
         Log.v(TAG,"Displaying Suggestions");
@@ -187,6 +218,7 @@ public class ChatProfileActivity extends AppCompatActivity {
         lmudbHandler.readData(fireRef, new LMUDBHandler.OnGetDataListener() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
+                restDataList.clear();
                 for(final DataSnapshot s : dataSnapshot.getChildren()){
                     final RestaurantData rd = s.getValue(RestaurantData.class);
                     restDataList.add(rd);

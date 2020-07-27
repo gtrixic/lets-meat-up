@@ -66,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() { // when user clicks login
             @Override
             public void onClick(View v) {
+                final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
+                loadingDialog.startLoadingDialog();
                 loginUser = findViewById(R.id.loginUsernameEmail);
                 loginPass = findViewById(R.id.loginPassword);
                 //first check if the credentials are valid
@@ -104,11 +106,13 @@ public class LoginActivity extends AppCompatActivity {
                                                         if (accountDataList.get(0).getMatchid().equals("0")) {
                                                             Log.v(TAG,"Personality questions not done!");
                                                             //go to personality question activity
+                                                            loadingDialog.dismissDialog();
                                                             Intent intent = new Intent(LoginActivity.this, PersonalityQuestionsActivity.class);
                                                             startActivity(intent);
                                                         }
                                                         else {
                                                             //goes to main page
+                                                            loadingDialog.dismissDialog();
                                                             Log.v(TAG, "Personality questions done!");
                                                             mainPage();
                                                         }

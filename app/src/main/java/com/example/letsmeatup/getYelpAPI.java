@@ -1,6 +1,7 @@
 package com.example.letsmeatup;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -87,7 +88,7 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
         JSONObject JsonResults = new JSONObject(result);
         JSONArray Business = JsonResults.getJSONArray("businesses");
         Log.v(TAG,Business.toString());
-        //get name,display_address,category,imageurl,autogenerate password and email
+        //get name,display_address,category,imageurl
         for(int i = 0; i < Business.length(); i++){
             RestaurantData rData = new RestaurantData();
 
@@ -108,8 +109,6 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
             rData.setAddress(finallocation.toString());
             rData.setPfpLink(Business.getJSONObject(i).get("image_url").toString());
             Log.v(TAG,rData.getPfpLink());
-            rData.setPassword("password");
-            rData.setEmail(Business.getJSONObject(i).get("name").toString()+"@email.com");
             JSONArray categories = Business.getJSONObject(i).getJSONArray("categories");
             rData.setCategory(categories.getJSONObject(0).get("title").toString());
             Log.v(TAG,rData.getCategory());

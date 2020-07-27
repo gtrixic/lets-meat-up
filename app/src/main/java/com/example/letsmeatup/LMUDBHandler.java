@@ -122,8 +122,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_RESTAURANTNAME,rdata.getRestaurantName());
         values.put(COLUMN_ADDRESS,rdata.getAddress());
-        values.put(COLUMN_PASSWORD,rdata.getPassword());
-        values.put(COLUMN_RESTAURANTEMAIL,rdata.getEmail());
         values.put(COLUMN_CATEGORY,rdata.getCategory());
         values.put(COLUMN_PFP,rdata.getPfpLink());
         //Get Database
@@ -140,8 +138,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             rData.setRestaurantName(cursor.getString(0));
             rData.setAddress(cursor.getString(1));
-            rData.setPassword(cursor.getString(2));
-            rData.setEmail(cursor.getString(3));
             rData.setPfpLink(cursor.getString(4));
             cursor.close();
         }
@@ -434,6 +430,7 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String key = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").push().getKey();
         fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").child(key);
         fireRef.setValue(rData);
+
     }
 
 
