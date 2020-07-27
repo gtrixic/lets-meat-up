@@ -44,7 +44,6 @@ public class UserProfile extends AppCompatActivity {
     Button edit;
     ImageButton back;
     ImageButton SignOut;
-    private FirebaseAuth mAuth;
     LMUDBHandler dbHandler = new LMUDBHandler(this);
 
     @Override
