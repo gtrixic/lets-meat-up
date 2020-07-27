@@ -82,20 +82,28 @@ public class LMUDBHandler {
     private static SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
+    //function called in forget password 1
     public void updatePassword(String email, final String password, final Context ctx, final Intent intent){
         //change in fireauth
+        //create loading dialog
         final LoadingDialog loadingDialog = new LoadingDialog((Activity)ctx);
         loadingDialog.startLoadingDialog();
+        //get current user from fireauth
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //get credentials for user
         AuthCredential credential = EmailAuthProvider.getCredential(email,getUserDetail(ctx,"password"));
+        //reauth from new password
         user.reauthenticate(credential)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        //wait for task to be successful
                         if(task.isSuccessful()){
+                            //update the user's password
                             user.updatePassword(password).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    //wait for task to be successful
                                     if(task.isSuccessful()){
                                         Log.v(TAG,"Password updated in mAuth!");
                                         //instantiate fireref
@@ -105,7 +113,9 @@ public class LMUDBHandler {
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
+                                                        //close loading dialog
                                                         loadingDialog.dismissDialog();
+                                                        //go to next activity
                                                         ctx.startActivity(intent);
                                                         Log.v(TAG,"Password updated in firebase db!");
 
@@ -113,6 +123,7 @@ public class LMUDBHandler {
                                                 });
                                     }
                                     else{
+                                        //close dialog
                                         loadingDialog.dismissDialog();
                                         Log.v(TAG,"Password failed to update.");
                                         Toast.makeText(ctx,"Failed to update password, try again later.",Toast.LENGTH_SHORT).show();
@@ -128,6 +139,7 @@ public class LMUDBHandler {
     }
 
     public void saveUser(Context context, AccountData account){
+        //saving account data into shared pref
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString("username",account.getUsername());
         editor.putString("email",account.getEmail());
@@ -147,6 +159,7 @@ public class LMUDBHandler {
     }
 
     public AccountData returnUser(Context ctx){
+        //get all data from shared pref
         String id = getPrefs(ctx).getString("id","default_username");
         String fullname = getPrefs(ctx).getString("fullname","default_name");
         String username = getPrefs(ctx).getString("username","default_username");
@@ -164,17 +177,22 @@ public class LMUDBHandler {
     }
 
     public void stayLogin(Context ctx,boolean val){
+        //adds value for whether user wants to stay logged in or not
         SharedPreferences.Editor editor = getPrefs(ctx).edit();
         editor.putBoolean("login",val);
         editor.apply();
     }
     public boolean getLogin(Context ctx){
+        //get stay logged in value
         return getPrefs(ctx).getBoolean("login",false);
     }
     public boolean checkLoginstatus(Context ctx){
+        //check if stayloggedin value is in shared pref
+
         return getPrefs(ctx).contains("login");
     }
     public void signOut(Context ctx){
+        //clear shared pref
         SharedPreferences.Editor editor = getPrefs(ctx).edit();
         editor.clear();
         editor.apply();
@@ -214,6 +232,7 @@ public class LMUDBHandler {
         //unpack array
         String allergyString;
         String dietString;
+        //if allergy string is empty change to "None"
         if(allergystringarray[0].length() == 0){
             allergyString = "None";
         }
@@ -236,9 +255,12 @@ public class LMUDBHandler {
     }
 
     public void uploadImage(final Context ctx, Uri FilePath, StorageReference storageReference, final Intent intent){
+        //create firebase reference
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        //checks if URI is null
         if(FilePath != null){
             Log.v(TAG,"Creating Progress Dialog.");
+            //creating progress dialog
             final ProgressDialog progressDialog = new ProgressDialog(ctx);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
@@ -254,20 +276,25 @@ public class LMUDBHandler {
                 ref.delete();
                 Log.v("TAG","File Found! deleting...");
             }
+            //put file into ref
             ref.putFile(FilePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //dismiss progress dialog on success
                             progressDialog.dismiss();
+                            //get down url and store into firebase db
                             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+                                    //returns uri into pfp
                                     fireRef.child(returnUser(ctx).getID()).child("pfp").setValue(uri.toString());
                                     Toast.makeText(ctx,"Uploaded image!",Toast.LENGTH_SHORT).show();
                                     //save into shared pref
                                     SharedPreferences.Editor editor = getPrefs(ctx).edit();
                                     editor.putString("pfp",uri.toString());
                                     editor.apply();
+                                    //checks if there is an intent to go to
                                     if(intent != null) {
                                         ctx.startActivity(intent);
                                     }
@@ -297,6 +324,7 @@ public class LMUDBHandler {
             }
         }
     }
+    //read data is used to wait for data to be returned, then do something
     public void readData(DatabaseReference ref, final OnGetDataListener listener) {
         listener.onStart();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -317,6 +345,7 @@ public class LMUDBHandler {
         void onStart();
         void onFailure();
     }
+    //add restaurant function to store into chat's suggestion list
     public void addRestaurant(RestaurantData rData,String chatid){
         String key = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").push().getKey();
         fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").child(key);

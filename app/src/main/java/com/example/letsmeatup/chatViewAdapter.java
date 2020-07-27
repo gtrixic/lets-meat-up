@@ -32,15 +32,17 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
     private HashMap<AccountData,Chat>chathash;
     private DatabaseReference fireRef;
 
-
+    //onitemclicklistener for each item
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
 
+    //abstract method for item click
     public interface OnItemClickListener{
         void ItemClick(int position);
     }
 
+    //params
     public chatViewAdapter(Context ctx,ArrayList<AccountData>acceptedUsers,HashMap<AccountData,Chat>chathash){
         this.ctx = ctx;
         this.acceptedUsers = acceptedUsers;
@@ -55,8 +57,10 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
 
 
     public void onBindViewHolder(final chatViewHolder holder, final int position) {
+        //for each account data, pull the data and apply to the holder components
         AccountData acc = acceptedUsers.get(position);
         holder.Username.setText(acc.getUsername());
+        //get pfp will either return "default" or a link
         if (acc.getPfp().equals("default")) {
             Log.v("ChatViewAdapter","Setting default image" );
             holder.ProfilePicture.setImageResource(R.mipmap.ic_launcher);

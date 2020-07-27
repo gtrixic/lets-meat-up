@@ -2,6 +2,7 @@ package com.example.letsmeatup;
 
 import java.util.ArrayList;
 
+//components for chat
 public class Chat {
     String users;
     String id;
@@ -9,6 +10,7 @@ public class Chat {
 
     public Chat(){}
 
+    //getters and setters
     public String getUsers(){return this.users;}
     public void setUsers(String users){this.users = users;}
     public String getId(){return this.id;}

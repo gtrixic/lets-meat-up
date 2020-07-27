@@ -62,10 +62,12 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
-
+        //get intent var
         intent = getIntent();
+        //chat id may return "default"
         final String chatid = intent.getStringExtra("chatid");
         final String userid = intent.getStringExtra("userid");
+        //send message on click
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +81,12 @@ public class MessageActivity extends AppCompatActivity {
                 }
             }
         });
+        //creating reference to users
         fireRef = FirebaseDatabase.getInstance().getReference("Users");
         fireRef.child(userid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //when data changes, update recycler view
                 AccountData user = snapshot.getValue(AccountData.class);
                 Username.setText(user.getUsername());
                 readMessages(chatid);
@@ -93,10 +97,12 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+        //goes to user profile activity
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent next = new Intent(MessageActivity.this,ChatProfileActivity.class);
+                //check if user id is default, else send a default value
                 next.putExtra("userid",userid);
                 //if chat id = default and new chat id hasnt been created
                 if(chatid.equals("default") && newChatID == null) {
@@ -104,7 +110,6 @@ public class MessageActivity extends AppCompatActivity {
                 }
 
                 else{
-
                         //chat id != default
                         if (newChatID == null){
                             next.putExtra("chatid",chatid);
@@ -119,6 +124,7 @@ public class MessageActivity extends AppCompatActivity {
                 startActivity(next);
             }
         });
+        //only runs if chat id is binded to a proper chat id and not == to default
         if(!chatid.equals("default")) {
             fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid);
             fireRef.addValueEventListener(new ValueEventListener() {
@@ -133,7 +139,7 @@ public class MessageActivity extends AppCompatActivity {
                 }
             });
         }
-
+        //goes back to view chats
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,15 +150,18 @@ public class MessageActivity extends AppCompatActivity {
 
 
     }
-
+    //send message function
     private void sendMessage(String sender, String receiver, String message,String chatid) {
+        //get reference
         fireRef = FirebaseDatabase.getInstance().getReference();
+        //create message data
         Date currentTime = Calendar.getInstance().getTime();
         Message userMessage = new Message();
         userMessage.setSender(sender);
         userMessage.setReceiver(receiver);
         userMessage.setCreatedAt(currentTime.getTime());
         userMessage.SetMessage(message);
+        //create chat data
         String users = sender + "," + receiver;
         Chat chat;
 
@@ -181,25 +190,34 @@ public class MessageActivity extends AppCompatActivity {
 
     private void readMessages(String chatid){
         Log.v("MessageActivity","Starting read message");
+        //get all chats from references
         mChat = new ArrayList<>();
+        //setting reference
         fireRef = FirebaseDatabase.getInstance().getReference();
         //Query messages from chatid
         if(!chatid.equals("default")) {
             Log.v("MessageActivity","Found chat!");
+            //query messages
             DatabaseReference messagesQuery = fireRef.child("Chats").child(chatid).child("Messages");
+            //setting recycler view vars
             LinearLayoutManager manager = new LinearLayoutManager(MessageActivity.this);
+            //to scroll to most recent message
             manager.setStackFromEnd(true);
             recyclerView.setLayoutManager(manager);
             recyclerView.setHasFixedSize(true);
+            //wait for data to return then run recycler view adapter setter
             lmudbHandler.readData(messagesQuery, new LMUDBHandler.OnGetDataListener() {
                 @Override
                 public void onSuccess(DataSnapshot dataSnapshot) {
+                    //clears m chat on success
                     mChat.clear();
                     for (DataSnapshot s : dataSnapshot.getChildren()) {
+                        //adds values to mchat and sets to recycler view
                         mChat.add(s.getValue(Message.class));
                         mAdapter = new MessageAdapter(MessageActivity.this, mChat);
                         recyclerView.setAdapter(mAdapter);
                         recyclerView.smoothScrollToPosition(mChat.size());
+                        //update mAdapter and recycler view
                         mAdapter.notifyDataSetChanged();
                     }
                 }

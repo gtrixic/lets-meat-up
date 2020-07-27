@@ -31,6 +31,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //setting params
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         next = findViewById(R.id.nextArrow);
@@ -69,6 +70,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     }
 
     public void findUser(String email){
+        //used to find user based on email provided
+        //create reference to firebasedatabase
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
         //Query email
         Query emailQuery = fireRef.orderByChild("email").equalTo(email);
@@ -76,11 +79,15 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    //cast to acc
                     AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
+                    //save into shared pref
                     dbHandler.saveUser(ForgetPasswordActivity.this,acc);
+                    // go to next page
                     nextPage();
                 }
                 else{
+                    //failed to find data
                     Toast.makeText(ForgetPasswordActivity.this, "Invalid Username/Email", Toast.LENGTH_SHORT).show();
                     Log.v(TAG,"No Email Found!");
                 }
