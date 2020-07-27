@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 @Override
                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                    loadingDialog.dismissDialog();
                                                     Log.v(TAG, "loadPost:onCancelled", databaseError.toException());
                                                 }
                                             });

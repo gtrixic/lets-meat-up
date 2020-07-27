@@ -68,7 +68,24 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
         //add last message and last time
         if (chathash.get(acc) != null) {
             //get last message
-            holder.lastMessage.setText(chathash.get(acc).lastMessage.getMessage());
+            int count = 0;
+            String lastmessage = chathash.get(acc).lastMessage.getMessage();
+            StringBuilder tempMessage = new StringBuilder();
+            for (int i = 0; i < lastmessage.length();i++){
+                if(count < 20) {
+                    count++;
+                    tempMessage.append(lastmessage.charAt(i));
+                }
+                else{break;}
+            }
+            if (count >= 20){
+                tempMessage.append("...");
+                holder.lastMessage.setText(tempMessage);
+            }
+            else{
+                holder.lastMessage.setText(chathash.get(acc).lastMessage.getMessage());
+
+            }
             //get last time
             holder.lastTime.setText(DateUtils.formatDateTime(ctx,chathash.get(acc).getLastMessage().getCreatedAt(),DateUtils.FORMAT_SHOW_TIME));
 
