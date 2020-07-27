@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "LoginActivity.java";
     private FirebaseAuth mAuth;
-    LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
+    LMUDBHandler dbHandler = new LMUDBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,7 @@ import android.widget.Spinner;
 public class UserSignUp3Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "SignUpActivity.java";
-    LMUDBHandler lmudbHandler = new LMUDBHandler(this,null,null,1);
+    LMUDBHandler lmudbHandler = new LMUDBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

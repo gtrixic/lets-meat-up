@@ -54,7 +54,7 @@ public class UserSignUp2Activity extends AppCompatActivity {
         //firebase init
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        lmudbHandler = new LMUDBHandler(this,null,null,1);
+        lmudbHandler = new LMUDBHandler(this);
         //Init view
         ImageButton backButton = findViewById(R.id.backArrow);
         ImageButton nextButton = findViewById(R.id.nextArrow);
@@ -113,7 +113,7 @@ public class UserSignUp2Activity extends AppCompatActivity {
 //            progressDialog.setTitle("Uploading...");
 //            progressDialog.show();
 //            //get current user id
-//            lmudbHandler = new LMUDBHandler(this,null,null,1);
+//            lmudbHandler = new LMUDBHandler(this)
 //            final String stringid = lmudbHandler.getUserDetail(this,"id");
 //            final StorageReference ref = storageReference.child("User_Pictures/"+stringid);
 //            //check if file already exists in database

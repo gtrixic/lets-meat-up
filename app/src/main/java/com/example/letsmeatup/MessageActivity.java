@@ -38,7 +38,7 @@ public class MessageActivity extends AppCompatActivity {
     ImageButton sendMessage;
     String newChatID;
     AccountData currentUser;
-    LMUDBHandler lmudbHandler = new LMUDBHandler(this, null, null, 1);
+    LMUDBHandler lmudbHandler = new LMUDBHandler(this);
     Intent intent;
     MessageAdapter mAdapter;
     ArrayList<Message> mChat;

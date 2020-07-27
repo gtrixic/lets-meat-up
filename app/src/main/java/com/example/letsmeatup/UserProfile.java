@@ -45,7 +45,7 @@ public class UserProfile extends AppCompatActivity {
     ImageButton back;
     ImageButton SignOut;
     private FirebaseAuth mAuth;
-    LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
+    LMUDBHandler dbHandler = new LMUDBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -116,7 +116,7 @@ public class UserProfile extends AppCompatActivity {
         SignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbHandler = new LMUDBHandler(UserProfile.this,null,null,1);
+                dbHandler = new LMUDBHandler(UserProfile.this);
                 dbHandler.signOut(UserProfile.this);
                 Intent signout = new Intent(UserProfile.this,LoginActivity.class);
                 startActivity(signout);

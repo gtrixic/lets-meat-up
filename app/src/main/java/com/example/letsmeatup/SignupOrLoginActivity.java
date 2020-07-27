@@ -33,7 +33,7 @@ public class SignupOrLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup_or_login);
         createButton = findViewById(R.id.createButton);
         loginButton = findViewById(R.id.loginButton);
-        db = new LMUDBHandler(this,null,null,1);
+        db = new LMUDBHandler(this);
         Log.v(TAG,Boolean.toString(db.checkLoginstatus(this)));
         if(db.checkLoginstatus(this)){
             Log.v(TAG,Boolean.toString(db.getLogin(this)));

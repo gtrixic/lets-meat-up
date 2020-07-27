@@ -37,7 +37,7 @@ public class ViewChats extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_1);
-        lmudbHandler = new LMUDBHandler(this, null, null, 1);
+        lmudbHandler = new LMUDBHandler(this);
         currentUser = lmudbHandler.returnUser(this);
         recyclerView = findViewById(R.id.viewChatRecyclerView);
         backButton = findViewById(R.id.backArrow5);
@@ -86,7 +86,7 @@ public class ViewChats extends AppCompatActivity {
 
     private void bindHash(final ArrayList<AccountData>acceptedUsers) {
         fireRef = FirebaseDatabase.getInstance().getReference().child("Chats");
-        lmudbHandler = new LMUDBHandler(ViewChats.this, null, null, 1);
+        lmudbHandler = new LMUDBHandler(ViewChats.this);
 
         lmudbHandler.readData(fireRef, new LMUDBHandler.OnGetDataListener() {
             ArrayList<Chat> chats = new ArrayList<>();

@@ -46,7 +46,7 @@ public class PickUser2Activity extends AppCompatActivity {
 
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "PickUser2Activity.java";
-    LMUDBHandler dbHandler = new LMUDBHandler(this, null, null, 1);
+    LMUDBHandler dbHandler = new LMUDBHandler(this);
     final LoadingDialog loadingDialog = new LoadingDialog(PickUser2Activity.this);
 
     @Override

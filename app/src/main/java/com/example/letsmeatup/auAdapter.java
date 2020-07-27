@@ -115,7 +115,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 fireRef.child(currentUser.getID()).child("confirmeduserlist").setValue(currentUserList);
                 fireRef.child(secondUser.getID()).child("confirmeduserlist").setValue(secondUserList);
                 deletePending(position, secondUser);
-                LMUDBHandler lmudbHandler = new LMUDBHandler(ctx,null,null,1);
+                LMUDBHandler lmudbHandler = new LMUDBHandler(ctx);
                 currentUser.setconfirmeduserlist(currentUserList);
                 lmudbHandler.saveUser(ctx,currentUser);
             }
@@ -155,7 +155,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
         //Convert to string
         String currentUserList = String.join(",",currentUserPending);
         fireRef.child(currentUser.getID()).child("pendinguserlist").setValue(currentUserList);
-        LMUDBHandler lmudbHandler = new LMUDBHandler(ctx,null,null,1);
+        LMUDBHandler lmudbHandler = new LMUDBHandler(ctx);
         currentUser.setpendinguserlist(currentUserList);
         lmudbHandler.saveUser(ctx,currentUser);
 

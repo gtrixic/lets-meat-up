@@ -20,7 +20,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     public MessageAdapter(Context ctx,ArrayList<Message> mChat){
         this.ctx = ctx;
-        dbhandler = new LMUDBHandler(ctx,null,null,1);
+        dbhandler = new LMUDBHandler(ctx);
         this.mChat = mChat;
     }
 

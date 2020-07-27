@@ -53,7 +53,7 @@ public class ChatProfileActivity extends AppCompatActivity {
     String newChatID;
     boolean checkSuggestions;
     String IchatID;
-    LMUDBHandler lmudbHandler = new LMUDBHandler(this, null, null, 1);
+    LMUDBHandler lmudbHandler = new LMUDBHandler(this);
     DatabaseReference fireRef;
 
 

@@ -27,7 +27,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private DatabaseReference fireRef;
     public static final String TAG = "Let's-Meat-Up";
     String FILENAME = "ForgetPasswordActivity.java";
-    LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
+    LMUDBHandler dbHandler = new LMUDBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

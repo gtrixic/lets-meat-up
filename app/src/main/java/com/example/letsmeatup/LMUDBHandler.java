@@ -1,6 +1,7 @@
 package com.example.letsmeatup;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -49,59 +50,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class LMUDBHandler extends SQLiteOpenHelper {
+public class LMUDBHandler {
     private String TAG = "Let's-Meat-Up";
     private String FILENAME = "LMUDBHandler.java";
     private static String PREF_NAME = "prefs";
     private DatabaseReference fireRef;
+    private Context ctx;
 
-    public static String DATABASE_NAME = "LMUaccountDB.db";
-    public static int DATABASE_VERSION = 8;
-    //User accounts table
-    public static String ACCOUNTS = "UserAccounts";
-    public static String COLUMN_FULLNAME = "Fullname";
-    public static String COLUMN_USERNAME = "Username";
-    public static String COLUMN_PASSWORD = "Password";
-    public static String COLUMN_EMAIL = "Email";
-    public static String COLUMN_GENDER = "Gender";
-    public static String COLUMN_DOB = "DOB";
-    public static String COLUMN_SP = "SP";
-    public static String COLUMN_MATCHID = "MatchID";
-    public static String COLUMN_ALLERGIES = "Allergies";
-    //Restaurant account table
-    public static String RESTAURANTS = "RestaurantAccounts";
-    public static String COLUMN_RESTAURANTNAME = "RName";
-    public static String COLUMN_ADDRESS = "Address";
-    public static String COLUMN_RPASSWORD = "Password";
-    public static String COLUMN_RESTAURANTEMAIL = "Email";
-    public static String COLUMN_CATEGORY = "Category";
-    public static String COLUMN_PFP = "ProfilePictureLink";
-    public LMUDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int v){
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+
+    public LMUDBHandler(Context context){
+        super();
+        this.ctx = context;
 
     }
-    @Override
-    public void onCreate(SQLiteDatabase db){
-        String CREATE_ACCOUNTS_TABLE = "CREATE TABLE " + ACCOUNTS + "(AccountID"+ " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_FULLNAME +
-                " TEXT," +COLUMN_USERNAME + " TEXT," + COLUMN_PASSWORD + " TEXT,"
-                + COLUMN_EMAIL + " TEXT," + COLUMN_GENDER + " TEXT," + COLUMN_DOB
-                + " TEXT," + COLUMN_SP + " TEXT," + COLUMN_MATCHID +" INTEGER,"+COLUMN_ALLERGIES+" String"+")"; //creating account table
-        String CREATE_RESTAURANT_TABLE = "CREATE TABLE " + RESTAURANTS + "(" +COLUMN_RESTAURANTNAME + " TEXT," + COLUMN_ADDRESS + " TEXT,"+ COLUMN_RPASSWORD + " TEXT,"+
-                COLUMN_CATEGORY + " TEXT,"+
-                COLUMN_RESTAURANTEMAIL +" TEXT," + COLUMN_PFP + " TEXT)"; //creating restaurant table
-        db.execSQL(CREATE_ACCOUNTS_TABLE);
-        db.execSQL(CREATE_RESTAURANT_TABLE);
 
 
-    }
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){ //upgrading database from old to new version and
-                                                                                //dropping previous tables to update to new ones
-        Log.v(TAG,"Upgraded Database from version "+oldVersion+" to version "+newVersion);
-        db.execSQL("DROP TABLE IF EXISTS "+ACCOUNTS);
-        db.execSQL("DROP TABLE IF EXISTS "+RESTAURANTS);
-        onCreate(db);
-    }
 
     //add match param
     public void addMatchID(String[] matchID,String id){
@@ -119,8 +82,10 @@ public class LMUDBHandler extends SQLiteOpenHelper {
     private static SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
-    public void updatePassword(String email, final String password, final Context ctx){
+    public void updatePassword(String email, final String password, final Context ctx, final Intent intent){
         //change in fireauth
+        final LoadingDialog loadingDialog = new LoadingDialog((Activity)ctx);
+        loadingDialog.startLoadingDialog();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         AuthCredential credential = EmailAuthProvider.getCredential(email,getUserDetail(ctx,"password"));
         user.reauthenticate(credential)
@@ -136,10 +101,19 @@ public class LMUDBHandler extends SQLiteOpenHelper {
                                         //instantiate fireref
                                         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
                                         //get account
-                                        fireRef.child(getUserDetail(ctx,"id")).child("password").setValue(password);
-                                        Log.v(TAG,"Password updated in firebase db!");
+                                        fireRef.child(getUserDetail(ctx,"id")).child("password").setValue(password)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        loadingDialog.dismissDialog();
+                                                        ctx.startActivity(intent);
+                                                        Log.v(TAG,"Password updated in firebase db!");
+
+                                                    }
+                                                });
                                     }
                                     else{
+                                        loadingDialog.dismissDialog();
                                         Log.v(TAG,"Password failed to update.");
                                         Toast.makeText(ctx,"Failed to update password, try again later.",Toast.LENGTH_SHORT).show();
                                     }
@@ -204,12 +178,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         SharedPreferences.Editor editor = getPrefs(ctx).edit();
         editor.clear();
         editor.apply();
-    }
-    public void saveEmail(Context context, String input){
-        SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString("email",input);
-        editor.apply();
-        Log.v(TAG,"Shared Preference set for email!");
     }
 
    public String getUserDetail(Context ctx,String inputype){//return the current user's Account information

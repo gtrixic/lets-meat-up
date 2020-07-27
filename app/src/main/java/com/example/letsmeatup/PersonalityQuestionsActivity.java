@@ -34,7 +34,7 @@ public class PersonalityQuestionsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     pnAdapter pnAdapter;
     boolean allInputsFilled = true;
-    LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
+    LMUDBHandler dbHandler = new LMUDBHandler(this);
 
 
     @Override

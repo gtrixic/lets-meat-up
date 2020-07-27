@@ -46,7 +46,7 @@ public class AcceptUserActivity extends AppCompatActivity {
 
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "AcceptUserActivity.java";
-    LMUDBHandler dbHandler = new LMUDBHandler(this, null, null, 1);
+    LMUDBHandler dbHandler = new LMUDBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

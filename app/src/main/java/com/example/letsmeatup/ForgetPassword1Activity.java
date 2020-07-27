@@ -20,7 +20,7 @@ public class ForgetPassword1Activity extends AppCompatActivity {
     EditText enterTwice;
     ImageButton goNext;
     ImageButton back;
-    LMUDBHandler dbHandler = new LMUDBHandler(this,null,null,1);
+    LMUDBHandler dbHandler = new LMUDBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +41,14 @@ public class ForgetPassword1Activity extends AppCompatActivity {
         goNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 enterOnce = findViewById(R.id.enterPassword);
                 enterTwice = findViewById(R.id.reenterPassword);
                 if(checkBlank(enterOnce.getText().toString(),enterTwice.getText().toString())) {
                     if (checkSimilarity(enterOnce.getText().toString(), enterTwice.getText().toString())) { //if the 2 passwords are identical
                         //update password here
-                        dbHandler.updatePassword(input, enterOnce.getText().toString(), ForgetPassword1Activity.this);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                nextPage();
-                                finish();
-                            }
-                        }, 5000);   //5 seconds wait for update
+                        Intent intent = nextPage();
+                        dbHandler.updatePassword(input, enterOnce.getText().toString(), ForgetPassword1Activity.this,intent);
                     } else {
                         Toast.makeText(ForgetPassword1Activity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
                     }
@@ -95,8 +90,9 @@ public class ForgetPassword1Activity extends AppCompatActivity {
         }
         return true;
     }
-    public void nextPage(){ //from this page to the successful password change page
+    public Intent nextPage(){ //from this page to the successful password change page
         Intent next = new Intent(ForgetPassword1Activity.this,ForgetPassword2Activity.class);
-        startActivity(next);
+        next.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        return next;
     }
 }

@@ -75,7 +75,7 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        dbhandler = new LMUDBHandler(this,null,null,1   );
+        dbhandler = new LMUDBHandler(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
 

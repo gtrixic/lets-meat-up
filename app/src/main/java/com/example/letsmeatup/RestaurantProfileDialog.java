@@ -34,7 +34,7 @@ public class RestaurantProfileDialog extends Dialog implements android.view.View
         this.c = a;
         this.RestData = rData;
         this.restChatID = chatID;
-        handler = new LMUDBHandler(a,null,null,1);
+        handler = new LMUDBHandler(a);
     }
 
     @Override

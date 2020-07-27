@@ -39,7 +39,7 @@ public class UserSignUpActivity extends AppCompatActivity implements AdapterView
     Boolean allInputFilled = true;
 
 
-    LMUDBHandler lmudbHandler = new LMUDBHandler(this,null,null,1);
+    LMUDBHandler lmudbHandler = new LMUDBHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
