@@ -37,14 +37,13 @@
 
     <ImageView
         android:id="@+id/profilePic"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/box"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line4"
-        app:layout_constraintVertical_bias="0.5"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
@@ -58,31 +57,22 @@
         app:layout_constraintVertical_bias="0.099"
         app:srcCompat="@drawable/line" />
 
-    <ImageView
-        android:id="@+id/box"
-        android:layout_width="366dp"
-        android:layout_height="335dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83"
-        app:srcCompat="@drawable/rectangle_1" />
-
     <ScrollView
-        android:layout_width="307dp"
-        android:layout_height="300dp"
+        android:id="@+id/scrollView4"
+        android:layout_width="321dp"
+        android:layout_height="362dp"
+        android:background="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePic"
-        app:layout_constraintVertical_bias="0.342">
+        app:layout_constraintTop_toBottomOf="@+id/line4"
+        app:layout_constraintVertical_bias="0.87">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="10dp"
             android:stretchColumns="0,1">
 
             <TableRow>

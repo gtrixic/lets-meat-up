@@ -144,13 +144,16 @@
         android:id="@+id/suggestedRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="10dp"
+        android:background="@drawable/rectangle"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviews2"
-        app:layout_constraintVertical_bias="0.166"
+        app:layout_constraintVertical_bias="0.25"
         tools:listitem="@layout/recycler_view_restaurant_item" />
 
     <TextView
@@ -162,10 +165,12 @@
         android:text="Suggested Restaurants"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line7" />
+        app:layout_constraintTop_toBottomOf="@+id/line7"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/userAllergies"
@@ -212,18 +217,20 @@
         app:layout_constraintStart_toEndOf="@+id/dietText"
         app:layout_constraintTop_toBottomOf="@+id/userAllergies" />
 
-    <ImageButton
+    <Button
         android:id="@+id/suggestButton"
-        android:layout_width="74dp"
-        android:layout_height="36dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/suggestedRV"
+        android:layout_width="72dp"
+        android:layout_height="32dp"
+        android:background="@drawable/rounded_rectangle_grey"
+        android:fontFamily="@font/josefinsansregular"
+        android:text="Add"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/reviews2"
         app:layout_constraintTop_toBottomOf="@+id/line7"
-        app:layout_constraintVertical_bias="0.32"
-        app:srcCompat="@drawable/add_button" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <ImageView
         android:id="@+id/line7"

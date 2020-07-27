@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +37,7 @@ public class PickUser2Activity extends AppCompatActivity {
     TextView allergy;
     Button request;
     Button ignore;
+    ImageView pfp;
     AccountData firstUser;
     AccountData secondUser;
     String secondID;
@@ -50,6 +53,7 @@ public class PickUser2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_user2);
+        pfp = findViewById(R.id.pickUserPfp);
         name = findViewById(R.id.nameText);
         ageT = findViewById(R.id.ageText);
         gender = findViewById(R.id.genderText);
@@ -130,6 +134,13 @@ public class PickUser2Activity extends AppCompatActivity {
                             secondUser = queryData[0];
                             Log.v(TAG, FILENAME + secondUser.getUsername());
                             // setting user details into Textviews
+                            if (secondUser.getPfp().equals("default")) {
+                                Log.v("ChatViewAdapter","Setting default image" );
+                                pfp.setImageResource(R.mipmap.ic_launcher);
+                            } else {
+                                Log.v("ChatViewAdapter","Setting profile picture" );
+                                Glide.with(PickUser2Activity.this).load(secondUser.getPfp()).into(pfp);
+                            }
                             name.setText(secondUser.getFullName());
                             String stDate = secondUser.getDob();
                             Date date = new Date();

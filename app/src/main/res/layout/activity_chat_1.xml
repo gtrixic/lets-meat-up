@@ -17,17 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backarrow1" />
 
-    <ImageButton
-        android:id="@+id/helpButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/help_button" />
-
     <TextView
         android:id="@+id/view3"
         android:layout_width="wrap_content"
@@ -55,37 +44,41 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewChatRecyclerView"
-        android:layout_width="409dp"
-        android:layout_height="568dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line5"
         tools:listitem="@layout/recycler_view_chat_item" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Users to Chat!"
         android:fontFamily="@font/josefinsansregular"
-        android:textSize="40dp"
+        android:text="No Users to Chat!"
         android:textColor="#FFD7E9"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        app:layout_constraintVertical_bias="0.44" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text=" try requesting a user instead."
         android:fontFamily="@font/josefinsansregular"
-        android:textSize="20dp"
+        android:text=" try requesting a user instead."
         android:textColor="#FFD7E9"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewChatRecyclerView"
         app:layout_constraintEnd_toEndOf="@+id/viewChatRecyclerView"
         app:layout_constraintStart_toStartOf="@+id/viewChatRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.01" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

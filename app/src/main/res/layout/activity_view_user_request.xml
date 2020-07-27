@@ -11,13 +11,14 @@
         android:id="@+id/backArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/AURecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_bias="0.78"
         app:srcCompat="@drawable/backarrow1" />
 
     <ImageView
@@ -45,19 +46,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04" />
-
-    <ImageButton
-        android:id="@+id/helpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/AURecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/help_button" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/AURecyclerView"

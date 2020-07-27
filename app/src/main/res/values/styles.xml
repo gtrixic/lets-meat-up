@@ -28,6 +28,7 @@
     <style name="spinner_style">
         <item name="android:textColor">@color/my_spinner_text_color</item>
         <item name="android:fontFamily">@font/josefinsanslight</item>
+        <item name="backgroundTint">@color/my_spinner_text_color</item>
         <item name="android:textSize">18sp</item>
     </style>
 

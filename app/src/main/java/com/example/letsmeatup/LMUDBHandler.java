@@ -102,82 +102,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+RESTAURANTS);
         onCreate(db);
     }
-//    public void addUser(AccountData accountData){ //adding a new user into the user accounts table
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_FULLNAME,accountData.getFullName());
-//        values.put(COLUMN_USERNAME, accountData.getUsername());
-//        values.put(COLUMN_PASSWORD, accountData.getPassword());
-//        values.put(COLUMN_EMAIL,accountData.getEmail());
-//        values.put(COLUMN_GENDER,accountData.getGender());
-//        values.put(COLUMN_DOB,accountData.getDob());
-//        values.put(COLUMN_SP, accountData.getSp());
-//        //Get Database
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Log.v(TAG, FILENAME+ ": "+ values.toString());
-//        db.insert(ACCOUNTS, null, values);
-//        db.close();
-//
-//    }
-    public void addRestaurant(RestaurantData rdata){ //adding a new user into the restaurant accounts table
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_RESTAURANTNAME,rdata.getRestaurantName());
-        values.put(COLUMN_ADDRESS,rdata.getAddress());
-        values.put(COLUMN_CATEGORY,rdata.getCategory());
-        values.put(COLUMN_PFP,rdata.getPfpLink());
-        //Get Database
-        SQLiteDatabase db = this.getWritableDatabase();
-        Log.v(TAG,FILENAME + ": "+ values.toString());
-        db.insert(RESTAURANTS,null,values);
-        db.close();
-    }
-    public RestaurantData findRestaurant(String Remail){ //to find the selected restaurant account by its email
-        String query = "SELECT * FROM "+RESTAURANTS +" WHERE " + COLUMN_RESTAURANTEMAIL + "=\""+Remail+"\"";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query,null);
-        RestaurantData rData = new RestaurantData();
-        if(cursor.moveToFirst()){
-            rData.setRestaurantName(cursor.getString(0));
-            rData.setAddress(cursor.getString(1));
-            rData.setPfpLink(cursor.getString(4));
-            cursor.close();
-        }
-        else{
-            rData = null;
-        }
-        db.close();
-        return rData;
-    }
-
-    public AccountData findEmail(String email){ //to return the selected user by the email
-                String query ="SELECT * FROM " + ACCOUNTS +" WHERE "+COLUMN_EMAIL +"=\""+email +"\"";
-                SQLiteDatabase  db =this.getWritableDatabase();
-                Cursor cursor =db.rawQuery(query,null);
-                // temp account details holder
-                AccountData queryData = new AccountData();
-                if (cursor.moveToFirst()){
-                    queryData.setFullName(cursor.getString(1));
-                    queryData.setUsername(cursor.getString(2));
-                    queryData.setPassword(cursor.getString(3));
-                    queryData.setEmail(cursor.getString(4));
-                    queryData.setGender(cursor.getString(5));
-                    queryData.setDob(cursor.getString(6));
-
-                    cursor.close();
-        }
-        else{
-            queryData = null;
-        }
-        db.close();
-        return queryData;
-    }
-
-    //Used with yelp api, only for admin use
-    public void addRestaurants(ArrayList<RestaurantData> rDataList) throws IOException, JSONException {
-        for(RestaurantData rdata : rDataList){
-            this.addRestaurant(rdata);
-        }
-
-    }
 
     //add match param
     public void addMatchID(String[] matchID,String id){
@@ -430,7 +354,6 @@ public class LMUDBHandler extends SQLiteOpenHelper {
         String key = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").push().getKey();
         fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").child(key);
         fireRef.setValue(rData);
-
     }
 
 
