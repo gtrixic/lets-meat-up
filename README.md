@@ -240,19 +240,30 @@ The Username, Name and Allergy fields are EditText(Plain Text) while the Date Of
 If the user selects the "Sign Out" button, they will be directed to the Login Page.
 
 
-**Chat**
+**View All Chats**
 
-If the user selects the "Chat" button, they will be directed to this page.
+If the user selects the "Chat" button, they will be directed to this page. If the user confirms a user request, the two users will be able to use this function. 
+
+This page is created using RecyclerView where the Profile Picture is an ImageView while the Username, Last Message and Time are TextViews.
 
 ![](https://lh4.googleusercontent.com/42WGktc0yuNaCURH9VM7mdCTe2CthQxHTGZhmnQCsM0nVh8YwoJA_FEPUDn9NzKT8MQ4goERzAAEZDdtTpXNVLf2CBPabb3mL1__ikIG)
+
+
+**Chat**
+
+Users will be directed to this page when the user selects a chat.
+
 ![](https://lh3.googleusercontent.com/MYuKa9pXoAlqDXBb5cH54lwFOw939mUQPYQeS5sv-fJ-OIdd7m_vcpiH8oHPw6GCwrjxpMGi-33MZCyAS1VUFdYzis75aujTy319cf-l)
+
+**Chat Profile Page**
+
+If the user selects the Profile Button on the top right hand corner of the chat page, they will be directed to this page. 
+
+This page shows the profile details of the other user that the user is chatting with. There is also a Suggested Restaurants list feature, where both users can add to it by pressing the Add Button. A random restaurant will be shown to the user, and the user can choose to add it to the list, or reject it. 
+
+After adding a restaurant to the Suggested Restaurant list, the user can view the restaurant address by pressing the restaurant name in the list. To get directions to the restaurant, the user can press the Get Directions Button and Google Maps will open with the location.
+
 ![](https://lh5.googleusercontent.com/t-vdCkwYHxnuNIkLizgQP7UZNqy3EV8kkWz9O3k1pHq4GSAwPlZfGHYdH6T2gWq0h4ooKlENbwfKlirpz42eq-QFNKvCkRd0SE0xSNR8)
 
-
-**View Reservations (User Account)**
-
-If the user holds a user account and chooses to view reservations, they will be directed to this page.
-
-Reservations will be displayed as a numbered list. Each reservation will show the matched user&#39;s username, restaurant name, meeting time and date.
 
 
