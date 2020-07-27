@@ -264,11 +264,13 @@ This page is created using RecyclerView where the Profile Picture is an ImageVie
 
 Users will be directed to this page when the user selects a chat.
 
-This page will show messages of the 2 users via Firebase. Users will enter a message in the EditText box and clicked send, the Message recyclerView will update Real-Time. Their message will pop up in a pink message box while their partner's messages will pop up in a grey message box.
+This page will show messages of the 2 users via Firebase. Users will enter a message in the EditText box and clicked send, the Message recyclerView will update Real-Time. Their message will pop up in a pink message box while their partner's messages will pop up in a grey message box. Their messages will appear with a Time that follows the time the message is sent.
+
+The user Name is a Textview, backArrow, userProfile, sendButton are ImageButtons, the message is a RecyclerView with ImageView to surround the message and the message and time are TextViews.
+
+![](https://lh5.googleusercontent.com/t-vdCkwYHxnuNIkLizgQP7UZNqy3EV8kkWz9O3k1pHq4GSAwPlZfGHYdH6T2gWq0h4ooKlENbwfKlirpz42eq-QFNKvCkRd0SE0xSNR8)
 
 
-
-![](https://lh3.googleusercontent.com/MYuKa9pXoAlqDXBb5cH54lwFOw939mUQPYQeS5sv-fJ-OIdd7m_vcpiH8oHPw6GCwrjxpMGi-33MZCyAS1VUFdYzis75aujTy319cf-l)
 
 Users will be directed
 
@@ -282,7 +284,7 @@ After adding a restaurant to the Suggested Restaurant list, the user can view th
 
 The Username, Name, Age, Gender, Date of Birth, Allergies and Diet are all TextViews while the Profile Picture is an ImageView. The Suggested Restaurant list is a RecyclerView with Textviews. The back arrow is an ImageButton where Add is a Button w/ Background.
 
-![](https://lh5.googleusercontent.com/t-vdCkwYHxnuNIkLizgQP7UZNqy3EV8kkWz9O3k1pHq4GSAwPlZfGHYdH6T2gWq0h4ooKlENbwfKlirpz42eq-QFNKvCkRd0SE0xSNR8)
+![](https://lh3.googleusercontent.com/MYuKa9pXoAlqDXBb5cH54lwFOw939mUQPYQeS5sv-fJ-OIdd7m_vcpiH8oHPw6GCwrjxpMGi-33MZCyAS1VUFdYzis75aujTy319cf-l)
 
 
 
