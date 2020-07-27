@@ -59,6 +59,8 @@ Cammy:
 2.  In-charge of Login & Forget Password, Pick User, Suggested Restaurant Function
     
 3.  Assisted on other Figma-to-XML implementations
+
+4.  Implemented Map.API
     
 
 Gek Teng:
@@ -72,11 +74,11 @@ Gek Teng:
 Jia Wen:
 1.  Assisted in app design using Figma
     
-2.  In-charge of User Profile Function
+2.  In-charge of User Profile & Edit Profile Function
 
 3.  In-charge of Figma-to-XML implementation
 
-4. In-charge of App Description
+4.  In-charge of App Description
 
   
 
