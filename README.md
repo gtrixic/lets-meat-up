@@ -32,7 +32,7 @@ Get to know each other and plan to meet up through our chat function! This enabl
 
 Suggested Restaurants List:
 
-Having trouble looking for a good place to eat at? Fret not - we have a solution! Browse through the many restaurants we have in our application, and simply add your favourites to a Suggested Restaurants list shared between you and your partner. Fuss-free and efficient, this makes deciding on a place to eat much simpler.
+Having trouble looking for a good place to eat at? Fret not - we have a solution! Get a random restaurant through the many restaurants we have in our application, and simply add your favourites to our Suggested Restaurants list shared between you and your partner. Fuss-free and efficient, this makes deciding on a place to eat much simpler.
 
 **Roles & Contributions of Members:**
 
@@ -41,14 +41,14 @@ Benjamin (Group Leader):
     
 2.  In-charge of user and restaurant database creation
     
-3.  In-charge of CreateUser and CreateRestaurant Activities
+3.  In-charge of Creating User Account, Chat Function
     
 4.  Implemented Yelp.API
     
 Cammy:
 1.  Created most of the app design using Figma
     
-2.  In-charge of Login and ForgetPassword Activities and XMLs
+2.  In-charge of Login & Forget Password, Pick User, Suggested Restaurant Function
     
 3.  Assisted on other Figma-to-XML implementations
     
@@ -56,16 +56,19 @@ Cammy:
 Gek Teng:
 1.  Assisted in app design using Figma
     
-2.  In-charge of PersonalityQuestions Activity and XMLs
+2.  In-charge of Personality Questions, Accept User Requests Function
     
-3.  In-charge of CreateUser and CreateRestaurant XMLs
+3.  In-charge of Figma-to-XML implementation
     
 
 Jia Wen:
 1.  Assisted in app design using Figma
     
-2.  Created most of the base outlines for the functions
-    
+2.  In-charge of User Profile Function
+
+3.  In-charge of Figma-to-XML implementation
+
+4. In-charge of App Description
 
   
 
@@ -248,6 +251,8 @@ The Username, Name and Allergy fields are EditText (Plain Text), while the Date 
 
 **View All Chats**
 
+This page shows the chats of users that has accepted their request or users that they have accepted. The user can then select a user to begin/continue chatting with.
+
 If the user selects the "Chat" button, they will be directed to this page. If the user confirms a user request, the two users will be able to use this function.
 
 This page is created using RecyclerView where the Profile Picture is an ImageView while the Username, Last Message and Time are TextViews.
@@ -259,8 +264,13 @@ This page is created using RecyclerView where the Profile Picture is an ImageVie
 
 Users will be directed to this page when the user selects a chat.
 
+This page will show messages of the 2 users via Firebase. Users will enter a message in the EditText box and clicked send, the Message recyclerView will update Real-Time. Their message will pop up in a pink message box while their partner's messages will pop up in a grey message box.
+
+
 
 ![](https://lh3.googleusercontent.com/MYuKa9pXoAlqDXBb5cH54lwFOw939mUQPYQeS5sv-fJ-OIdd7m_vcpiH8oHPw6GCwrjxpMGi-33MZCyAS1VUFdYzis75aujTy319cf-l)
+
+Users will be directed
 
 **Chat Profile Page**
 
@@ -270,7 +280,7 @@ This page shows the profile details of the other user that the user is chatting 
 
 After adding a restaurant to the Suggested Restaurant list, the user can view the restaurant address by pressing the restaurant name in the list. To get directions to the restaurant, the user can press the Get Directions Button and Google Maps will open with the location.
 
-The Username, Name, Age, Gender, Date of Birth, Allergies and Diet are all TextViews while the Profile Picture is an ImageView. The Suggested Restaurant list is a RecyclerView with Textviews. The back arrow and Add are ImageButtons.
+The Username, Name, Age, Gender, Date of Birth, Allergies and Diet are all TextViews while the Profile Picture is an ImageView. The Suggested Restaurant list is a RecyclerView with Textviews. The back arrow is an ImageButton where Add is a Button w/ Background.
 
 ![](https://lh5.googleusercontent.com/t-vdCkwYHxnuNIkLizgQP7UZNqy3EV8kkWz9O3k1pHq4GSAwPlZfGHYdH6T2gWq0h4ooKlENbwfKlirpz42eq-QFNKvCkRd0SE0xSNR8)
 
