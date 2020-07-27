@@ -57,7 +57,6 @@ public class chatViewAdapter extends RecyclerView.Adapter<chatViewHolder> {
     public void onBindViewHolder(final chatViewHolder holder, final int position) {
         AccountData acc = acceptedUsers.get(position);
         holder.Username.setText(acc.getUsername());
-        Log.v("ChatViewAdapter",acc.getPfp());
         if (acc.getPfp().equals("default")) {
             Log.v("ChatViewAdapter","Setting default image" );
             holder.ProfilePicture.setImageResource(R.mipmap.ic_launcher);

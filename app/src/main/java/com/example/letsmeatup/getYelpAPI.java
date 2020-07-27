@@ -87,17 +87,14 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
         ArrayList<RestaurantData> rDataList = new ArrayList<>();
         JSONObject JsonResults = new JSONObject(result);
         JSONArray Business = JsonResults.getJSONArray("businesses");
-        Log.v(TAG,Business.toString());
         //get name,display_address,category,imageurl
         for(int i = 0; i < Business.length(); i++){
             RestaurantData rData = new RestaurantData();
 
             rData.setRestaurantName(Business.getJSONObject(i).get("name").toString());
-            Log.v(TAG,rData.getRestaurantName());
             JSONObject Location = (JSONObject) Business.getJSONObject(i).get("location");
 
             JSONArray displayLocation = Location.getJSONArray("display_address");
-            Log.v(TAG,displayLocation.toString());
             StringBuilder finallocation = new StringBuilder();
             for(int index = 0; index < displayLocation.length(); index ++){
                 finallocation.append(displayLocation.get(index).toString());
@@ -105,13 +102,10 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
                     finallocation.append(", ");
                 }
             }
-            Log.v(TAG,finallocation.toString());
             rData.setAddress(finallocation.toString());
             rData.setPfpLink(Business.getJSONObject(i).get("image_url").toString());
-            Log.v(TAG,rData.getPfpLink());
             JSONArray categories = Business.getJSONObject(i).getJSONArray("categories");
             rData.setCategory(categories.getJSONObject(0).get("title").toString());
-            Log.v(TAG,rData.getCategory());
             rDataList.add(rData);
         }
         return rDataList;
@@ -136,14 +130,11 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
 
     @Override
     protected void onPostExecute(final ArrayList<RestaurantData> rData){
+        //get a random restaurant from the random term
         Random ran = new Random();
-        Log.v(TAG, String.valueOf(rData.size()));
         int randomVar = ran.nextInt(rData.size());
         final RestaurantData chosen = rData.get(randomVar);
-        Log.v(TAG, String.valueOf(chosen.getRestaurantName()));
-        Log.v(TAG, chosen.getPfpLink());
         RestaurantDialog rDialog = new RestaurantDialog(context,chosen,chatID);
-        Log.v(TAG, String.valueOf(context));
         rDialog.setImage(chosen.getPfpLink());
         rDialog.setRestName(chosen.getRestaurantName());
         rDialog.setRestAddr(chosen.getAddress());

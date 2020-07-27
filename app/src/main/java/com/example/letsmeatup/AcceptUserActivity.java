@@ -51,6 +51,7 @@ public class AcceptUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setting vars
         setContentView(R.layout.activity_view_user_request);
         confirm = findViewById(R.id.confirmButton);
         delete = findViewById(R.id.deleteButton);
@@ -63,44 +64,47 @@ public class AcceptUserActivity extends AppCompatActivity {
         fireRef = database.getReference();
         back = findViewById(R.id.backArrow);
 
+        //back button code
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AcceptUserActivity.this,mainPageActivity.class);
                 startActivity(intent);
-                startActivity(intent);
             }
         });
 
         currentUser = dbHandler.returnUser(this);
-        Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID());
         pending = currentUser.getpendinguserlist();
-        Log.v(TAG, "pending string: " + pending);
         recyclerView =findViewById(R.id.AURecyclerView);
         //check if got less than 2 requests
         //populate pending users list
         pendingUsers = new ArrayList<>();
+        //as pending list is a string, if the list is empty it will return as a ""
         if (!pending.equals("")) {
+            //remove "No users found" text
             noUsers.setVisibility(View.GONE);
             Desc.setVisibility(View.GONE);
+            //If the , is found, there is more than 1 user in list
             if (pending.contains(",")) {
+                //split the list
                 ids = pending.split(",");
             } else {
+                //only 1 user in pending list
                 ids = new String[1];
                 ids[0] = pending;
             }
-            Log.v(TAG, "Pending ID list: " + ids.length);
             for (int i = 0; i < ids.length; i++) {
+                //get each user id and query the information
                 String userID = ids[i];
                 Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+                //wait for read data to finish
                 readData(idQuery, new OnGetDataListener() {
                     @Override
                     public void onSuccess(DataSnapshot dataSnapshot) {
-
+                        //cast info to acc
                         AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
-                        Log.v(TAG, acc.getUsername());
                         pendingUsers.add(acc);
-                        Log.v(TAG, "Username: " + acc.getUsername());
+                        //create adapter for each entry
                         adapter = new auAdapter(AcceptUserActivity.this, pendingUsers, currentUser);
                         recyclerView.setAdapter(adapter);
                         LinearLayoutManager manager =new LinearLayoutManager(AcceptUserActivity.this);
@@ -128,11 +132,13 @@ public class AcceptUserActivity extends AppCompatActivity {
                 });
             }
         }
+        //remove recyclerview if no user is found
         else{
             recyclerView.setVisibility(View.GONE);
         }
 
     }
+    //read data waits for the information to be retrieved from the query in order to run the code afterwards
     public void readData(Query ref, final OnGetDataListener listener) {
         listener.onStart();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -149,6 +155,7 @@ public class AcceptUserActivity extends AppCompatActivity {
 
     }
 
+    //creates an intent to go from recyclerview to user profile
     public void viewUserProfile(final int position)
     {
         Intent viewUser = new Intent(AcceptUserActivity.this, UserRequestProfileActivity.class);
@@ -158,6 +165,7 @@ public class AcceptUserActivity extends AppCompatActivity {
         startActivity(viewUser);
     }
 
+    //interface for read data
     public interface OnGetDataListener {
         //this is for callbacks
         void onSuccess(DataSnapshot dataSnapshot);

@@ -51,7 +51,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-        Log.v("MessageAdapter","Binding!");
         Message userMessage = mChat.get(position);
         holder.bind(userMessage);
         }
@@ -66,7 +65,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     public int getItemViewType(int position) {
         Message message = mChat.get(position);
         if(message.getSender().equals(dbhandler.getUserDetail(ctx,"id"))){
-            Log.v("MessageAdapter","MSG_TYPE_RIGHT!");
             return MSG_TYPE_RIGHT;
 
         }
@@ -74,7 +72,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
             return -1;
         }
         else{
-            Log.v("MessageAdapter","MSG_TYPE_LEFT!");
 
             return MSG_TYPE_LEFT;
         }

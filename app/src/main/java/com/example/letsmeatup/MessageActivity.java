@@ -101,7 +101,6 @@ public class MessageActivity extends AppCompatActivity {
                 //if chat id = default and new chat id hasnt been created
                 if(chatid.equals("default") && newChatID == null) {
                     next.putExtra("chatid", "default");
-                    Log.v("yes","CASE 1");
                 }
 
                 else{
@@ -109,12 +108,10 @@ public class MessageActivity extends AppCompatActivity {
                         //chat id != default
                         if (newChatID == null){
                             next.putExtra("chatid",chatid);
-                            Log.v("yes","CASE 2");
 
                         }
                         else{
                             next.putExtra("chatid",newChatID);
-                            Log.v("yes","CASE 3");
 
                         }
                     }
@@ -200,7 +197,6 @@ public class MessageActivity extends AppCompatActivity {
                     mChat.clear();
                     for (DataSnapshot s : dataSnapshot.getChildren()) {
                         mChat.add(s.getValue(Message.class));
-                        Log.v("MessageActivity", s.getValue(Message.class).getMessage());
                         mAdapter = new MessageAdapter(MessageActivity.this, mChat);
                         recyclerView.setAdapter(mAdapter);
                         recyclerView.smoothScrollToPosition(mChat.size());

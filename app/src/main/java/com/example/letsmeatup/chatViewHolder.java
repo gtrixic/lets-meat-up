@@ -18,7 +18,6 @@ public class chatViewHolder extends RecyclerView.ViewHolder {
         Username = view.findViewById(R.id.CIUsername);
         lastMessage = view.findViewById(R.id.CIlastmessage);
         lastTime = view.findViewById(R.id.CILastTime);
-
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

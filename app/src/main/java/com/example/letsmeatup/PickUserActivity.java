@@ -37,7 +37,7 @@ public class PickUserActivity extends AppCompatActivity {
         Intent next = new Intent(PickUserActivity.this,PickUser2Activity.class);
         startActivity(next);
     }
-    public void backArrow(){ //from this page to pickuser2activity
+    public void backArrow(){ //from this page to mainpageactivity
         Intent next = new Intent(PickUserActivity.this,mainPageActivity.class);
         startActivity(next);
     }

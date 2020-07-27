@@ -68,12 +68,10 @@ public class PickUser2Activity extends AppCompatActivity {
                 requestAlert();
                 if (secondUser.getpendinguserlist().equals("")){
                     secondUser.setpendinguserlist(firstUser.getID());
-                    Log.v(TAG, "pending list: " + secondUser.getpendinguserlist());
                 }
                 else{
                     String pend = secondUser.getpendinguserlist()+","+firstUser.getID();
                     secondUser.setpendinguserlist(pend);
-                    Log.v(TAG, "pending list: " + secondUser.getpendinguserlist());
                 }
                 fireRef.child(secondUser.getID()).child("pendinguserlist").setValue(secondUser.getpendinguserlist());
             }
@@ -89,13 +87,13 @@ public class PickUser2Activity extends AppCompatActivity {
     public void getSecondUser() {
         // gets user details for the current user
         firstUser = dbHandler.returnUser(this);
-        Log.v(TAG,FILENAME+": "+firstUser.getUsername());
         final AccountData[] queryData = {new AccountData()};
         final ArrayList<AccountData> accList = new ArrayList<>();
         final boolean[] isUser = new boolean[1];
         isUser[0] = false;
         Log.v(TAG, "Finding matching ID...");
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        //get users with matching matchid
         fireRef.orderByChild("matchid").equalTo(firstUser.getMatchid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,15 +103,14 @@ public class PickUser2Activity extends AppCompatActivity {
                 }
                 while (!isUser[0]) {
                     int count = accList.size();
-                    Log.v(TAG, String.valueOf(count));
+                    //get a random user
                     Random ran = new Random();
                     int randomMatchID = ran.nextInt(count);
-                    Log.v(TAG, String.valueOf(randomMatchID));
                     queryData[0] = accList.get(randomMatchID);
-                    Log.v(TAG, queryData[0].getUsername());
                     Boolean queryPending = null;
                     Boolean queryConfirmed = null;
                     boolean queryAppear = true;
+                    //users on pending/confirmed list will not appear
 
                     if(queryData[0].getpendinguserlist()!= null){
                         queryPending = queryData[0].getpendinguserlist().contains(firstUser.getID());
@@ -132,7 +129,6 @@ public class PickUser2Activity extends AppCompatActivity {
                             Log.v(TAG, "Ended!");
                             isUser[0] = true;
                             secondUser = queryData[0];
-                            Log.v(TAG, FILENAME + secondUser.getUsername());
                             // setting user details into Textviews
                             if (secondUser.getPfp().equals("default")) {
                                 Log.v("ChatViewAdapter","Setting default image" );
@@ -220,7 +216,7 @@ public class PickUser2Activity extends AppCompatActivity {
         AlertDialog alert = ign.create();
         alert.show();
     }
-    public void loading(){
+    public void loading(){ //when first launching the pickuseractivity
         loadingDialog.startLoadingDialog();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -230,7 +226,7 @@ public class PickUser2Activity extends AppCompatActivity {
             }
         },3000);
     }
-    public void quickloading(){
+    public void quickloading(){ //when user wants to ignore and choose a diff user
         loadingDialog.startLoadingDialog();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
