@@ -23,12 +23,15 @@ Find food buddies, forge new friendships and dine at unique places with this eas
 Swipe through profiles of like-minded individuals, view their interests and make your choices. Send a request, and if they accept your invitation, it’s a match!
 
 Personality Questions Quiz:
+
 Through your responses, we highlight your preferences and show you the profiles of like-minded individuals. This ensures that you will match with people that you can connect with.
 
 Chat Function:
+
 Get to know each other and plan to meet up through our chat function! This enables you to focus only on the connections you’re interested in without unnecessary distractions.
 
 Suggested Restaurants List:
+
 Having trouble looking for a good place to eat at? Fret not - we have a solution! Simply add your favourite restaurants to the Suggested Restaurants list so that your partner can view your preferred locations. You can take a look at your partner’s list too! Fuss-free and efficient, this makes deciding on a place to eat much simpler.
 
 
