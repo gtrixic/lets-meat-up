@@ -2,8 +2,6 @@ package com.example.letsmeatup;
 
 import android.content.Context;
 import android.os.Build;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +10,17 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
     private Context ctx;
     private ArrayList<AccountData> userRequest;
     AccountData currentUser;
-    String confirm;
     private OnItemClickListener onItemClickListener;
 
     DatabaseReference fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -55,51 +50,60 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
 
     public void onBindViewHolder (final auViewHolder holder, final int position)
     {
+        // create pending user account
         final AccountData secondUser = userRequest.get(position);
         holder.username.setText(secondUser.getUsername());
+        // if user does not have a profile picture
         if(secondUser.getPfp().equals("default")){
             holder.profilePic.setImageResource(R.mipmap.ic_launcher);
         }
         else{
             Glide.with(ctx).load(secondUser.getPfp()).into(holder.profilePic);
         }
+        // on click listener for confirm of pending user
         holder.confirm.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+                // create list for confirm users
                 List<String> currentUserConfirmed;
                 List<String> secondUserConfirmed;
 
+                // if confirm user list is empty
                 if (currentUser.getconfirmeduserlist().equals("")){
                     currentUserConfirmed = new ArrayList<>();
                 }
                 else{
-
+                    // split into arraylist
                     currentUserConfirmed = Arrays.asList(currentUser.getconfirmeduserlist().split(","));
                     currentUserConfirmed = new ArrayList<>(currentUserConfirmed);
 
                 }
+                // if other user confirm user list is empty
                 if (secondUser.getconfirmeduserlist().equals("")){
 
                     secondUserConfirmed = new ArrayList<>();
                 }
                 else{
-
+                    // split into arraylist
                     secondUserConfirmed = Arrays.asList(secondUser.getconfirmeduserlist().split(","));
                     secondUserConfirmed = new ArrayList<>(secondUserConfirmed);
                 }
 
+                // add each other's id
                 currentUserConfirmed.add(secondUser.getID());
                 secondUserConfirmed.add(currentUser.getID());
                 //Convert list to string
                 String currentUserList;
                 String secondUserList;
+                // if list got more than 1
                 if(currentUserConfirmed.size() > 1) {
                     currentUserList = String.join(",", currentUserConfirmed);
                 }
                 else{
                     currentUserList = currentUserConfirmed.get(0);
                 }
+                // if list got more than 1
                 if(secondUserConfirmed.size() > 1) {
                     secondUserList = String.join(",", secondUserConfirmed);
                 }
@@ -107,7 +111,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                     secondUserList = secondUserConfirmed.get(0);
                 }
 
-
+                // push to database
                 fireRef.child(currentUser.getID()).child("confirmeduserlist").setValue(currentUserList);
                 fireRef.child(secondUser.getID()).child("confirmeduserlist").setValue(secondUserList);
                 deletePending(position, secondUser);
@@ -116,6 +120,7 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 lmudbHandler.saveUser(ctx,currentUser);
             }
         });
+        // decline request, remove from pending list
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override

@@ -21,6 +21,7 @@ public class auViewHolder extends RecyclerView.ViewHolder {
         confirm = view.findViewById(R.id.confirmButton);
         delete = view.findViewById(R.id.deleteButton);
 
+        // on click for profile
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

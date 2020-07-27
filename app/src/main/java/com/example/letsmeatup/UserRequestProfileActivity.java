@@ -66,21 +66,28 @@ public class UserRequestProfileActivity extends AppCompatActivity {
             }
         });
 
+        // get data
         Intent getInfo = getIntent();
+        // get user id
         String userID = getInfo.getStringExtra("id");
         Log.v(TAG, "Info received: " + userID);
+        // query information
         Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+        // wait for read data to finish
         readData(idQuery, new OnGetDataListener() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
-
+                // cast info to acc
                 userAcc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
                 Log.v(TAG, "Username: "+ userAcc.getUsername());
+                // put values into respective variables
                 username.setText(userAcc.getUsername());
+                // no profile picture
                 if(userAcc.getPfp().equals("default")){
                     profilePic.setImageResource(R.mipmap.ic_launcher);
                 }
                 else{
+                    // retrieve from db
                     Glide.with(UserRequestProfileActivity.this).load(userAcc.getPfp()).into(profilePic);
                 }
                 name.setText(userAcc.getFullName());
@@ -117,6 +124,7 @@ public class UserRequestProfileActivity extends AppCompatActivity {
 
     }
 
+    //read data waits for the information to be retrieved from the query in order to run the code afterwards
     public void readData(Query ref, final OnGetDataListener listener) {
         listener.onStart();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -140,6 +148,7 @@ public class UserRequestProfileActivity extends AppCompatActivity {
         void onFailure();
     }
 
+    // back button code
     public void backButton(){
         Intent back = new Intent(UserRequestProfileActivity.this, AcceptUserActivity.class);
         Log.v(TAG, FILENAME+": User pressed the back button.");
