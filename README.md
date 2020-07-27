@@ -66,7 +66,7 @@ Cammy:
 Gek Teng:
 1.  Assisted in app design using Figma
     
-2.  In-charge of Personality Questions, Accept User Requests Function
+2.  In-charge of Personality Questions, Accept User Requests Function, View User Request Profile
     
 3.  In-charge of Figma-to-XML implementation
     
@@ -103,8 +103,8 @@ In the Sign-up or Login Selection page, users can choose between creating a new 
 
 “Let’s Get Started” is an ImageButton, while the “I Have An Account” is a Button.
 
-![](https://lh3.googleusercontent.com/BoI1UfoVfktp-dAJEZJS0W8QxyxJBsJ4PZgNQXKBfrxIZ4wZIRVr9yIRyDBP_-NcMzznDwY3GNCsnDeTLGQkimaRcQLOiEt9n0QqEVKW)
-![](https://lh6.googleusercontent.com/ppLCzODoyTrK08Q728HKbgu2EMgmxQlWnOY5aH5WUUp2Cs_okbpEGH2cTcuVc5iEuijEUCT136KZALwW4LVebDDvVvMSgXaq84q4-vHt)
+![](https://i.postimg.cc/nzKhDw9c/Screenshot-20200727-172822-com-example-letsmeatup.jpg)
+![](https://i.postimg.cc/rpFJbvc7/1.jpg)
 
 
 **Sign-Up (Create User Page 1)**
@@ -116,9 +116,10 @@ After confirming their information, users will be directed to Create User Page 2
 
 All the information entered is recorded into the UserAccounts database using Firebase.
 
-“Full Name” and “Username” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), “Email” uses EditText (Email), “Gender” uses spinner, and “DOB” uses EditText (Date). The “Previous Page Button” and the “Next Page Button” are ImageButtons.
+“Full Name”, “Username” and “DOB” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), “Email” uses EditText (Email) and “Gender” uses spinner. The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
-![](https://lh6.googleusercontent.com/lohr8Cvh6WkXekMqEed_UIBfmaPyKfBTKpRNEZa3Lmd2ermr49q7sLLwAOBSyRsfDTlLlgdJzQ39u3rAsusVygei1syfEuAW2iICdAaR)
+![](https://i.postimg.cc/LsCTMN85/2.jpg)
+![](https://i.postimg.cc/JnsQ7Zsq/3.jpg)
 
 
 **Sign-Up (Create User Page 2)**
@@ -129,7 +130,8 @@ The profile picture will be added to the UserAccount database using Firebase.
 
 The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
-![](https://lh6.googleusercontent.com/3boCj5cSXS6ma3zR0e5BROdROIbr4-p_cnfamH29Z7XBV7t-DrwWyn2zdjkxMjvML0ynJ1cHLzkncSxO9KViz8WDbs4dH4Jy9O70QYPU)
+![](https://i.postimg.cc/BnJcLd8t/4.jpg)
+![](https://i.postimg.cc/Hn54Xm48/5.jpg)
 
 
 **Sign-Up (Create User Page 3)**
@@ -140,7 +142,8 @@ After stating any information needed to be stated, they can confirm their profil
 
 The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
 
-![](https://lh4.googleusercontent.com/JcduxD01c7j-4e1jymRHJ4LdBJe_FD1p27oEH3QNwyXYdIBw_4yQn7C5OCYG06jKA3o0YIy_yTVB_sd0cRYvOdRSpOgTEGLZLWLu65kd)
+![](https://i.postimg.cc/J4VQmyMN/6.jpg)
+![](https://i.postimg.cc/vBCt4T9d/7.jpg)
 
 
 **Sign-Up (Personality Questions RecyclerView page)**
@@ -155,11 +158,11 @@ An error message toast will be shown if there are unanswered questions.
 
 The page is created using RecyclerView where there is a TextView of each question and its selected answer, as well as two answer Buttons to choose from. “Submit” is also a Button.
 
-![](https://lh3.googleusercontent.com/cxoIkMyH9Ck7dZafVZZiCE4njqht4MXS3fdFXu4m0aORo5H3-KrgEVPZtCHsYxjWEj4CxG2mkaoBTsGKCfLmXJZidhYk-Ko0OWLhw_kF)
-![](https://lh6.googleusercontent.com/zdttSbF3CoSx9-Ywu9fr71JO6kSz_Zn8UdoOR8pn1aatbVXHUipszVDzuGNKEG15BsSXt9q-ThkSKdXswNv53LLI2H6zkRiEe6IZmfsP)
-![](https://lh4.googleusercontent.com/PzLrjGmaVbFrN8xrM_qChsPjzJY3mwp7CxkfW10iD-Mdq4uJVMl4sQyIxK4awGWehLTIBA57QMqSLwmntL3zQxsYhrkf2Q7mF8LjXNx2)
-![](https://lh5.googleusercontent.com/dwXPBrGWUQYyv27Wxnzkf5CVGXHD27f62IuiD8HM9gJMEN72Tv4CpxBOF3iIxD4kM6dXLAFRA8zB1S_cPzfi7l1jVXrQ9vHTg2uMfBLn)
-![](https://lh5.googleusercontent.com/yM8o6ANfHchQCduoFJTb-QpiZtxFD7t0n83N92uyQHJqjV9GFH3q0jyEUDYqOte_ZuktMSse3-p9__fZe3wEV6M4G4TIJ70BXgyQaDrL)
+![](https://i.postimg.cc/fTcfbwR6/8.jpg)
+![](https://i.postimg.cc/Kcg5d7Sc/9.jpg)
+![](https://i.postimg.cc/wjF5h0J2/10.jpg)
+![](https://i.postimg.cc/1tVp1Sd7/11.jpg)
+![](https://i.postimg.cc/3NM2K658/12.jpg)
   
 
 **Login Page**
@@ -173,8 +176,8 @@ If the email or password entered is incorrect, a toast error message will be sho
 
 “Username/Email” is an EditText, “Password” uses EditText(Password). The login arrow is an ImageButton.
 
-![](https://lh3.googleusercontent.com/UQWtpp-IxtEpFSDNFdAeRg15A4J4e8fO5sS06XJIj2eiERI0nJtiJp8p9SIlzu2upMEBXnsirWYSE5TqdiuNmxLvki7zQnZiTOJ4fuOR)
-
+![](https://i.postimg.cc/Bv6TNHB0/13.jpg)
+![](https://i.postimg.cc/Wbv0CQwS/14.jpg)
 
 **Forget Password (Page 1)**
 
@@ -182,8 +185,8 @@ The user will be asked to enter either their email. If the email is valid in the
 
 The small “Let’s Meat Up” icon is an ImageView, “Email” is an EditText (Plain Text), the “Next Page Button” and "Back Arrow Button" is an ImageButton.
 
-![](https://lh3.googleusercontent.com/NoBrs3iitg6hdTFRwyG3_O9tnhS8RX4jRhJyvDzi2vKl1g3FZ2fV1LMZ0dYNch6oMhZMQtRSO0PsM510I8ZeGHtNwRDTd0OasGGLjrs)
-
+![](https://i.postimg.cc/Gp5kftXs/15.jpg)
+![](https://i.postimg.cc/d38rDBw8/16.jpg)
 
 **Forget Password (Page 2)**
 
@@ -192,7 +195,7 @@ If the passwords entered are identical, the change will be updated in the databa
 
 “Enter Password” and “Re-enter Password” are EditText(Password), the “Let’s Meat Up” icon is an ImageView, the “Back” button is an ImageView, and the “Next Page” button is an ImageButton.
 
-![](https://lh3.googleusercontent.com/yXOa33oB2EhMfzlN-uVLXR60GtOwsMmdRdNck9SmUuzcN01kXfui45Hz5o4FQEiOzhO4EL93DSA1636IypU04S-fytD65tWtO-6C_tqN)
+![](https://i.postimg.cc/BZDxhqHX/17.jpg)
 
 
 **Forget Password (Page 3)**
@@ -202,7 +205,7 @@ Users will be allowed to redirect themselves to the Login Page, where they will 
 
 The “Let’s Meat Up” icon is an ImageView, “Change of password successful!” is a TextView, and the “Next Page Button” is an ImageButton.
 
-![](https://lh5.googleusercontent.com/5bAO6Sap9X-YIKIfJ7mYLvE6s62y15QHpS9GMVlc4t47OH2G2Qv6soWoQazy3oyygUwGU2-xenirF_XIdw8tnwm3A-ryAFiSPzTFtgfW)
+![](https://i.postimg.cc/YC2YqYVW/18.jpg)
 
 
 **Home (Find new matches/Accept match requests/Profile/Chat Page)**
@@ -213,7 +216,7 @@ Depending on the option they select, the user will either be sent to the Pick Us
 
 The “Pick User”, “Accept User”and “Profile” Buttons at the top left corner are all ImageButtons.
 
-![](https://lh6.googleusercontent.com/LwXQKIhFdwNgg4fZ3TZA8RPX6tlMeedHm5IxqB0QaZVjoDKGsDyS40oXOGWzOMPvx2je0INn1MLZzRTUCnsC1I-on5c8h3ywGhT9oUvh)
+![](https://i.postimg.cc/YCXg4jKy/19.jpg)
 
 
 **Pick User (Find New Matches)**
@@ -226,11 +229,11 @@ If the user selects “Request”, a pop-up will appear to alert the user that t
 
 The “Start”, “Request”, “Ignore” and “Profile” Buttons at the top left corner are all ImageButtons.
 
-![](https://lh3.googleusercontent.com/rPPBxy-AH700SC_cOiDB9llhpBDxTqg1y9OD0ciGjI5r7u6E3x1kO_ezO0gpbvMsyCHkpGQ4Nj0dxzm3wk1ZcRHsKKnwRmp_A815pbw-)
-![](https://lh4.googleusercontent.com/5sxWMNeEqcRpYIwwOd2N9lCuVL3TLfSXaA3whNo17_KZSb6ZmAkXszqkDOLBsbcmv8omUDD16vzhqKjasiEMXUTBCtCIVVqu-DsJ48EQ)
-![](https://lh6.googleusercontent.com/3q_L64X5SJsBkTqK5X8IGwAPcec9-0PANTY3WobVoP7dbk-4v76WJchcr-tiKGdY_WGMiKtFy9x2KBtV_u_n0mUwT28uhGlZa5gXe1PS)
-![](https://lh6.googleusercontent.com/MSpMScoMjSEk8vZVQKj8NxY7ALHU_TPfb3snRfmHA7Bhj8s4s4X9M2NVbzP80RNV4Vt4cghuqNfcuM8LcbYFxpThFFq3vjQ6D9o9viin)
-![](https://lh3.googleusercontent.com/-DEOqLaBv0VNa2L4p2XNt5AlIBJLWTRZM53IxMpQTv2OD96HZ8AAJ4SkxskjysB4NCMQAkyOa1PRuHnVINSMf-qyNi-wHnMFOaecfyR6)
+![](https://i.postimg.cc/tgY6Fy9R/20.jpg)
+![](https://i.postimg.cc/R0yHR807/21.jpg)
+![](https://i.postimg.cc/9M9qNp4v/22.jpg)
+![](https://i.postimg.cc/qqX6pvxw/23.jpg)
+![](https://i.postimg.cc/j2rJV7PC/24.jpg)
 
 
 **View Profile**
@@ -245,8 +248,9 @@ The user can also log out of their account by clicking the Logout button in the 
 
 “Edit” is a Button, while the Logout button is an ImageView.
 
-![](https://lh5.googleusercontent.com/nMwE-OO34BtWMk7OQLsnWFasYcBQoeAaD3pXWqjjdPgZ2JjBUsx9YEjewrJSC7ADmwznJoR5OrMTXVnmGABzMtcIHs-3a3ZgPuyg5NiY)
-
+![](https://i.postimg.cc/44z96WRc/25.jpg)
+![](https://i.postimg.cc/P5qvkhpb/26.jpg)
+![](https://i.postimg.cc/gksL5rJk/27.jpg)
 
 **Edit Profile**
 
@@ -256,8 +260,31 @@ Apart from their email and dietary requirements, the user can edit the rest of t
 
 The Username, Name and Allergy fields are EditText (Plain Text), while the Date Of Birth field is EditText (Date). The gender selection is a spinner, the Email field is a Text View, the Profile Picture is an ImageView, "Confirm" is a Button, and the back arrow is an ImageView.
 
-![](https://lh4.googleusercontent.com/mgP35AhuH1WuG-XKvyVaZnaTa4ZxaWogS3Pm_sTdtfapZh49RKs0axMuoEzUwAU7XDhXpDgKUAECwSssf7YmNqadk2qX835j195q6g2m)
+![](https://i.postimg.cc/yNgJkPTk/28.jpg)
 
+
+**View User Requests**
+
+If the user selects the "Accept User" ImageButton, they will be directed to this page.
+
+This is where users can accept user requests to start to chat. Users can find out more about the other user by pressing on the request. This will direct the user to the View User Request Profile page by Intent.
+
+The Tick Button is an ImageButton that will confirm the user request and the Cross Button is also an ImageButton that declines the user request.
+
+This page is created using RecyclerView where the ProfilePicture is an ImageView while the Username is a TextView.
+
+![](https://i.postimg.cc/gJb0rPJT/42.jpg)
+![](https://i.postimg.cc/gkm6N3GT/29.jpg)
+
+**View User Request Profile**
+
+If the user selects a certain user request, they will be directed to this page.
+
+This is where users can see the information of the user that sent the request.
+
+The Profile Picture is an ImageView while the other fields are TextViews. The back arrow is an ImageButton.
+
+![](https://i.postimg.cc/qvZhJYyP/30.jpg)
 
 **View All Chats**
 
@@ -267,7 +294,9 @@ If the user selects the "Chat" button, they will be directed to this page. If th
 
 This page is created using RecyclerView where the Profile Picture is an ImageView while the Username, Last Message and Time are TextViews.
 
-![](https://lh4.googleusercontent.com/42WGktc0yuNaCURH9VM7mdCTe2CthQxHTGZhmnQCsM0nVh8YwoJA_FEPUDn9NzKT8MQ4goERzAAEZDdtTpXNVLf2CBPabb3mL1__ikIG)
+![](https://i.postimg.cc/SRqj1pbM/31.jpg)
+![](https://i.postimg.cc/vmJ49VPX/32.jpg)
+![](https://i.postimg.cc/ZR6CL52m/33.jpg)
 
 
 **Chat**
@@ -278,11 +307,10 @@ This page will show messages of the 2 users via Firebase. Users will enter a mes
 
 The user Name is a Textview, backArrow, userProfile, sendButton are ImageButtons, the message is a RecyclerView with ImageView to surround the message and the message and time are TextViews.
 
-![](https://lh5.googleusercontent.com/t-vdCkwYHxnuNIkLizgQP7UZNqy3EV8kkWz9O3k1pHq4GSAwPlZfGHYdH6T2gWq0h4ooKlENbwfKlirpz42eq-QFNKvCkRd0SE0xSNR8)
+![](https://i.postimg.cc/xT6q57xX/34.jpg)
+![](https://i.postimg.cc/7PM5GbSM/35.jpg)
+![](https://i.postimg.cc/ZKbCrZck/36.jpg)
 
-
-
-Users will be directed
 
 **Chat Profile Page**
 
@@ -294,7 +322,10 @@ After adding a restaurant to the Suggested Restaurant list, the user can view th
 
 The Username, Name, Age, Gender, Date of Birth, Allergies and Diet are all TextViews while the Profile Picture is an ImageView. The Suggested Restaurant list is a RecyclerView with Textviews. The back arrow is an ImageButton where Add is a Button w/ Background.
 
-![](https://lh3.googleusercontent.com/MYuKa9pXoAlqDXBb5cH54lwFOw939mUQPYQeS5sv-fJ-OIdd7m_vcpiH8oHPw6GCwrjxpMGi-33MZCyAS1VUFdYzis75aujTy319cf-l)
-
+![](https://i.postimg.cc/Jzg0VXWm/37.jpg)
+![](https://i.postimg.cc/dVD3xBp4/38.jpg)
+![](https://i.postimg.cc/ZqdRTqTN/39.jpg)
+![](https://i.postimg.cc/1XJRWnKk/40.jpg)
+![](https://i.postimg.cc/QCXxkkcg/41.jpg)
 
 
