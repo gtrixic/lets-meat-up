@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:792132536236:android:09cd49cdd2045bb6b91c09",
         "android_client_info": {
-          "package_name": "com.example.letsmeatup"
+          "package_name": "lets.meat.up"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "792132536236-dje2bihv5g94o54tfmljvd9scbtkcf4e.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.letsmeatup",
+            "package_name": "lets.meat.up",
             "certificate_hash": "77ec48e7c8b5b24ff916235cb86b517c191b99a9"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "792132536236-f846r5nblo6q1uc82fnfoihmcr2dh4m5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.letsmeatup",
+            "package_name": "lets.meat.up",
             "certificate_hash": "c5a68070b1cfef048991d5210d5ea4df6f9365cb"
           }
         },
@@ -34,7 +34,7 @@
           "client_id": "792132536236-6thr10gisb147cc01oprs00ku5cht0no.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.letsmeatup",
+            "package_name": "lets.meat.up",
             "certificate_hash": "5f9afc6a77818b834c889b8c1ce3358ab9de51ba"
           }
         },
@@ -42,7 +42,7 @@
           "client_id": "792132536236-vtn3vlu671p0uftcrvv6nav5u8se3116.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.letsmeatup",
+            "package_name": "lets.meat.up",
             "certificate_hash": "738baa30e074d12018fde500fa79b2cf9334af59"
           }
         },
