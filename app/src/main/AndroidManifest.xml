@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".EditProfile" />
         <activity android:name=".ChatProfileActivity" />
-        <activity android:name=".AcceptUser2Activity" />
         <activity android:name=".ViewChats" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".UserRequestProfileActivity" />
