@@ -130,6 +130,7 @@ public class getYelpAPI extends AsyncTask<HashMap<String,String>,Void,ArrayList<
 
     @Override
     protected void onPostExecute(final ArrayList<RestaurantData> rData){
+        //get a random restaurant from the random term
         Random ran = new Random();
         int randomVar = ran.nextInt(rData.size());
         final RestaurantData chosen = rData.get(randomVar);

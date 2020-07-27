@@ -74,7 +74,7 @@ public class ChatProfileActivity extends AppCompatActivity {
         back = findViewById(R.id.backArrow3);
         final String IuserID = getIntent().getStringExtra("userid");
         IchatID = getIntent().getStringExtra("chatid");
-
+        //back button
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,10 +91,12 @@ public class ChatProfileActivity extends AppCompatActivity {
         });
         checkSuggestions = false;
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        //add button
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getYelpAPI api = new getYelpAPI(ChatProfileActivity.this, IchatID);
+                //get a random restaurant term
                 Random ran = new Random();
                 String[] terms = new String[]{"Bento", "Desserts", "Nasi Lemak", "Patisserie",
                         "Smokehouse", "Gelato", "Japanese", "Korean", "Chinese", "Malay", "Indian", "Western"};
@@ -112,6 +114,7 @@ public class ChatProfileActivity extends AppCompatActivity {
         fireRef.child(IuserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //setting other user's information
                 AccountData acc = snapshot.getValue(AccountData.class);
                 userID.setText(acc.getUsername());
                 userName.setText(acc.getFullName());
@@ -134,12 +137,15 @@ public class ChatProfileActivity extends AppCompatActivity {
                 userDiet.setText(acc.getDiet());
                 userAllergy.setText(acc.getAllergy());
                 if (acc.getPfp().equals("default")) {
+                    //if no profile pic
                     Log.v("ChatViewAdapter", "Setting default image");
                     profilePic.setImageResource(R.mipmap.ic_launcher);
                 } else {
+                    //using Glide to set pfp
                     Log.v("ChatViewAdapter", "Setting profile picture");
                     Glide.with(ChatProfileActivity.this).load(acc.getPfp()).into(profilePic);
                 }
+                //if got chat
                 if (!IchatID.equals("default")) {
                     displaySuggestions(IchatID);
                 } else {
@@ -152,7 +158,7 @@ public class ChatProfileActivity extends AppCompatActivity {
                     ref.child(key).setValue(chat);
                     IchatID = key;
                     newChatID = key;
-                    //send a message
+                    //creating system message
                     Date currentTime = Calendar.getInstance().getTime();
                     Message userMessage = new Message();
                     userMessage.setSender("System");
@@ -170,27 +176,23 @@ public class ChatProfileActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             displaySuggestions(key);
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         if (!IchatID.equals("default") || newChatID != null){
             if (IchatID.equals("default")) {
                 fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(newChatID);
-
             } else {
                 fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(IchatID);
             }
+            //prevent from making a new chat when accessing displaysuggestions
         fireRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -200,14 +202,13 @@ public class ChatProfileActivity extends AppCompatActivity {
                     displaySuggestions(IchatID);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
     }
+    //display any restaurants already recorded in the database
     private void displaySuggestions(final String chatid){
         restDataList = new ArrayList<>();
         fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions");
@@ -216,11 +217,13 @@ public class ChatProfileActivity extends AppCompatActivity {
         lmudbHandler.readData(fireRef, new LMUDBHandler.OnGetDataListener() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
+                //when adding restaurant, updates realtime
                 restDataList.clear();
                 for(final DataSnapshot s : dataSnapshot.getChildren()){
                     final RestaurantData rd = s.getValue(RestaurantData.class);
                     restDataList.add(rd);
                     sAdapter = new suggestAdapter(restDataList);
+                    //display restaurant information when clicked
                     sAdapter.setOnItemClickListener(new suggestAdapter.OnItemClickListener() {
                         @Override
                         public void ItemClick(int position) {
@@ -234,6 +237,7 @@ public class ChatProfileActivity extends AppCompatActivity {
                         }
                     });
                     suggestRV.setAdapter(sAdapter);
+                    //update realtime
                     sAdapter.notifyDataSetChanged();
                 }
             }
