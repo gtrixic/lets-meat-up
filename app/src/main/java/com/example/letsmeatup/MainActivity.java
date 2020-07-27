@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,10 +25,11 @@ public class MainActivity extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
+                Log.v(TAG,"Going to sign up or login page");
                 startActivity(transition);
                 finish();
             }
-        }, 5000);   //5 seconds transition
+        }, 3000);   //3 seconds transition
 
     }
 }

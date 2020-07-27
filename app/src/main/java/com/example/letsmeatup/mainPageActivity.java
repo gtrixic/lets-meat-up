@@ -22,12 +22,14 @@ public class mainPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //setting vars
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         pickUser = findViewById(R.id.pickUserButton);
         userProfile = findViewById(R.id.profileButton);
         viewUsers = findViewById(R.id.acceptUserButton);
         chatButton = findViewById(R.id.chatButton);
+        //onclicks for gg to intents
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +63,7 @@ public class mainPageActivity extends AppCompatActivity {
         Log.v(TAG,FILENAME+": User wishes to pick a user.");
         startActivity(pick);
     }
-
+    //goes to view requests
     public void viewUserRequests(){
         Intent viewRequests = new Intent(mainPageActivity.this, AcceptUserActivity.class);
         Log.v(TAG, FILENAME+": User wishes to view user requests.");
