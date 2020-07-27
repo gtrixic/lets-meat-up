@@ -1,8 +1,10 @@
 package com.example.letsmeatup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class SignupOrLoginActivity extends AppCompatActivity {
     public Button createButton;
     public Button loginButton;
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "SignupOrLoginActivity.java";
     private LMUDBHandler db;
+    DatabaseReference fireRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,19 @@ public class SignupOrLoginActivity extends AppCompatActivity {
             Log.v(TAG,Boolean.toString(db.getLogin(this)));
 
             if(db.getLogin(this)){
+                //resave data
+                fireRef = FirebaseDatabase.getInstance().getReference().child("Users").child(db.getUserDetail(this,"id"));
+                fireRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        db.saveUser(SignupOrLoginActivity.this,snapshot.getValue(AccountData.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 Intent intent = new Intent(SignupOrLoginActivity.this, mainPageActivity.class);
                 startActivity(intent);
             }
