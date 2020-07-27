@@ -61,9 +61,11 @@ public class UserProfile extends AppCompatActivity {
         SignOut = findViewById(R.id.SignOutButton);
         back = findViewById(R.id.backArrow);
 
+        //back to home page (find new matches/accept match requests/profile/chat page)
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //go back to mainPageActivity.java
                 Intent intent = new Intent(UserProfile.this,mainPageActivity.class);
                 startActivity(intent);
             }
@@ -84,7 +86,7 @@ public class UserProfile extends AppCompatActivity {
         String stDate = dbHandler.getUserDetail(this,"dob");
         Date date = new Date();
         Date c = Calendar.getInstance().getTime();
-        // getting age from dob
+        //get age from dob
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             date = format.parse(stDate);
@@ -113,11 +115,13 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+        //logout of account
         SignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dbHandler = new LMUDBHandler(UserProfile.this);
                 dbHandler.signOut(UserProfile.this);
+                //go back to LoginActivity.java
                 Intent signout = new Intent(UserProfile.this,LoginActivity.class);
                 startActivity(signout);
             }

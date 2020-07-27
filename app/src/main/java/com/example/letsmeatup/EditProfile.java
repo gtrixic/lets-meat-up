@@ -52,7 +52,6 @@ public class EditProfile extends AppCompatActivity {
     AccountData currentUser;
     DatabaseReference databaseReference;
     StorageReference storageReference;
-    FirebaseAuth mAuth;
     LMUDBHandler dbhandler;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;
@@ -79,7 +78,6 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
 
-
         etUsername = findViewById(R.id.editUsername);
         etName = findViewById(R.id.editName);
         etEmail = findViewById(R.id.editEmail);
@@ -94,7 +92,7 @@ public class EditProfile extends AppCompatActivity {
         etEmail.setText(currentUser.getEmail());
         etDob.setText(currentUser.getDob());
         etAllergies.setText(currentUser.getAllergy());
-        //set etpfp to pfp if available
+        //set etPfp to pfp if available
         if(dbhandler.returnUser(this).getPfp().equals("default")){
             etPfp.setImageResource(R.drawable.image_box);
         }
@@ -138,13 +136,14 @@ public class EditProfile extends AppCompatActivity {
                     }
                 }
                 if (allInputFilled && genderSelected != null) {
+                    //regex for dob
                     final Pattern regex =
                             Pattern.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
                     if (regex.matcher(etDob.getText().toString()).matches()){
-                            //TODO:Loading screen
                             //do upload image
                             Log.v(TAG, "Uploading image!");
                         dbhandler.uploadImage(EditProfile.this, FilePath, storageReference, null);
+                        //get ID of current user
                         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(dbhandler.returnUser(EditProfile.this).getID());
                         final AccountData accountData = dbhandler.returnUser(EditProfile.this);
                         accountData.setUsername(etUsername.getText().toString());
@@ -182,7 +181,6 @@ public class EditProfile extends AppCompatActivity {
                 }
                     else{
                         Toast.makeText(EditProfile.this,"Invalid date!",Toast.LENGTH_SHORT).show();
-
                     }
             }
                 else if(allInputFilled == false){
@@ -191,7 +189,6 @@ public class EditProfile extends AppCompatActivity {
                 else{
                     Toast.makeText(EditProfile.this,"An error has occurred.",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -233,34 +230,4 @@ public class EditProfile extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST);
     }
-
-
-    /*//confirm changes popup
-    private void confirmChanges(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmation");
-        builder.setMessage("Confirm changes?");
-        builder.setCancelable(false);
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.v(TAG, "User declined");
-            }
-        });
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.v(TAG, "User accepts");
-                returnToUserProfile();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    //go back to UserProfile.java
-    private void returnToUserProfile(){
-        Intent intent = new Intent(EditProfile.this, UserProfile.class);
-        startActivity(intent);
-    }*/
 }
