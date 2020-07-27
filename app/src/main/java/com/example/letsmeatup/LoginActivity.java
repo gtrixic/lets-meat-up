@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                         } else {
+                                            loadingDialog.dismissDialog();
                                             // If sign in fails, display a message to the user.
                                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                                             Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_SHORT).show();
