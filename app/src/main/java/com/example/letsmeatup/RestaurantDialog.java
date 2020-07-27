@@ -30,6 +30,7 @@ public class RestaurantDialog extends Dialog implements android.view.View.OnClic
     private String rAddr;
     private String rType;
     private String rUrl;
+    //custom get random restaurant dialog
     public RestaurantDialog(Context a, RestaurantData rData, String chatID ){
         super(a);
         this.c = a;

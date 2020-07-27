@@ -36,7 +36,6 @@ public class SignupOrLoginActivity extends AppCompatActivity {
         db = new LMUDBHandler(this);
         if(db.checkLoginstatus(this)){
             Log.v(TAG,Boolean.toString(db.getLogin(this)));
-
             if(db.getLogin(this)){
                 //resave data
                 fireRef = FirebaseDatabase.getInstance().getReference().child("Users").child(db.getUserDetail(this,"id"));
@@ -45,10 +44,8 @@ public class SignupOrLoginActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         db.saveUser(SignupOrLoginActivity.this,snapshot.getValue(AccountData.class));
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
                 Intent intent = new Intent(SignupOrLoginActivity.this, mainPageActivity.class);
@@ -57,9 +54,7 @@ public class SignupOrLoginActivity extends AppCompatActivity {
         }
     }
     public void onStart(){
-
         super.onStart();
-
     }
     private void CreateAccount(){ //from this page to UserSignUpActivity page
         Intent create = new Intent(SignupOrLoginActivity.this,UserSignUpActivity.class);

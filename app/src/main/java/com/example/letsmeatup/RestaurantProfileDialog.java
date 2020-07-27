@@ -29,6 +29,7 @@ public class RestaurantProfileDialog extends Dialog implements android.view.View
     private String rAddr;
     private String rType;
     private String rUrl;
+    //custom specific restaurant profile dialog
     public RestaurantProfileDialog(Context a, RestaurantData rData, String chatID){
         super(a);
         this.c = a;

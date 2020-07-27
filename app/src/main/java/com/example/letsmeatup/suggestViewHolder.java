@@ -11,6 +11,7 @@ public class suggestViewHolder extends RecyclerView.ViewHolder {
     public suggestViewHolder(View view,final suggestAdapter.OnItemClickListener onItemClickListener){
         super(view);
         suggestedRest = view.findViewById(R.id.suggestedName);
+        //when restaurant is clicked
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

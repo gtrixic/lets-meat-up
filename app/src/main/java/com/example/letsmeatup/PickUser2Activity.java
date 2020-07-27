@@ -93,6 +93,7 @@ public class PickUser2Activity extends AppCompatActivity {
         isUser[0] = false;
         Log.v(TAG, "Finding matching ID...");
         fireRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        //get users with matching matchid
         fireRef.orderByChild("matchid").equalTo(firstUser.getMatchid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -102,12 +103,14 @@ public class PickUser2Activity extends AppCompatActivity {
                 }
                 while (!isUser[0]) {
                     int count = accList.size();
+                    //get a random user
                     Random ran = new Random();
                     int randomMatchID = ran.nextInt(count);
                     queryData[0] = accList.get(randomMatchID);
                     Boolean queryPending = null;
                     Boolean queryConfirmed = null;
                     boolean queryAppear = true;
+                    //users on pending/confirmed list will not appear
 
                     if(queryData[0].getpendinguserlist()!= null){
                         queryPending = queryData[0].getpendinguserlist().contains(firstUser.getID());
@@ -213,7 +216,7 @@ public class PickUser2Activity extends AppCompatActivity {
         AlertDialog alert = ign.create();
         alert.show();
     }
-    public void loading(){
+    public void loading(){ //when first launching the pickuseractivity
         loadingDialog.startLoadingDialog();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -223,7 +226,7 @@ public class PickUser2Activity extends AppCompatActivity {
             }
         },3000);
     }
-    public void quickloading(){
+    public void quickloading(){ //when user wants to ignore and choose a diff user
         loadingDialog.startLoadingDialog();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

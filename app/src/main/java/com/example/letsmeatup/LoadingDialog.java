@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
 public class LoadingDialog {
+    //used for loading
     private Activity activity;
     private AlertDialog dialog;
     LoadingDialog(Activity myActivity){
