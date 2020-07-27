@@ -134,6 +134,8 @@ public class ChatProfileActivity extends AppCompatActivity {
                 userAge.setText(strAge);
                 userGender.setText(acc.getGender());
                 userDOB.setText(acc.getDob());
+                userDiet.setText(acc.getDiet());
+                userAllergy.setText(acc.getAllergy());
                 if (acc.getPfp().equals("default")) {
                     Log.v("ChatViewAdapter", "Setting default image");
                     profilePic.setImageResource(R.mipmap.ic_launcher);
