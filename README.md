@@ -103,16 +103,16 @@ After confirming their information, users will be directed to Create User Page 2
 
 All the information entered is recorded into the UserAccounts database using Firebase.
 
-“Full Name”, “Username” and “Sexual Preference” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), “Email” uses EditText (Email), “Gender” uses spinner, and “DOB” uses EditText (Date). The “Previous Page Button” and the “Next Page Button” are ImageButtons.
+“Full Name” and “Username” uses EditText (Plain Text), “Password” and “Re-enter Password” uses EditText (Password), “Email” uses EditText (Email), “Gender” uses spinner, and “DOB” uses EditText (Date). The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
 ![](https://lh6.googleusercontent.com/lohr8Cvh6WkXekMqEed_UIBfmaPyKfBTKpRNEZa3Lmd2ermr49q7sLLwAOBSyRsfDTlLlgdJzQ39u3rAsusVygei1syfEuAW2iICdAaR)
 
 
 **Sign-Up (Create User Page 2)**
 
-In this page, the user will be prompted to add a profile picture for their account. They can press the “Next Page” Button to go to Create User Page 3 after doing so.
+In this page, the user can choose to add a profile picture for their account. They can press the “Next Page” Button to go to Create User Page 3 after doing so.
 
-The profile picture will be added to the UserAccount database using Firebase and SQLite.
+The profile picture will be added to the UserAccount database using Firebase.
 
 The “Previous Page Button” and the “Next Page Button” are ImageButtons.
 
@@ -135,6 +135,7 @@ The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If A
 Users will be asked to answer some simple personality questions. Upon submitting their responses, the user will be redirected to the main page of the app.
 
 The options chosen will be translated into a code (matchID), which will be tagged to each user. It will be used to compare with other users’ code tags (matchID). The more similar the code tags, the higher the chance of being matched.
+
 This enables the matching of like-minded users.
 
 An error message toast will be shown if there are unanswered questions.
@@ -164,9 +165,9 @@ If the email or password entered is incorrect, a toast error message will be sho
 
 **Forget Password (Page 1)**
 
-The user will be asked to enter either their username or email. If the username or email is valid in the database, they will be directed to the next page using Intent.
+The user will be asked to enter either their email. If the email is valid in the database, they will be directed to the next page using Intent.
 
-The small “Let’s Meat Up” icon is an ImageView, “Username/Email” is an EditText (Plain Text), the “Next Page Button” and "Back Arrow Button" is an ImageButton.
+The small “Let’s Meat Up” icon is an ImageView, “Email” is an EditText (Plain Text), the “Next Page Button” and "Back Arrow Button" is an ImageButton.
 
 ![](https://lh3.googleusercontent.com/NoBrs3iitg6hdTFRwyG3_O9tnhS8RX4jRhJyvDzi2vKl1g3FZ2fV1LMZ0dYNch6oMhZMQtRSO0PsM510I8ZeGHtNwRDTd0OasGGLjrs)
 
@@ -191,13 +192,13 @@ The “Let’s Meat Up” icon is an ImageView, “Change of password successful
 ![](https://lh5.googleusercontent.com/5bAO6Sap9X-YIKIfJ7mYLvE6s62y15QHpS9GMVlc4t47OH2G2Qv6soWoQazy3oyygUwGU2-xenirF_XIdw8tnwm3A-ryAFiSPzTFtgfW)
 
 
-**Home (Find new matches/Accept match requests/Profile/Chat/Help Page)**
+**Home (Find new matches/Accept match requests/Profile/Chat Page)**
 
 After the user successfully logs in to their account, they will be directed to this page where they can find new people to match with or accept incoming match requests.
 
 Depending on the option they select, the user will either be sent to the Pick User page or the Incoming Requests page through the use of Intent.
 
-The “Pick User”, “Accept User”and “Profile” Buttons at the top left corner, as well as the “Help Button” at the top right corner are all ImageButtons.
+The “Pick User”, “Accept User”and “Profile” Buttons at the top left corner are all ImageButtons.
 
 ![](https://lh6.googleusercontent.com/LwXQKIhFdwNgg4fZ3TZA8RPX6tlMeedHm5IxqB0QaZVjoDKGsDyS40oXOGWzOMPvx2je0INn1MLZzRTUCnsC1I-on5c8h3ywGhT9oUvh)
 
@@ -210,7 +211,7 @@ Upon pressing “Start”, a match for the user will be generated based on the u
 
 If the user selects “Request”, a pop-up will appear to alert the user that the request has been sent. The pop-up also allows the user to choose if they want to return to the home screen or continue searching for more matches.
 
-The “Start”, “Request”, “Ignore” and “Profile” Buttons at the top left corner, as well as the “Help Button” at the top right corner are all ImageButtons.
+The “Start”, “Request”, “Ignore” and “Profile” Buttons at the top left corner are all ImageButtons.
 
 ![](https://lh3.googleusercontent.com/rPPBxy-AH700SC_cOiDB9llhpBDxTqg1y9OD0ciGjI5r7u6E3x1kO_ezO0gpbvMsyCHkpGQ4Nj0dxzm3wk1ZcRHsKKnwRmp_A815pbw-)
 ![](https://lh4.googleusercontent.com/5sxWMNeEqcRpYIwwOd2N9lCuVL3TLfSXaA3whNo17_KZSb6ZmAkXszqkDOLBsbcmv8omUDD16vzhqKjasiEMXUTBCtCIVVqu-DsJ48EQ)
@@ -227,9 +228,9 @@ On this page, the user can view their own profile, which consists of their Profi
 
 The user can edit their profile information through clicking the “Edit” Button, which will direct them to the Edit Profile Page via Intent.
 
-The user can also log out of their account by clicking the “Logout” button in the top right corner, which will direct them back to the login page via Intent.
+The user can also log out of their account by clicking the Logout button in the top right corner, which will direct them back to the login page via Intent.
 
-“Edit” is a Button, while the “Logout” button is an ImageView.
+“Edit” is a Button, while the Logout button is an ImageView.
 
 ![](https://lh5.googleusercontent.com/nMwE-OO34BtWMk7OQLsnWFasYcBQoeAaD3pXWqjjdPgZ2JjBUsx9YEjewrJSC7ADmwznJoR5OrMTXVnmGABzMtcIHs-3a3ZgPuyg5NiY)
 
@@ -245,23 +246,33 @@ The Username, Name and Allergy fields are EditText (Plain Text), while the Date 
 ![](https://lh4.googleusercontent.com/mgP35AhuH1WuG-XKvyVaZnaTa4ZxaWogS3Pm_sTdtfapZh49RKs0axMuoEzUwAU7XDhXpDgKUAECwSssf7YmNqadk2qX835j195q6g2m)
 
 
-**Chat**
+**View All Chats**
 
-If the user selects the "Chat" button, they will be directed to this page.
+If the user selects the "Chat" button, they will be directed to this page. If the user confirms a user request, the two users will be able to use this function.
 
-On this page, the user can view all their existing chats with their matches, as well as click into their match’s profile to view a Suggested Restaurants list
-
-Upon clicking the “Add” button, a random restaurant will be generated and the user can opt to reject or add the suggested restaurant into the Suggested Restaurants list.
+This page is created using RecyclerView where the Profile Picture is an ImageView while the Username, Last Message and Time are TextViews.
 
 ![](https://lh4.googleusercontent.com/42WGktc0yuNaCURH9VM7mdCTe2CthQxHTGZhmnQCsM0nVh8YwoJA_FEPUDn9NzKT8MQ4goERzAAEZDdtTpXNVLf2CBPabb3mL1__ikIG)
+
+
+**Chat**
+
+Users will be directed to this page when the user selects a chat.
+
+
 ![](https://lh3.googleusercontent.com/MYuKa9pXoAlqDXBb5cH54lwFOw939mUQPYQeS5sv-fJ-OIdd7m_vcpiH8oHPw6GCwrjxpMGi-33MZCyAS1VUFdYzis75aujTy319cf-l)
+
+**Chat Profile Page**
+
+If the user selects the Profile Button on the top right hand corner of the chat page, they will be directed to this page.
+
+This page shows the profile details of the other user that the user is chatting with. There is also a Suggested Restaurants list feature, where both users can add to it by pressing the Add Button. A random restaurant will be shown to the user, and the user can choose to add it to the list, or reject it.
+
+After adding a restaurant to the Suggested Restaurant list, the user can view the restaurant address by pressing the restaurant name in the list. To get directions to the restaurant, the user can press the Get Directions Button and Google Maps will open with the location.
+
+The Username, Name, Age, Gender, Date of Birth, Allergies and Diet are all TextViews while the Profile Picture is an ImageView. The Suggested Restaurant list is a RecyclerView with Textviews. The back arrow and Add are ImageButtons.
+
 ![](https://lh5.googleusercontent.com/t-vdCkwYHxnuNIkLizgQP7UZNqy3EV8kkWz9O3k1pHq4GSAwPlZfGHYdH6T2gWq0h4ooKlENbwfKlirpz42eq-QFNKvCkRd0SE0xSNR8)
 
-
-**View Reservations (User Account)**
-
-If the user holds a user account and chooses to view reservations, they will be directed to this page.
-
-Reservations will be displayed as a numbered list. Each reservation will show the matched user&#39;s username, restaurant name, meeting time and date.
 
 
