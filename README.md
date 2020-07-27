@@ -32,7 +32,7 @@ Get to know each other and plan to meet up through our chat function! This enabl
 
 Suggested Restaurants List:
 
-Having trouble looking for a good place to eat at? Fret not - we have a solution! Simply add your favourite restaurants to the Suggested Restaurants list so that your partner can view your preferred locations. You can take a look at your partner’s list too! Fuss-free and efficient, this makes deciding on a place to eat much simpler.
+Having trouble looking for a good place to eat at? Fret not - we have a solution! Browse through the many restaurants we have in our application, and simply add your favourites to a Suggested Restaurants list shared between you and your partner. Fuss-free and efficient, this makes deciding on a place to eat much simpler.
 
 
 **Roles & Contributions of Members:**
@@ -183,13 +183,13 @@ This page will show up in the case of a successful change of password in the dat
 ![](https://lh5.googleusercontent.com/5bAO6Sap9X-YIKIfJ7mYLvE6s62y15QHpS9GMVlc4t47OH2G2Qv6soWoQazy3oyygUwGU2-xenirF_XIdw8tnwm3A-ryAFiSPzTFtgfW)
 
 
-**Home (Find new matches/Accept match requests/Profile/Chat/Help Page)**
+**Home (Find new matches/Accept match requests/Profile/Chat Page)**
 
 After the user holding a user account successfully logs in to their account, they will be directed to this page where they can either find new people to match with or accept incoming match requests.
 
 Depending on which option they select, the user will be sent to either the Random User page or the View User Requests page through the use of Intent.
 
-“Pick User”, “Accept User”, “Profile Button” at the top left corner, “Help Button” at the top right corner and "Chat Button" at the bottom right corner are all ImageButtons.
+“Pick User”, “Accept User”, “Profile Button” at the top left corner and "Chat Button" at the bottom right corner are all ImageButtons.
 
 ![](https://lh6.googleusercontent.com/LwXQKIhFdwNgg4fZ3TZA8RPX6tlMeedHm5IxqB0QaZVjoDKGsDyS40oXOGWzOMPvx2je0INn1MLZzRTUCnsC1I-on5c8h3ywGhT9oUvh)
 
@@ -202,7 +202,7 @@ Upon pressing &quot;Start&quot;, a match for the user will be generated based on
 
 If the user selects &quot;Request&quot;, a pop-up will appear to alert the user that the request has been sent. The pop-up also allows the user to choose if they want to return to the home screen or continue searching for more matches.
 
-“Start”, “Request”, “Ignore”, “Profile Button” at the top left corner and “Help Button” at the top right corner are all ImageButtons.
+“Start”, “Request”, “Ignore”, “Profile Button” at the top left corner are all ImageButtons.
 
 ![](https://lh3.googleusercontent.com/rPPBxy-AH700SC_cOiDB9llhpBDxTqg1y9OD0ciGjI5r7u6E3x1kO_ezO0gpbvMsyCHkpGQ4Nj0dxzm3wk1ZcRHsKKnwRmp_A815pbw-)
 ![](https://lh4.googleusercontent.com/5sxWMNeEqcRpYIwwOd2N9lCuVL3TLfSXaA3whNo17_KZSb6ZmAkXszqkDOLBsbcmv8omUDD16vzhqKjasiEMXUTBCtCIVVqu-DsJ48EQ)
@@ -219,7 +219,7 @@ On this page, the user can view their profile, where their Profile Picture, User
 
 The user can also edit their profile or log out of their account here. By pressing the buttons, they will be taken to the respective pages through the use of Intent.
 
-Both “Edit” and “Sign Out” are Buttons.
+“Edit” is a Button and “Sign Out” is an ImageButtons.
 
 ![](https://lh5.googleusercontent.com/nMwE-OO34BtWMk7OQLsnWFasYcBQoeAaD3pXWqjjdPgZ2JjBUsx9YEjewrJSC7ADmwznJoR5OrMTXVnmGABzMtcIHs-3a3ZgPuyg5NiY)
 
@@ -262,6 +262,8 @@ If the user selects the Profile Button on the top right hand corner of the chat 
 This page shows the profile details of the other user that the user is chatting with. There is also a Suggested Restaurants list feature, where both users can add to it by pressing the Add Button. A random restaurant will be shown to the user, and the user can choose to add it to the list, or reject it. 
 
 After adding a restaurant to the Suggested Restaurant list, the user can view the restaurant address by pressing the restaurant name in the list. To get directions to the restaurant, the user can press the Get Directions Button and Google Maps will open with the location.
+
+The Username, Name, Age, Gender, Date of Birth, Allergies and Diet are all TextViews while the Profile Picture is an ImageView. The Suggested Restaurant list is a RecyclerView with Textviews. The back arrow and Add are ImageButtons.
 
 ![](https://lh5.googleusercontent.com/t-vdCkwYHxnuNIkLizgQP7UZNqy3EV8kkWz9O3k1pHq4GSAwPlZfGHYdH6T2gWq0h4ooKlENbwfKlirpz42eq-QFNKvCkRd0SE0xSNR8)
 
