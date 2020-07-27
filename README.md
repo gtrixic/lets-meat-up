@@ -15,7 +15,7 @@
 
 **App Description:**
 
-An assignment for partial fulfilment of the coursework of Mobile Applications Development AY2020/21 in Ngee Ann Polytechnic.
+*An assignment for partial fulfilment of the coursework of Mobile Applications Development AY2020/21 in Ngee Ann Polytechnic*
 
 Love food? Let’s Meat Up!
 Find food buddies, forge new friendships and dine at unique places with this easy-to-use food/social app. It’s the perfect platform for you to expand your social circle!
