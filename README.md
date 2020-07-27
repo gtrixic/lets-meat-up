@@ -140,7 +140,7 @@ Upon being directed to this page, the user will be prompted to state their aller
 
 After stating any information needed to be stated, they can confirm their profile and be redirected to the Personality Questions Page.
 
-The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences and the “Diet” input are EditText (Plain Text), “Confirm Profile” is a Button.
+The “Previous Page Button” is an ImageButton, “Allergies/Preferences (If Any)” is a TextView, the box to enter their allergies/preferences is a EditText (Plain Text), "Diet" is a spinner and “Confirm Profile” is a Button.
 
 ![](https://i.postimg.cc/J4VQmyMN/6.jpg)
 ![](https://i.postimg.cc/vBCt4T9d/7.jpg)
@@ -168,20 +168,20 @@ The page is created using RecyclerView where there is a TextView of each questio
 **Login Page**
 
 Users will be directed to this page if they have selected the “I HAVE AN ACCOUNT” Button.
-They are required to enter either the username or email and password that corresponds to their account.
+They are required to enter the email and password that corresponds to their account.
 
 All information is checked against the database that was created using Firebase.
 
 If the email or password entered is incorrect, a toast error message will be shown.
 
-“Username/Email” is an EditText, “Password” uses EditText(Password). The login arrow is an ImageButton.
+“Email” is an EditText, “Password” uses EditText(Password). The login arrow is an ImageButton.
 
 ![](https://i.postimg.cc/Bv6TNHB0/13.jpg)
 ![](https://i.postimg.cc/Wbv0CQwS/14.jpg)
 
 **Forget Password (Page 1)**
 
-The user will be asked to enter either their email. If the email is valid in the database, they will be directed to the next page using Intent.
+The user will be asked to enter their email. If the email is valid in the database, they will be directed to the next page using Intent.
 
 The small “Let’s Meat Up” icon is an ImageView, “Email” is an EditText (Plain Text), the “Next Page Button” and "Back Arrow Button" is an ImageButton.
 
@@ -214,7 +214,7 @@ After the user successfully logs in to their account, they will be directed to t
 
 Depending on the option they select, the user will either be sent to the Pick User page or the Incoming Requests page through the use of Intent.
 
-The “Pick User”, “Accept User”and “Profile” Buttons at the top left corner are all ImageButtons.
+“Pick User”, “Accept User”, “Profile” and "Chat" are all ImageButtons.
 
 ![](https://i.postimg.cc/YCXg4jKy/19.jpg)
 
@@ -223,11 +223,11 @@ The “Pick User”, “Accept User”and “Profile” Buttons at the top left 
 
 The user will be directed here If they select the “Pick User” Button.
 
-Upon pressing “Start”, a match for the user will be generated based on the users’ code tags (matchID). When a match is found, the name, age, gender of the matched user will be displayed. The user is then given the option to send a request or ignore the matched user.
+Upon pressing “Start”, a match for the user will be generated based on the users’ code tags (matchID). When a match is found, the name, age, gender, profile picture and allergies of the matched user will be displayed. The user is then given the option to send a request or ignore the matched user.
 
 If the user selects “Request”, a pop-up will appear to alert the user that the request has been sent. The pop-up also allows the user to choose if they want to return to the home screen or continue searching for more matches.
 
-The “Start”, “Request”, “Ignore” and “Profile” Buttons at the top left corner are all ImageButtons.
+“Start”, “Request”, “Ignore” and “Profile” are all ImageButtons. While the information texts are TextViews, the Profile Picture is an ImageView.
 
 ![](https://i.postimg.cc/tgY6Fy9R/20.jpg)
 ![](https://i.postimg.cc/R0yHR807/21.jpg)
@@ -246,7 +246,7 @@ The user can edit their profile information through clicking the “Edit” Butt
 
 The user can also log out of their account by clicking the Logout button in the top right corner, which will direct them back to the login page via Intent.
 
-“Edit” is a Button, while the Logout button is an ImageView.
+“Edit” is a Button, while the Logout button is an ImageButton. While the information texts are TextViews, the Profile Picture is an ImageView.
 
 ![](https://i.postimg.cc/44z96WRc/25.jpg)
 ![](https://i.postimg.cc/P5qvkhpb/26.jpg)
@@ -258,7 +258,7 @@ If the user selects the "Edit" button, they will be directed to this page.
 
 Apart from their email and dietary requirements, the user can edit the rest of their profile details on this page.
 
-The Username, Name and Allergy fields are EditText (Plain Text), while the Date Of Birth field is EditText (Date). The gender selection is a spinner, the Email field is a Text View, the Profile Picture is an ImageView, "Confirm" is a Button, and the back arrow is an ImageView.
+The Username, Name, Allergy and Date Of Birth fields are EditText(Plain Text).The gender selection is a spinner, the Email field is a TextView, the Profile Picture is an ImageView, "Confirm" is a Button, and the back arrow is an ImageView.
 
 ![](https://i.postimg.cc/yNgJkPTk/28.jpg)
 
@@ -290,7 +290,7 @@ The Profile Picture is an ImageView while the other fields are TextViews. The ba
 
 This page shows the chats of users that has accepted their request or users that they have accepted. The user can then select a user to begin/continue chatting with.
 
-If the user selects the "Chat" button, they will be directed to this page. If the user confirms a user request, the two users will be able to use this function.
+If the user selects the "Chat" button, they will be directed to this page. When user confirms a user request, both users will be able to use this function.
 
 This page is created using RecyclerView where the Profile Picture is an ImageView while the Username, Last Message and Time are TextViews.
 
@@ -303,7 +303,7 @@ This page is created using RecyclerView where the Profile Picture is an ImageVie
 
 Users will be directed to this page when the user selects a chat.
 
-This page will show messages of the 2 users via Firebase. Users will enter a message in the EditText box and clicked send, the Message recyclerView will update Real-Time. Their message will pop up in a pink message box while their partner's messages will pop up in a grey message box. Their messages will appear with a Time that follows the time the message is sent.
+This page will show messages of the 2 users via Firebase. Users can enter a message in the EditText box and click send, and the Message recyclerView will update Real-Time. Users' message will show in a pink message box while their partner's messages will show in a grey message box. Their messages will appear with a timestamp that follows the time the message is sent.
 
 The user Name is a Textview, backArrow, userProfile, sendButton are ImageButtons, the message is a RecyclerView with ImageView to surround the message and the message and time are TextViews.
 
