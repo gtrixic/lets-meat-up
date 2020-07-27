@@ -17,6 +17,7 @@
         android:paddingBottom="10dp"
         android:text="Lorem"
         android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="#FFD7E9"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +76,7 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/textView7"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restType" />
 
@@ -89,13 +90,13 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/restType" />
 
     <TextView
         android:id="@+id/empty"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -105,7 +106,8 @@
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:text="     "
         app:layout_constraintBottom_toTopOf="@+id/empty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

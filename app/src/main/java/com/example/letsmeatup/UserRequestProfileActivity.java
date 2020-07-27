@@ -81,7 +81,7 @@ public class UserRequestProfileActivity extends AppCompatActivity {
                     profilePic.setImageResource(R.mipmap.ic_launcher);
                 }
                 else{
-                    Glide.with(ctx).load(userAcc.getPfp()).into(profilePic);
+                    Glide.with(UserRequestProfileActivity.this).load(userAcc.getPfp()).into(profilePic);
                 }
                 name.setText(userAcc.getFullName());
                 String stDate = userAcc.getDob();

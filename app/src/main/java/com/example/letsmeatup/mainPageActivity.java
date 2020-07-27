@@ -8,12 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class mainPageActivity extends AppCompatActivity {
-    ImageButton pickUser;
+    Button pickUser;
     ImageButton userProfile;
-    ImageButton viewUsers;
+    Button viewUsers;
     ImageButton chatButton;
     private static final String TAG = "Let's-Meat-Up";
     private String FILENAME = "mainPageActivity.java";

@@ -60,8 +60,12 @@
         app:srcCompat="@drawable/line" />
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,8 +156,8 @@
 
             <Button
                 android:id="@+id/confirmButton"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_border"
                 android:ems="10"
                 android:fontFamily="@font/josefinsanslight"
