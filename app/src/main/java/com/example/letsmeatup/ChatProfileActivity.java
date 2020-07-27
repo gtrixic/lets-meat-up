@@ -78,15 +78,12 @@ public class ChatProfileActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("yes", "IchatID : " + IchatID);
                 Intent intent = new Intent(ChatProfileActivity.this, MessageActivity.class);
                 intent.putExtra("userid", IuserID);
                 if (IchatID.equals("default")) {
                     intent.putExtra("chatid", newChatID);
-                    Log.v("yes", "CASE 1");
                 } else {
                     intent.putExtra("chatid", IchatID);
-                    Log.v("yes", "CASE 3");
 
                 }
                 startActivity(intent);
@@ -144,7 +141,6 @@ public class ChatProfileActivity extends AppCompatActivity {
                     Glide.with(ChatProfileActivity.this).load(acc.getPfp()).into(profilePic);
                 }
                 if (!IchatID.equals("default")) {
-                    Log.v("yes", "IchatID : " + IchatID);
                     displaySuggestions(IchatID);
                 } else {
                     //create chat class and post
@@ -213,7 +209,6 @@ public class ChatProfileActivity extends AppCompatActivity {
     }
     }
     private void displaySuggestions(final String chatid){
-        Log.v(TAG,"Displaying Suggestions");
         restDataList = new ArrayList<>();
         fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions");
         suggestRV.setLayoutManager(new LinearLayoutManager(ChatProfileActivity.this));
@@ -225,8 +220,6 @@ public class ChatProfileActivity extends AppCompatActivity {
                 for(final DataSnapshot s : dataSnapshot.getChildren()){
                     final RestaurantData rd = s.getValue(RestaurantData.class);
                     restDataList.add(rd);
-                    Log.v(TAG, String.valueOf(s.getValue(RestaurantData.class).getRestaurantName()));
-                    Log.v(TAG, String.valueOf(restDataList.size()));
                     sAdapter = new suggestAdapter(restDataList);
                     sAdapter.setOnItemClickListener(new suggestAdapter.OnItemClickListener() {
                         @Override

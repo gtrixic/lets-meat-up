@@ -72,7 +72,7 @@ public class EditProfile extends AppCompatActivity {
     private static final int IMAGE_REQUEST = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         dbhandler = new LMUDBHandler(this);
@@ -95,10 +95,9 @@ public class EditProfile extends AppCompatActivity {
         etDob.setText(currentUser.getDob());
         etAllergies.setText(currentUser.getAllergy());
         //set etpfp to pfp if available
-        if(dbhandler.returnUser(this).getPfp().equals("default")){
+        if (dbhandler.returnUser(this).getPfp().equals("default")) {
             etPfp.setImageResource(R.drawable.image_box);
-        }
-        else{
+        } else {
             Glide.with(this).load(dbhandler.returnUser(this).getPfp()).into(etPfp);
         }
         //gender spinner
@@ -107,13 +106,14 @@ public class EditProfile extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 genderSelected = gender[position];
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 genderSelected = null;
             }
         });
         //creating adapter to contain gender string array
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.spinner_layout, gender);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.spinner_layout, gender);
         arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         //setting array adapter data for spinner
         etGender.setAdapter(arrayAdapter);
@@ -140,10 +140,9 @@ public class EditProfile extends AppCompatActivity {
                 if (allInputFilled && genderSelected != null) {
                     final Pattern regex =
                             Pattern.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
-                    if (regex.matcher(etDob.getText().toString()).matches()){
-                            //TODO:Loading screen
-                            //do upload image
-                            Log.v(TAG, "Uploading image!");
+                    if (regex.matcher(etDob.getText().toString()).matches()) {
+                        //do upload image
+                        Log.v(TAG, "Uploading image!");
                         dbhandler.uploadImage(EditProfile.this, FilePath, storageReference, null);
                         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(dbhandler.returnUser(EditProfile.this).getID());
                         final AccountData accountData = dbhandler.returnUser(EditProfile.this);
@@ -179,17 +178,14 @@ public class EditProfile extends AppCompatActivity {
                         });
 
 
-                }
-                    else{
-                        Toast.makeText(EditProfile.this,"Invalid date!",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditProfile.this, "Invalid date!", Toast.LENGTH_SHORT).show();
 
                     }
-            }
-                else if(allInputFilled == false){
-                    Toast.makeText(EditProfile.this,"Not all inputs filled!",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(EditProfile.this,"An error has occurred.",Toast.LENGTH_SHORT).show();
+                } else if (allInputFilled == false) {
+                    Toast.makeText(EditProfile.this, "Not all inputs filled!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EditProfile.this, "An error has occurred.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -211,56 +207,27 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             FilePath = data.getData();
-            try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),FilePath);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePath);
                 int height = etPfp.getHeight();
                 int width = etPfp.getWidth();
                 etPfp.setImageBitmap(bitmap);
                 etPfp.getLayoutParams().height = height;
                 etPfp.getLayoutParams().width = width;
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void chooseImage(){
+    private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
-
-
-    /*//confirm changes popup
-    private void confirmChanges(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmation");
-        builder.setMessage("Confirm changes?");
-        builder.setCancelable(false);
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.v(TAG, "User declined");
-            }
-        });
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.v(TAG, "User accepts");
-                returnToUserProfile();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    //go back to UserProfile.java
-    private void returnToUserProfile(){
-        Intent intent = new Intent(EditProfile.this, UserProfile.class);
-        startActivity(intent);
-    }*/
 }
+
+

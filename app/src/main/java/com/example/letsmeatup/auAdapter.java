@@ -71,23 +71,19 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
                 List<String> secondUserConfirmed;
 
                 if (currentUser.getconfirmeduserlist().equals("")){
-                    Log.v("yes","equals null");
                     currentUserConfirmed = new ArrayList<>();
                 }
                 else{
-                    Log.v("yes","not equals null");
 
                     currentUserConfirmed = Arrays.asList(currentUser.getconfirmeduserlist().split(","));
                     currentUserConfirmed = new ArrayList<>(currentUserConfirmed);
 
                 }
                 if (secondUser.getconfirmeduserlist().equals("")){
-                    Log.v("yes","equals null");
 
                     secondUserConfirmed = new ArrayList<>();
                 }
                 else{
-                    Log.v("yes","not equals null");
 
                     secondUserConfirmed = Arrays.asList(secondUser.getconfirmeduserlist().split(","));
                     secondUserConfirmed = new ArrayList<>(secondUserConfirmed);
@@ -143,11 +139,9 @@ public class auAdapter extends RecyclerView.Adapter<auViewHolder> {
         notifyDataSetChanged();
         String pending = currentUser.getpendinguserlist();
         if(pending.contains(",")){
-            Log.v("yes","Pending contains comma");
             currentUserPending = new ArrayList(Arrays.asList(pending.split(",")));
         }
         else{
-            Log.v("yes","Pending doesnt contain  comma");
             currentUserPending = new ArrayList<>();
             currentUserPending.add(pending);
         }

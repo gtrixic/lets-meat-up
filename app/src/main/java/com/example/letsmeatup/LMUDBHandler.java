@@ -250,7 +250,6 @@ public class LMUDBHandler {
             final StorageReference ref = storageReference.child("User_Pictures/"+stringid);
             Log.v(TAG,"Checking if file exists");
             //check if file already exists in database
-            Log.v(TAG,"RETURNUSERPFP:"+returnUser(ctx).getPfp());
             if(!returnUser(ctx).getPfp().equals("default")){
                 ref.delete();
                 Log.v("TAG","File Found! deleting...");

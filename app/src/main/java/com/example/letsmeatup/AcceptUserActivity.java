@@ -73,9 +73,7 @@ public class AcceptUserActivity extends AppCompatActivity {
         });
 
         currentUser = dbHandler.returnUser(this);
-        Log.v(TAG, "acc details: " + currentUser.getFullName() + currentUser.getID());
         pending = currentUser.getpendinguserlist();
-        Log.v(TAG, "pending string: " + pending);
         recyclerView =findViewById(R.id.AURecyclerView);
         //check if got less than 2 requests
         //populate pending users list
@@ -89,7 +87,6 @@ public class AcceptUserActivity extends AppCompatActivity {
                 ids = new String[1];
                 ids[0] = pending;
             }
-            Log.v(TAG, "Pending ID list: " + ids.length);
             for (int i = 0; i < ids.length; i++) {
                 String userID = ids[i];
                 Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
@@ -98,9 +95,7 @@ public class AcceptUserActivity extends AppCompatActivity {
                     public void onSuccess(DataSnapshot dataSnapshot) {
 
                         AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(AccountData.class);
-                        Log.v(TAG, acc.getUsername());
                         pendingUsers.add(acc);
-                        Log.v(TAG, "Username: " + acc.getUsername());
                         adapter = new auAdapter(AcceptUserActivity.this, pendingUsers, currentUser);
                         recyclerView.setAdapter(adapter);
                         LinearLayoutManager manager =new LinearLayoutManager(AcceptUserActivity.this);

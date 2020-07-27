@@ -21,7 +21,6 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         createdAt = view.findViewById(R.id.text_message_time);
     }
     void bind(Message userMessage){
-        Log.v("MessageHolder","Binding");
 
         message.setText(userMessage.getMessage());
 
