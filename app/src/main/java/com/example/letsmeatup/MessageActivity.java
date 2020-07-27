@@ -190,7 +190,9 @@ public class MessageActivity extends AppCompatActivity {
         if(!chatid.equals("default")) {
             Log.v("MessageActivity","Found chat!");
             DatabaseReference messagesQuery = fireRef.child("Chats").child(chatid).child("Messages");
-            recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
+            LinearLayoutManager manager = new LinearLayoutManager(MessageActivity.this);
+            manager.setStackFromEnd(true);
+            recyclerView.setLayoutManager(manager);
             recyclerView.setHasFixedSize(true);
             lmudbHandler.readData(messagesQuery, new LMUDBHandler.OnGetDataListener() {
                 @Override
@@ -201,6 +203,7 @@ public class MessageActivity extends AppCompatActivity {
                         Log.v("MessageActivity", s.getValue(Message.class).getMessage());
                         mAdapter = new MessageAdapter(MessageActivity.this, mChat);
                         recyclerView.setAdapter(mAdapter);
+                        recyclerView.smoothScrollToPosition(mChat.size());
                         mAdapter.notifyDataSetChanged();
                     }
                 }
