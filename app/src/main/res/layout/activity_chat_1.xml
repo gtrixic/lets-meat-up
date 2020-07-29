@@ -35,7 +35,7 @@
         android:layout_width="464dp"
         android:layout_height="13dp"
         android:layout_marginTop="76dp"
-        app:layout_constraintBottom_toTopOf="@+id/AURecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/viewChatRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
