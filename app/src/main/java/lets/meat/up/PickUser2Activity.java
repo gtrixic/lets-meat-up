@@ -106,22 +106,24 @@ public class PickUser2Activity extends AppCompatActivity {
                     Random ran = new Random();
                     int randomMatchID = ran.nextInt(count);
                     queryData[0] = accList.get(randomMatchID);
+                    //boolean for queryData[0]
                     boolean queryPending = false;
                     boolean queryConfirmed = false;
+                    boolean queryAppear = true;
+                    //boolean for firstUser
                     boolean firstPending = false;
                     boolean firstConfirmed = false;
-                    boolean queryAppear = true;
                     boolean firstAppear = true;
-                    Log.v("TAG", String.valueOf(queryData[0].getID()));
                     //users on pending/confirmed list will not appear
-
+                    //queryData[0] = secondUser
+                    //to check if firstUser is on queryData[0]'s pending and confirmed list
                     if(queryData[0].getpendinguserlist()!= null){
                         queryPending = queryData[0].getpendinguserlist().contains(firstUser.getID());
-                        Log.v("TAG", String.valueOf(queryPending));
                     }
                     if(queryData[0].getconfirmeduserlist()!= null){
                         queryConfirmed = queryData[0].getconfirmeduserlist().contains(firstUser.getID());
                     }
+                    //to check if queryData[0] is on firstUser's pending and confirmed list
                     if(firstUser.getpendinguserlist()!= null){
                         firstPending = firstUser.getpendinguserlist().contains(queryData[0].getID());
                         Log.v("TAG", String.valueOf(firstPending));
@@ -129,12 +131,14 @@ public class PickUser2Activity extends AppCompatActivity {
                     if(firstUser.getconfirmeduserlist()!= null){
                         firstConfirmed = firstUser.getconfirmeduserlist().contains(queryData[0].getID());
                     }
+                    //if firstUser is on queryData[0]'s pending/confirmed list, queryData[0] will not appear
                     if(queryPending){
                         queryAppear = false;
                     }
                     if(queryConfirmed){
                         queryAppear= false;
                     }
+                    //if queryData[0] is on firstUser's pending/confirmed list, firstUser will not appear
                     if(firstPending){
                         firstAppear = false;
                     }
