@@ -1,5 +1,6 @@
 package lets.meat.up;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,10 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 
 public class LMUDBHandler {
     private String TAG = "Let's-Meat-Up";
@@ -329,6 +334,7 @@ public class LMUDBHandler {
         fireRef = FirebaseDatabase.getInstance().getReference().child("Chats").child(chatid).child("Suggestions").child(key);
         fireRef.setValue(rData);
     }
+
 
 
 }
