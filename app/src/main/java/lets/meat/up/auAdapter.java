@@ -98,14 +98,26 @@ public class auAdapter extends RecyclerView.Adapter<lets.meat.up.auViewHolder> {
                 String secondUserList;
                 // if list got more than 1
                 if(currentUserConfirmed.size() > 1) {
-                    currentUserList = String.join(",", currentUserConfirmed);
+                    String delimiter = ",";
+                    String result = "", prefix = "";
+                    for (String s: currentUserConfirmed) {
+                        result += prefix + s;
+                        prefix = delimiter;
+                    }
+                    currentUserList = result;
                 }
                 else{
                     currentUserList = currentUserConfirmed.get(0);
                 }
                 // if list got more than 1
                 if(secondUserConfirmed.size() > 1) {
-                    secondUserList = String.join(",", secondUserConfirmed);
+                    String delimiter = ",";
+                    String result = "", prefix = "";
+                    for (String s: secondUserConfirmed) {
+                        result += prefix + s;
+                        prefix = delimiter;
+                    }
+                    secondUserList = result;
                 }
                 else{
                     secondUserList = secondUserConfirmed.get(0);
