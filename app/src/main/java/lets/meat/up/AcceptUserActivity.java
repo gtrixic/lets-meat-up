@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,68 +72,87 @@ public class AcceptUserActivity extends AppCompatActivity {
         });
 
         currentUser = dbHandler.returnUser(this);
-        pending = currentUser.getpendinguserlist();
         recyclerView =findViewById(R.id.AURecyclerView);
-        //check if got less than 2 requests
-        //populate pending users list
-        pendingUsers = new ArrayList<>();
-        //as pending list is a string, if the list is empty it will return as a ""
-        if (!pending.equals("")) {
-            //remove "No users found" text
-            noUsers.setVisibility(View.GONE);
-            Desc.setVisibility(View.GONE);
-            //If the , is found, there is more than 1 user in list
-            if (pending.contains(",")) {
-                //split the list
-                ids = pending.split(",");
-            } else {
-                //only 1 user in pending list
-                ids = new String[1];
-                ids[0] = pending;
-            }
-            for (int i = 0; i < ids.length; i++) {
-                //get each user id and query the information
-                String userID = ids[i];
-                Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
-                //wait for read data to finish
-                readData(idQuery, new OnGetDataListener() {
-                    @Override
-                    public void onSuccess(DataSnapshot dataSnapshot) {
-                        //cast info to acc
-                        lets.meat.up.AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(lets.meat.up.AccountData.class);
-                        pendingUsers.add(acc);
-                        //create adapter for each entry
-                        adapter = new lets.meat.up.auAdapter(AcceptUserActivity.this, pendingUsers, currentUser);
-                        recyclerView.setAdapter(adapter);
-                        LinearLayoutManager manager =new LinearLayoutManager(AcceptUserActivity.this);
-                        recyclerView.setLayoutManager(manager);
-                        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-                        adapter.setOnItemClickListener(new lets.meat.up.auAdapter.OnItemClickListener() {
+        //query pending list
+        dbHandler.readData(fireRef.child("Users").child(currentUser.getID()), new LMUDBHandler.OnGetDataListener() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+               currentUser = dataSnapshot.getValue(AccountData.class);
+                pending = currentUser.getpendinguserlist();
+                //check if got less than 2 requests
+                //populate pending users list
+                pendingUsers = new ArrayList<>();
+                //as pending list is a string, if the list is empty it will return as a ""
+                if (!pending.equals("")) {
+                    noUsers.setVisibility(View.GONE);
+                    Desc.setVisibility(View.GONE);
+                    //If the , is found, there is more than 1 user in list
+                    if (pending.contains(",")) {
+                        //split the list
+                        ids = pending.split(",");
+                    } else {
+                        //only 1 user in pending list
+                        ids = new String[1];
+                        ids[0] = pending;
+                    }
+                    for (int i = 0; i < ids.length; i++) {
+                        //get each user id and query the information
+                        String userID = ids[i];
+                        Query idQuery = fireRef.child("Users").orderByChild("id").equalTo(userID);
+                        //wait for read data to finish
+                        readData(idQuery, new OnGetDataListener() {
                             @Override
-                            public void ItemClick(int position) {
-                                viewUserProfile(position);
+                            public void onSuccess(DataSnapshot dataSnapshot) {
+                                //cast info to acc
+                                lets.meat.up.AccountData acc = dataSnapshot.getChildren().iterator().next().getValue(lets.meat.up.AccountData.class);
+                                pendingUsers.add(acc);
+                                //create adapter for each entry
+                                adapter = new lets.meat.up.auAdapter(AcceptUserActivity.this, pendingUsers, currentUser);
+                                recyclerView.setAdapter(adapter);
+                                LinearLayoutManager manager =new LinearLayoutManager(AcceptUserActivity.this);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                                adapter.setOnItemClickListener(new lets.meat.up.auAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void ItemClick(int position) {
+                                        viewUserProfile(position);
+                                    }
+                                });
                             }
+
+                            @Override
+                            public void onStart() {
+
+                            }
+
+                            @Override
+                            public void onFailure() {
+
+                            }
+
                         });
                     }
+                }
+                //remove recyclerview if no user is found
+                else{
+                    recyclerView.setVisibility(View.GONE);
+                }
 
-                    @Override
-                    public void onStart() {
-
-                    }
-
-                    @Override
-                    public void onFailure() {
-
-                    }
-
-                });
             }
-        }
-        //remove recyclerview if no user is found
-        else{
-            recyclerView.setVisibility(View.GONE);
-        }
+
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
 
     }
     //read data waits for the information to be retrieved from the query in order to run the code afterwards
