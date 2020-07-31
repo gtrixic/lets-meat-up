@@ -106,25 +106,44 @@ public class PickUser2Activity extends AppCompatActivity {
                     Random ran = new Random();
                     int randomMatchID = ran.nextInt(count);
                     queryData[0] = accList.get(randomMatchID);
-                    Boolean queryPending = null;
-                    Boolean queryConfirmed = null;
+                    boolean queryPending = false;
+                    boolean queryConfirmed = false;
+                    boolean firstPending = false;
+                    boolean firstConfirmed = false;
                     boolean queryAppear = true;
+                    boolean firstAppear = true;
+                    Log.v("TAG", String.valueOf(queryData[0].getID()));
                     //users on pending/confirmed list will not appear
 
                     if(queryData[0].getpendinguserlist()!= null){
                         queryPending = queryData[0].getpendinguserlist().contains(firstUser.getID());
+                        Log.v("TAG", String.valueOf(queryPending));
                     }
                     if(queryData[0].getconfirmeduserlist()!= null){
                         queryConfirmed = queryData[0].getconfirmeduserlist().contains(firstUser.getID());
                     }
-                    if(queryPending!=null){
-                        queryAppear = !queryPending;
+                    if(firstUser.getpendinguserlist()!= null){
+                        firstPending = firstUser.getpendinguserlist().contains(queryData[0].getID());
+                        Log.v("TAG", String.valueOf(firstPending));
                     }
-                    if(queryConfirmed!=null){
-                        queryAppear= !queryConfirmed;
+                    if(firstUser.getconfirmeduserlist()!= null){
+                        firstConfirmed = firstUser.getconfirmeduserlist().contains(queryData[0].getID());
                     }
+                    if(queryPending){
+                        queryAppear = false;
+                    }
+                    if(queryConfirmed){
+                        queryAppear= false;
+                    }
+                    if(firstPending){
+                        firstAppear = false;
+                    }
+                    if(firstConfirmed){
+                        firstAppear= false;
+                    }
+                    Log.v("TAG",String.valueOf(queryAppear));
                     if (!queryData[0].getID().equals(firstUser.getID())) {
-                        if(queryAppear) {
+                        if(queryAppear && firstAppear) {
                             Log.v(TAG, "Ended!");
                             isUser[0] = true;
                             secondUser = queryData[0];
